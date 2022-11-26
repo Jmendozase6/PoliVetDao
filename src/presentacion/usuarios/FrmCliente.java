@@ -1,6 +1,7 @@
 package presentacion.usuarios;
 
 import businessobject.UsuarioControl;
+import java.awt.Font;
 
 public class FrmCliente extends javax.swing.JPanel {
 
@@ -30,13 +31,15 @@ public class FrmCliente extends javax.swing.JPanel {
         tablaClientes = new javax.swing.JTable();
         jtxtBuscar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jbtnRegistrarse = new presentacion.files.componentes.ButtonCustom();
         jchDocumento = new presentacion.files.componentes.CheckBoxCustom();
         jchNombres = new presentacion.files.componentes.CheckBoxCustom();
-        jbtnRegistrarse = new presentacion.files.componentes.ButtonCustom();
 
+        setBackground(new java.awt.Color(232, 245, 254));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tablaClientes.setFont(new java.awt.Font("Monospaced", 0, 13)); // NOI18N
+        tablaClientes.getTableHeader().setFont(new Font("Monospaced", 0, 13));
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -71,19 +74,6 @@ public class FrmCliente extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/principal/jSearchBar.png"))); // NOI18N
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
-        jchDocumento.setBackground(new java.awt.Color(82, 183, 136));
-        buttonGroup1.add(jchDocumento);
-        jchDocumento.setText("Documento");
-        jchDocumento.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        add(jchDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 75, -1, -1));
-
-        jchNombres.setBackground(new java.awt.Color(82, 183, 136));
-        buttonGroup1.add(jchNombres);
-        jchNombres.setSelected(true);
-        jchNombres.setText("Nombres");
-        jchNombres.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        add(jchNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 40, -1, -1));
-
         jbtnRegistrarse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/iconTopContinue.png"))); // NOI18N
         jbtnRegistrarse.setText("Volver al inicio   ");
         jbtnRegistrarse.setFocusPainted(false);
@@ -95,6 +85,25 @@ public class FrmCliente extends javax.swing.JPanel {
             }
         });
         add(jbtnRegistrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 650, 200, 40));
+
+        jchDocumento.setBackground(new java.awt.Color(82, 183, 136));
+        buttonGroup1.add(jchDocumento);
+        jchDocumento.setForeground(new java.awt.Color(43, 45, 66));
+        jchDocumento.setText("Documento");
+        jchDocumento.setContentAreaFilled(false);
+        jchDocumento.setFocusPainted(false);
+        jchDocumento.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        add(jchDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 75, -1, -1));
+
+        jchNombres.setBackground(new java.awt.Color(82, 183, 136));
+        buttonGroup1.add(jchNombres);
+        jchNombres.setForeground(new java.awt.Color(43, 45, 66));
+        jchNombres.setSelected(true);
+        jchNombres.setText("Nombres");
+        jchNombres.setContentAreaFilled(false);
+        jchNombres.setFocusPainted(false);
+        jchNombres.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        add(jchNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 45, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtxtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyTyped
