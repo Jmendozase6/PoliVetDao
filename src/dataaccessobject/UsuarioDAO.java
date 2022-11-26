@@ -91,6 +91,28 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
         return usuario;
     }
 
+    public boolean actualizarPassword (String email, String pass) {
+        resp = false;
+        try {
+            ps = CON.conectar().prepareStatement("UPDATE Usuario SET password = ? WHERE email = ?");
+            ps.setString(1, pass);
+            ps.setString(2, email);
+
+            if (ps.executeUpdate() > 0) {
+                resp = true;
+            } else {
+                System.out.println("Filas afectadas menor k 0 k wea");
+            }
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ps = null;
+            CON.cerrarConexion();
+        }
+        return resp;
+    }
+
     @Override
     public boolean agregar (UsuarioDTO objeto) {
         resp = false;
@@ -101,8 +123,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
             ps.setString(2, objeto.getNombre());
             ps.setString(3, objeto.getApellidos());
             ps.setByte(4, objeto.getIdGenero());
-            Date fechaNacimiento = Date.valueOf(objeto.getFechaNacimiento());
-            ps.setDate(5, fechaNacimiento);
+            ps.setString(5, objeto.getFechaNacimiento());
             ps.setByte(6, objeto.getIdTipoDocumento());
             ps.setString(7, objeto.getDocumento());
             ps.setString(8, objeto.getDireccion());
@@ -114,6 +135,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
             }
             ps.close();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } finally {
             ps = null;
             CON.cerrarConexion();
@@ -145,6 +167,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
             }
             ps.close();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } finally {
             ps = null;
             CON.cerrarConexion();
@@ -163,6 +186,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
             }
             ps.close();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } finally {
             ps = null;
             CON.cerrarConexion();
@@ -183,6 +207,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
             }
             ps.close();
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } finally {
             ps = null;
             CON.cerrarConexion();
@@ -194,15 +219,37 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
     public boolean existe (String email, String documento) {
         resp = false;
         try {
-            ps = CON.conectar().prepareStatement("SELECT email, documento FROM Usuario WHERE email = ? AND documento = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE, ResultSet.HOLD_CURSORS_OVER_COMMIT);
+            ps = CON.conectar().prepareStatement("SELECT email, documento FROM Usuario WHERE email = ? OR documento = ?");
             ps.setString(1, email);
             ps.setString(2, documento);
             rs = ps.executeQuery();
-            rs.last();
+            rs.next();
             if (rs.getRow() > 0) {
                 resp = true;
             }
         } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        } finally {
+            ps = null;
+            rs = null;
+            CON.cerrarConexion();
+        }
+        return resp;
+    }
+
+    public boolean existeEmail (String email) {
+        resp = false;
+        try {
+            ps = CON.conectar().prepareStatement("SELECT email FROM Usuario WHERE email = ?");
+            ps.setString(1, email);
+
+            rs = ps.executeQuery();
+            rs.next();
+            if (rs.getRow() > 0) {
+                resp = true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
         } finally {
             ps = null;
             rs = null;

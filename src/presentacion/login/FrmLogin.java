@@ -242,13 +242,14 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jtgPasswordActionPerformed
 
     private void jbtnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnIniciarSesionActionPerformed
-        UsuarioControl control = new UsuarioControl();
-        String resp = control.login(jtxtCorreo.getText(), jtxtPass.getText());
 
         if (UsuarioControl.sonTextfieldsVacios(jtxtCorreo, jtxtPass)) {
             labelError.setText("Error, debe completar todos los campos.");
             return;
         }
+
+        UsuarioControl control = new UsuarioControl();
+        String resp = control.login(jtxtCorreo.getText(), jtxtPass.getText());
 
         switch (resp) {
             case "0":

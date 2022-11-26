@@ -6,7 +6,7 @@ import java.awt.Font;
 public class FrmCliente extends javax.swing.JPanel {
 
     private final UsuarioControl CONTROL;
-    private final byte idTipoRol = 1;
+    private final byte idTipoRol = 2;
 
     public FrmCliente () {
         initComponents();

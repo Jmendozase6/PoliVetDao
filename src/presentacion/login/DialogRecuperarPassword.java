@@ -4,18 +4,22 @@ import businessobject.EmailControl;
 import businessobject.UsuarioControl;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class DialogRecuperarPassword extends javax.swing.JFrame {
 
     private final EmailControl EMAIL;
     private String codigoGenerado;
+    private String emailActualizar;
+    private final UsuarioControl CONTROL;
 
     public DialogRecuperarPassword () {
         this.setUndecorated(true);
         this.setBackground(new Color(1, 1, 1, 0));
         EMAIL = new EmailControl();
         initComponents();
+        CONTROL = new UsuarioControl();
     }
 
     private void validarTextfield (KeyEvent evt, JTextField txt, JTextField nextTxt) {
@@ -32,7 +36,7 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
 
         tabbedCustom1 = new presentacion.files.componentes.TabbedCustom();
         recuperacion = new javax.swing.JPanel();
-        jtxtCorreo = new presentacion.files.componentes.TextFieldSuggestionCustom();
+        jtxtCorreoRecuperacion = new javax.swing.JTextField();
         jCat = new javax.swing.JLabel();
         jTitle4 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -60,15 +64,18 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
         jTitle6 = new javax.swing.JLabel();
         panelCustom3 = new presentacion.files.componentes.PanelCustom();
         jSeparator3 = new javax.swing.JSeparator();
+        jtxtPass1 = new javax.swing.JPasswordField();
+        jtxtPass2 = new javax.swing.JPasswordField();
         jLabel9 = new javax.swing.JLabel();
-        labelErrorRecuperacion1 = new javax.swing.JLabel();
+        labelErrorNuevaClave = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jCorreo1 = new javax.swing.JLabel();
         jCorreo2 = new javax.swing.JLabel();
         jbtnGuardarClave = new presentacion.files.componentes.ButtonCustom();
         jLabel10 = new javax.swing.JLabel();
+        jtgPassword = new javax.swing.JToggleButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -78,11 +85,11 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
         recuperacion.setBackground(new Color(1, 1, 1, 0));
         recuperacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtxtCorreo.setBorder(null);
-        jtxtCorreo.setText("jhairmendoza2003@gmail.com");
-        jtxtCorreo.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        jtxtCorreo.setSelectionColor(new java.awt.Color(82, 183, 136));
-        recuperacion.add(jtxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 195, 210, 30));
+        jtxtCorreoRecuperacion.setBackground(new java.awt.Color(255, 255, 255));
+        jtxtCorreoRecuperacion.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtCorreoRecuperacion.setText("jhairmendoza2003@gmail.com");
+        jtxtCorreoRecuperacion.setBorder(null);
+        recuperacion.add(jtxtCorreoRecuperacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 195, 210, 30));
 
         jCat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/catTopForm.png"))); // NOI18N
         recuperacion.add(jCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, -1));
@@ -269,23 +276,57 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
         panelCustom3.setRoundBottomRight(20);
         panelCustom3.setRoundTopLeft(20);
         panelCustom3.setRoundTopRight(20);
+        panelCustom3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jSeparator3.setForeground(new java.awt.Color(82, 183, 136));
+        panelCustom3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 109, 141, 10));
+
+        jtxtPass1.setBackground(new java.awt.Color(255, 255, 255));
+        jtxtPass1.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtPass1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jtxtPass1.setBorder(null);
+        jtxtPass1.setEchoChar('*');
+        jtxtPass1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtPass1KeyPressed(evt);
+            }
+        });
+        panelCustom3.add(jtxtPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 153, 170, 30));
+
+        jtxtPass2.setBackground(new java.awt.Color(255, 255, 255));
+        jtxtPass2.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtPass2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jtxtPass2.setBorder(null);
+        jtxtPass2.setEchoChar('*');
+        jtxtPass2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtPass2KeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtPass2KeyTyped(evt);
+            }
+        });
+        panelCustom3.add(jtxtPass2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 170, 30));
 
         jLabel9.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(43, 45, 66));
         jLabel9.setText("<html>Ingresa tu nueva contraseña</html>");
+        panelCustom3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 86, 240, -1));
 
-        labelErrorRecuperacion1.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        labelErrorRecuperacion1.setForeground(new java.awt.Color(228, 49, 49));
+        labelErrorNuevaClave.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        labelErrorNuevaClave.setForeground(new java.awt.Color(228, 49, 49));
+        panelCustom3.add(labelErrorNuevaClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 278, 20));
 
         jLabel8.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(43, 45, 66));
         jLabel8.setText("Contraseña");
+        panelCustom3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 125, -1, -1));
 
         jCorreo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/textfield/txtPassword.png"))); // NOI18N
+        panelCustom3.add(jCorreo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 148, -1, -1));
 
         jCorreo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/textfield/txtPassword.png"))); // NOI18N
+        panelCustom3.add(jCorreo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 225, -1, -1));
 
         jbtnGuardarClave.setText("Guardar Contraseña");
         jbtnGuardarClave.setBorderPainted(false);
@@ -296,58 +337,29 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
                 jbtnGuardarClaveActionPerformed(evt);
             }
         });
+        panelCustom3.add(jbtnGuardarClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 297, 280, 40));
 
         jLabel10.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(43, 45, 66));
         jLabel10.setText("Confirmar contraseña");
+        panelCustom3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 202, 155, -1));
 
-        javax.swing.GroupLayout panelCustom3Layout = new javax.swing.GroupLayout(panelCustom3);
-        panelCustom3.setLayout(panelCustom3Layout);
-        panelCustom3Layout.setHorizontalGroup(
-            panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom3Layout.createSequentialGroup()
-                .addGroup(panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCustom3Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelCustom3Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(labelErrorRecuperacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbtnGuardarClave, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCorreo2)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCorreo1))))
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
-        panelCustom3Layout.setVerticalGroup(
-            panelCustom3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom3Layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCorreo1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelErrorRecuperacion1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCorreo2)
-                .addGap(27, 27, 27)
-                .addComponent(jbtnGuardarClave, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
-        );
+        jtgPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/iconHidePassword.png"))); // NOI18N
+        jtgPassword.setBorderPainted(false);
+        jtgPassword.setContentAreaFilled(false);
+        jtgPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jtgPassword.setFocusPainted(false);
+        jtgPassword.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/iconShowPassword.png"))); // NOI18N
+        jtgPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtgPasswordActionPerformed(evt);
+            }
+        });
+        panelCustom3.add(jtgPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 393, 25, 25));
 
         nuevaClave.add(panelCustom3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 350));
 
-        tabbedCustom1.addTab("", nuevaClave);
+        tabbedCustom1.addTab("tab4", nuevaClave);
 
         getContentPane().add(tabbedCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -42, -1, -1));
 
@@ -356,14 +368,21 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnEnviarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEnviarCodigoActionPerformed
-        if (jtxtCorreo.getText().isBlank()) {
+        if (jtxtCorreoRecuperacion.getText().isBlank()) {
             labelErrorRecuperacion.setText("Error, debe completar todos los campos.");
             return;
         }
 
-        tabbedCustom1.setSelectedIndex(1);
-        tabbedCustom1.setEnabledAt(0, false);
-        codigoGenerado = EMAIL.generarCorreo(jtxtCorreo.getText());
+        emailActualizar = jtxtCorreoRecuperacion.getText();
+
+        if (CONTROL.existeEmail(emailActualizar).equalsIgnoreCase("OK")) {
+            codigoGenerado = EMAIL.generarCorreo(jtxtCorreoRecuperacion.getText());
+            tabbedCustom1.setSelectedIndex(1);
+            tabbedCustom1.setEnabledAt(0, false);
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Ese correo no está asociado a una cuenta", "Sistema", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtnEnviarCodigoActionPerformed
 
     private void jbtnVerificarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVerificarCodigoActionPerformed
@@ -400,8 +419,46 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxt4KeyTyped
 
     private void jbtnGuardarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarClaveActionPerformed
-        // TODO: CONFIRMAR QUE AMBAS CONTRASEÑAS SON IGUALES Y ACTUALIZAR
+
+        if (UsuarioControl.sonTextfieldsVacios(jtxtPass1, jtxtPass2)) {
+            labelErrorNuevaClave.setText("Error, debe completar todos los campos.");
+            return;
+        }
+
+        String resp = CONTROL.actualizarPassword(emailActualizar, jtxtPass1.getText());
+        System.out.println(resp);
+        if (resp.equalsIgnoreCase("OK")) {
+            JOptionPane.showMessageDialog(this, "Se actualizó correctamente la contraseña.");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo actualizar la contraseña.", "Sistema", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jbtnGuardarClaveActionPerformed
+
+    private void jtgPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtgPasswordActionPerformed
+        jtxtPass2.setEchoChar(jtgPassword.isSelected()
+                ? (char) 0
+                : '*');
+    }//GEN-LAST:event_jtgPasswordActionPerformed
+
+    private void jtxtPass2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPass2KeyPressed
+        if (!(jtxtPass1.getText().equals(jtxtPass2.getText()))) {
+            labelErrorNuevaClave.setText("Las contraseñas no coinciden");
+        }
+    }//GEN-LAST:event_jtxtPass2KeyPressed
+
+    private void jtxtPass1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPass1KeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            jtxtPass2.requestFocus();
+        }
+    }//GEN-LAST:event_jtxtPass1KeyPressed
+
+    private void jtxtPass2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPass2KeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            if (jtxtPass1.getText().equals(jtxtPass2.getText())) {
+                labelErrorNuevaClave.setText("");
+            }
+        }
+    }//GEN-LAST:event_jtxtPass2KeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCat;
@@ -426,13 +483,16 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
     private presentacion.files.componentes.ButtonCustom jbtnEnviarCodigo;
     private presentacion.files.componentes.ButtonCustom jbtnGuardarClave;
     private presentacion.files.componentes.ButtonCustom jbtnVerificarCodigo;
+    private javax.swing.JToggleButton jtgPassword;
     private presentacion.files.componentes.TextFieldSuggestionCustom jtxt1;
     private presentacion.files.componentes.TextFieldSuggestionCustom jtxt2;
     private presentacion.files.componentes.TextFieldSuggestionCustom jtxt3;
     private presentacion.files.componentes.TextFieldSuggestionCustom jtxt4;
-    private presentacion.files.componentes.TextFieldSuggestionCustom jtxtCorreo;
+    private javax.swing.JTextField jtxtCorreoRecuperacion;
+    private javax.swing.JPasswordField jtxtPass1;
+    private javax.swing.JPasswordField jtxtPass2;
+    private javax.swing.JLabel labelErrorNuevaClave;
     private javax.swing.JLabel labelErrorRecuperacion;
-    private javax.swing.JLabel labelErrorRecuperacion1;
     private javax.swing.JLabel labelErrorVerificacion;
     private javax.swing.JPanel nuevaClave;
     private presentacion.files.componentes.PanelCustom panelCustom2;

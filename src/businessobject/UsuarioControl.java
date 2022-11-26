@@ -51,6 +51,22 @@ public class UsuarioControl {
         return this.modeloTabla;
     }
 
+    public String actualizarPassword (String email, String password) {
+        if (DATOS.actualizarPassword(email, password)) {
+            return "OK";
+        } else {
+            return "No se puede actualizar la contraseña.";
+        }
+    }
+
+    public String existeEmail (String email) {
+        if (DATOS.existeEmail(email)) {
+            return "OK";
+        } else {
+            return "No existe el email";
+        }
+    }
+
     /**
      * 0 No existe el usuario, 1 Se logeo el usuario correctamente, 2 está
      * inactivo
@@ -75,52 +91,26 @@ public class UsuarioControl {
         }
     }
 
-    public String agregar (short idRol, String nombre, String apellidos, byte idGenero, String fechaNacimiento, byte idTipoDocumento, String documento, String direccion, String telefonoMovil, String email, String password, byte estado) {
+    public String agregar (short idRol, String nombre, String apellidos, byte idGenero, String fechaNacimiento, byte idTipoDocumento, String documento, String direccion, String telefonoMovil, String email, String password) {
         if (DATOS.existe(email, documento)) {
             return "El registro ya existe.";
         } else {
             obj.setIdRol(idRol);
-            obj.setNombre(nombre);
-            obj.setApellidos(apellidos);
+            obj.setNombre(nombre.trim());
+            obj.setApellidos(apellidos.trim());
             obj.setIdGenero(idGenero);
-            obj.setFechaNacimiento(fechaNacimiento);
+            obj.setFechaNacimiento(fechaNacimiento.trim());
             obj.setIdTipoDocumento(idTipoDocumento);
-            obj.setDocumento(documento);
-            obj.setDireccion(direccion);
-            obj.setTelefonoMovil(telefonoMovil);
-            obj.setEmail(email);
-            obj.setPassword(password);
-            obj.setEstado(estado);
+            obj.setDocumento(documento.trim());
+            obj.setDireccion(direccion.trim());
+            obj.setTelefonoMovil(telefonoMovil.trim());
+            obj.setEmail(email.trim());
+            obj.setPassword(password.trim());
 
             if (DATOS.agregar(obj)) {
                 return "OK";
             } else {
                 return "Error en el registro.";
-            }
-        }
-    }
-
-    public String agregar (int idUsuario, short idRol, String nombre, String apellidos, byte idGenero, String fechaNacimiento, byte idTipoDocumento, String documento, String direccion, String telefonoMovil, String email, String password, byte estado) {
-        if (DATOS.existe(nombre, documento)) {
-            return "El registro ya existe.";
-        } else {
-            obj.setIdRol(idRol);
-            obj.setNombre(nombre);
-            obj.setApellidos(apellidos);
-            obj.setIdGenero(idGenero);
-            obj.setFechaNacimiento(fechaNacimiento);
-            obj.setIdTipoDocumento(idTipoDocumento);
-            obj.setDocumento(documento);
-            obj.setDireccion(direccion);
-            obj.setTelefonoMovil(telefonoMovil);
-            obj.setEmail(email);
-            obj.setPassword(password);
-            obj.setEstado(estado);
-
-            if (DATOS.actualizar(obj)) {
-                return "OK";
-            } else {
-                return "Error en la actualización.";
             }
         }
     }
@@ -143,7 +133,11 @@ public class UsuarioControl {
 
     public static boolean sonTextfieldsVacios (JTextField... jtxt) {
         for (JTextField item : jtxt) {
-            return item.getText().isBlank();
+
+            if (item.getText().isBlank()) {
+                System.out.println(item.getText());
+                return true;
+            }
         }
         return false;
     }

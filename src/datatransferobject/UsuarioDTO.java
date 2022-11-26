@@ -23,6 +23,21 @@ public class UsuarioDTO {
     public UsuarioDTO () {
     }
 
+    public UsuarioDTO (short idRol, String nombre, String apellidos, byte idGenero, String fechaNacimiento, byte idTipoDocumento, String documento, String direccion, String telefonoMovil, String email, String password, byte estado) {
+        this.idRol = idRol;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.idGenero = idGenero;
+        this.fechaNacimiento = fechaNacimiento;
+        this.idTipoDocumento = idTipoDocumento;
+        this.documento = documento;
+        this.direccion = direccion;
+        this.telefonoMovil = telefonoMovil;
+        this.email = email;
+        this.password = password;
+        this.estado = estado;
+    }
+
     public UsuarioDTO (int idUsuario, short idRol, String nombre, String apellidos, byte idGenero, Date fechaNacimiento, byte idTipoDocumento, String documento, String direccion, String telefonoMovil, String email, String password, byte estado) {
         this.idUsuario = idUsuario;
         this.idRol = idRol;
