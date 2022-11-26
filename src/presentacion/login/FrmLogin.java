@@ -92,7 +92,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jPanel1.add(jTitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(816, 234, -1, -1));
 
         jtxtCorreo.setBorder(null);
-        jtxtCorreo.setText("jhin@gmail.com");
+        jtxtCorreo.setText("manuelantoncisneros182020@gmail.com");
         jtxtCorreo.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtCorreo.setSelectionColor(new java.awt.Color(82, 183, 136));
         jtxtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -100,15 +100,15 @@ public class FrmLogin extends javax.swing.JFrame {
                 jtxtCorreoKeyTyped(evt);
             }
         });
-        jPanel1.add(jtxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 310, 190, 30));
+        jPanel1.add(jtxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 310, 200, 30));
 
         jtxtPass.setBackground(new java.awt.Color(255, 255, 255));
         jtxtPass.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jtxtPass.setText("jhin");
+        jtxtPass.setText("manuel");
         jtxtPass.setBorder(null);
         jtxtPass.setEchoChar('*');
-        jPanel1.add(jtxtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 390, 150, 30));
+        jPanel1.add(jtxtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 390, 150, 30));
 
         jchRecordar.setBackground(new java.awt.Color(82, 183, 136));
         jchRecordar.setForeground(new java.awt.Color(43, 45, 66));
