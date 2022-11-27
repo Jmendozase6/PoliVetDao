@@ -106,9 +106,10 @@ public class FrmLogin extends javax.swing.JFrame {
         jtxtPass.setBackground(new java.awt.Color(255, 255, 255));
         jtxtPass.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jtxtPass.setText("abc");
+        jtxtPass.setText("jhair");
         jtxtPass.setBorder(null);
         jtxtPass.setEchoChar('*');
+        jtxtPass.setSelectionColor(new java.awt.Color(82, 183, 136));
         jPanel1.add(jtxtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 390, 170, 30));
 
         jchRecordar.setBackground(new java.awt.Color(82, 183, 136));
@@ -261,7 +262,7 @@ public class FrmLogin extends javax.swing.JFrame {
                     CONTROL.guardarCorreo(jtxtEmail.getText());
                 }
                 this.dispose();
-                FrmPrincipal frm = new FrmPrincipal((byte) UsuarioActivo.idRol);
+                FrmPrincipal frm = new FrmPrincipal();
                 frm.toFront();
                 frm.setVisible(true);
                 break;
@@ -272,7 +273,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnIniciarSesionActionPerformed
 
     private void jbtnOlvidasePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnOlvidasePassActionPerformed
-        DialogRecuperarPassword dialog = new DialogRecuperarPassword();
+        DialogRecuperarPassword dialog = new DialogRecuperarPassword(this, true);
         dialog.setVisible(true);
     }//GEN-LAST:event_jbtnOlvidasePassActionPerformed
 

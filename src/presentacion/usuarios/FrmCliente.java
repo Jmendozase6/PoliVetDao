@@ -161,7 +161,7 @@ public class FrmCliente extends javax.swing.JPanel {
                 jbtnSubirActionPerformed(evt);
             }
         });
-        add(jbtnSubir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 650, 40, 40));
+        add(jbtnSubir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 660, 40, 40));
 
         jchDocumento.setBackground(new java.awt.Color(82, 183, 136));
         buttonGroup1.add(jchDocumento);
@@ -334,7 +334,7 @@ public class FrmCliente extends javax.swing.JPanel {
         jLabel17.setFont(new java.awt.Font("Gilroy-Regular", 0, 48)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(43, 45, 66));
         jLabel17.setText("CLIENTES");
-        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 40, -1, -1));
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 45, -1, -1));
 
         labelActivo.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         labelActivo.setForeground(new java.awt.Color(43, 45, 66));

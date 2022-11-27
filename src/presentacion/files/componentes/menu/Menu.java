@@ -28,25 +28,52 @@ public class Menu extends JPanel {
     private void agregarItems () {
         switch (UsuarioActivo.idRol) {
             case 1: {
-                addTitle("PRINCIPAL ADMINISTRADOR");
+                addTitle("ADMINISTRADOR");
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
+                addTitle("USUARIOS");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Clientes"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Veterinarios"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Proveedores"));
+                addTitle("VENTAS");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Detalles de Ventas"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART, "Gráficas"));
+                addTitle("INVENTARIO");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));
+                addTitle("CITAS");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Citas Programadas"));
             }
             break;
             case 2: {
-                addTitle("PRINCIPAL CLIENTE");
+                addTitle("CLIENTE");
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
+                addTitle("VENTAS");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Detalles de Ventas"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART, "Gráficas"));
+                addTitle("CITAS");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Reserva de Citas"));
+                addTitle("INVENTARIO");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));
             }
             break;
             case 3: {
-                addTitle("PRINCIPAL PROVEEDOR");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
-            }
-            case 4: {
-                addTitle("PRINCIPAL VETERINARIO");
+                addTitle("PROVEEDOR");
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
             }
             break;
+            case 4: {
+                addTitle("VETERINARIO");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
+                addTitle("MASCOTAS");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Mascotas"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Tarjetas de Vacuna"));
+                addTitle("RESERVAS");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Citas Programadas"));
+            }
+            break;
         }
+        addTitle("CONFIGURACIÓN");
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Configuración", "Modo Oscuro", "Cerrar Sesión"));
+
     }
 
     private void init () {
@@ -58,25 +85,6 @@ public class Menu extends JPanel {
         scroll.getViewport().setOpaque(false);
         scroll.setViewportBorder(null);
         add(scroll);
-        /*
-         * addTitle("PRINCIPAL"); addMenuItem(new
-         * ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
-         * addTitle("USUARIOS"); // addMenuItem(new
-         * ModelMenuItem(GoogleMaterialDesignIcon.MAIL_OUTLINE, "Email",
-         * "Inbox", "Read", "Compose")); addMenuItem(new
-         * ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Clientes"));
-         * addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON,
-         * "Veterinarios")); addMenuItem(new
-         * ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Proveedores"));
-         * addTitle("FACTURAS"); addMenuItem(new
-         * ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Historial"));
-         * addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART,
-         * "Gráficas")); addTitle("INVENTARIO"); addMenuItem(new
-         * ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));
-         * addTitle("CONFIGURACIÓN"); addMenuItem(new
-         * ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Editar
-         * perfil", "Idioma", "Cerrar sesión"));
-         */
     }
 
     private JScrollPane createScroll () {

@@ -8,18 +8,19 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class DialogRecuperarPassword extends javax.swing.JFrame {
+public class DialogRecuperarPassword extends javax.swing.JDialog {
 
     private final EmailControl EMAIL;
     private String codigoGenerado;
     private String emailActualizar;
     private final UsuarioControl CONTROL;
 
-    public DialogRecuperarPassword () {
+    public DialogRecuperarPassword (java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         this.setUndecorated(true);
         this.setBackground(new Color(1, 1, 1, 0));
-        EMAIL = new EmailControl();
         initComponents();
+        EMAIL = new EmailControl();
         CONTROL = new UsuarioControl();
     }
 
@@ -77,8 +78,6 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
         jtgPassword = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setUndecorated(true);
-        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabbedCustom1.setForeground(new java.awt.Color(255, 255, 255));
@@ -268,6 +267,7 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
         jtxtPass1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jtxtPass1.setBorder(null);
         jtxtPass1.setEchoChar('*');
+        jtxtPass1.setSelectionColor(new java.awt.Color(82, 183, 136));
         jtxtPass1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtxtPass1KeyPressed(evt);
@@ -280,6 +280,7 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
         jtxtPass2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jtxtPass2.setBorder(null);
         jtxtPass2.setEchoChar('*');
+        jtxtPass2.setSelectionColor(new java.awt.Color(82, 183, 136));
         jtxtPass2.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jtxtPass2KeyPressed(evt);
@@ -343,11 +344,15 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
 
         tabbedCustom1.addTab("tab4", nuevaClave);
 
-        getContentPane().add(tabbedCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -42, -1, -1));
+        getContentPane().add(tabbedCustom1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -39, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jtxtEmailRecuperacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtEmailRecuperacionKeyTyped
+        labelErrorRecuperacion.setText(Validaciones.validateEmail(jtxtEmailRecuperacion.getText()));
+    }//GEN-LAST:event_jtxtEmailRecuperacionKeyTyped
 
     private void jbtnEnviarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEnviarCodigoActionPerformed
         if (jtxtEmailRecuperacion.getText().isBlank()) {
@@ -367,6 +372,22 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtnEnviarCodigoActionPerformed
 
+    private void jtxt1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxt1KeyTyped
+        validarTextfield(evt, jtxt1, jtxt2);
+    }//GEN-LAST:event_jtxt1KeyTyped
+
+    private void jtxt2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxt2KeyTyped
+        validarTextfield(evt, jtxt2, jtxt3);
+    }//GEN-LAST:event_jtxt2KeyTyped
+
+    private void jtxt3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxt3KeyTyped
+        validarTextfield(evt, jtxt3, jtxt4);
+    }//GEN-LAST:event_jtxt3KeyTyped
+
+    private void jtxt4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxt4KeyTyped
+        validarTextfield(evt, jtxt4, jtxt4);
+    }//GEN-LAST:event_jtxt4KeyTyped
+
     private void jbtnVerificarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVerificarCodigoActionPerformed
         if (UsuarioControl.sonTextfieldsVacios(jtxt1, jtxt2, jtxt3, jtxt4)) {
             labelErrorVerificacion.setText("Error, debe completar todos los campos.");
@@ -384,21 +405,25 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbtnVerificarCodigoActionPerformed
 
-    private void jtxt1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxt1KeyTyped
-        validarTextfield(evt, jtxt1, jtxt2);
-    }//GEN-LAST:event_jtxt1KeyTyped
+    private void jtxtPass1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPass1KeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            jtxtPass2.requestFocus();
+        }
+    }//GEN-LAST:event_jtxtPass1KeyPressed
 
-    private void jtxt2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxt2KeyTyped
-        validarTextfield(evt, jtxt2, jtxt3);
-    }//GEN-LAST:event_jtxt2KeyTyped
+    private void jtxtPass2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPass2KeyPressed
+        if (!(jtxtPass1.getText().equals(jtxtPass2.getText()))) {
+            labelErrorNuevaClave.setText("Las contraseñas no coinciden");
+        }
+    }//GEN-LAST:event_jtxtPass2KeyPressed
 
-    private void jtxt3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxt3KeyTyped
-        validarTextfield(evt, jtxt3, jtxt4);
-    }//GEN-LAST:event_jtxt3KeyTyped
-
-    private void jtxt4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxt4KeyTyped
-        validarTextfield(evt, jtxt4, jtxt4);
-    }//GEN-LAST:event_jtxt4KeyTyped
+    private void jtxtPass2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPass2KeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            if (jtxtPass1.getText().equals(jtxtPass2.getText())) {
+                labelErrorNuevaClave.setText("");
+            }
+        }
+    }//GEN-LAST:event_jtxtPass2KeyTyped
 
     private void jbtnGuardarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarClaveActionPerformed
 
@@ -414,6 +439,7 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo actualizar la contraseña.", "Sistema", JOptionPane.ERROR_MESSAGE);
         }
+        this.dispose();
     }//GEN-LAST:event_jbtnGuardarClaveActionPerformed
 
     private void jtgPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtgPasswordActionPerformed
@@ -421,30 +447,6 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
                 ? (char) 0
                 : '*');
     }//GEN-LAST:event_jtgPasswordActionPerformed
-
-    private void jtxtPass2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPass2KeyPressed
-        if (!(jtxtPass1.getText().equals(jtxtPass2.getText()))) {
-            labelErrorNuevaClave.setText("Las contraseñas no coinciden");
-        }
-    }//GEN-LAST:event_jtxtPass2KeyPressed
-
-    private void jtxtPass1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPass1KeyPressed
-        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-            jtxtPass2.requestFocus();
-        }
-    }//GEN-LAST:event_jtxtPass1KeyPressed
-
-    private void jtxtPass2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPass2KeyTyped
-        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-            if (jtxtPass1.getText().equals(jtxtPass2.getText())) {
-                labelErrorNuevaClave.setText("");
-            }
-        }
-    }//GEN-LAST:event_jtxtPass2KeyTyped
-
-    private void jtxtEmailRecuperacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtEmailRecuperacionKeyTyped
-        labelErrorRecuperacion.setText(Validaciones.validateEmail(jtxtEmailRecuperacion.getText()));
-    }//GEN-LAST:event_jtxtEmailRecuperacionKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCat;

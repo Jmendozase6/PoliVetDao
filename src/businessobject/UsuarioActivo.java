@@ -3,7 +3,7 @@ package businessobject;
 public class UsuarioActivo {
 
     private UsuarioActivo instancia;
-    public static int idUsuario;
+    public static int idUsuario = -1;
     public static int idRol = 2;
     public static String rolNombre;
     public static String email;
@@ -37,6 +37,14 @@ public class UsuarioActivo {
             default:
                 return "Cliente";
         }
+    }
+
+    public void cerrarSesion () {
+        UsuarioActivo.idUsuario = -1;
+        UsuarioActivo.idRol = 2;
+        UsuarioActivo.rolNombre = tipoRol(idRol);
+        UsuarioActivo.email = "";
+        UsuarioActivo.password = "";
     }
 
 }
