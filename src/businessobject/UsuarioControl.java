@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 public class UsuarioControl {
 
     private final UsuarioDAO DATOS;
-    private UsuarioDTO obj;
+    private final UsuarioDTO obj;
     private DefaultTableModel modeloTabla;
 
     public UsuarioControl () {
@@ -18,9 +18,9 @@ public class UsuarioControl {
         this.obj = new UsuarioDTO();
     }
 
-    public DefaultTableModel listar (String columna, String texto, byte idRol) {
+    public DefaultTableModel listar (String columna, String texto, byte idRol, byte estadoRegistro) {
         List<UsuarioDTO> lista = new ArrayList();
-        lista.addAll(DATOS.listar(columna, texto, idRol));
+        lista.addAll(DATOS.listar(columna, texto, idRol, estadoRegistro));
 
         String[] titulos = {"ID", "Id Rol", "Nombres", "Apellidos", "Id Genero", "Fecha nacimiento", "Tipo Documento", "Documento", "Dirección", "Teléfono", "Email", "Password", "Estado"};
         this.modeloTabla = new DefaultTableModel(null, titulos);
@@ -115,6 +115,14 @@ public class UsuarioControl {
         }
     }
 
+    public String actualizar (UsuarioDTO objeto) {
+        if (DATOS.actualizar(objeto)) {
+            return "OK";
+        } else {
+            return "No se puede actualizar el registro";
+        }
+    }
+
     public String desactivar (int id) {
         if (DATOS.desactivar(id)) {
             return "OK";
@@ -141,4 +149,11 @@ public class UsuarioControl {
         }
         return false;
     }
+
+    public static void limpiarTextfields (JTextField... jtxt) {
+        for (JTextField item : jtxt) {
+            item.setText("");
+        }
+    }
+
 }

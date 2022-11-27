@@ -2,6 +2,7 @@ package presentacion.login;
 
 import businessobject.EmailControl;
 import businessobject.UsuarioControl;
+import businessobject.Validaciones;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -36,15 +37,15 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
 
         tabbedCustom1 = new presentacion.files.componentes.TabbedCustom();
         recuperacion = new javax.swing.JPanel();
-        jtxtCorreoRecuperacion = new javax.swing.JTextField();
+        jtxtEmailRecuperacion = new javax.swing.JTextField();
         jCat = new javax.swing.JLabel();
         jTitle4 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jCorreo = new javax.swing.JLabel();
         jbtnEnviarCodigo = new presentacion.files.componentes.ButtonCustom();
-        panelCustom2 = new presentacion.files.componentes.PanelCustom();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
+        panelCustom2 = new presentacion.files.componentes.PanelCustom();
         labelErrorRecuperacion = new javax.swing.JLabel();
         verificacion = new javax.swing.JPanel();
         jCat1 = new javax.swing.JLabel();
@@ -85,11 +86,16 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
         recuperacion.setBackground(new Color(1, 1, 1, 0));
         recuperacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtxtCorreoRecuperacion.setBackground(new java.awt.Color(255, 255, 255));
-        jtxtCorreoRecuperacion.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        jtxtCorreoRecuperacion.setText("jhairmendoza2003@gmail.com");
-        jtxtCorreoRecuperacion.setBorder(null);
-        recuperacion.add(jtxtCorreoRecuperacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 195, 210, 30));
+        jtxtEmailRecuperacion.setBackground(new java.awt.Color(255, 255, 255));
+        jtxtEmailRecuperacion.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtEmailRecuperacion.setText("jhairmendoza2003@gmail.com");
+        jtxtEmailRecuperacion.setBorder(null);
+        jtxtEmailRecuperacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtEmailRecuperacionKeyTyped(evt);
+            }
+        });
+        recuperacion.add(jtxtEmailRecuperacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 195, 210, 30));
 
         jCat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/catTopForm.png"))); // NOI18N
         recuperacion.add(jCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, -1, -1));
@@ -120,48 +126,24 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
         });
         recuperacion.add(jbtnEnviarCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 280, 40));
 
+        jSeparator1.setForeground(new java.awt.Color(82, 183, 136));
+        recuperacion.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 90, 10));
+
+        jLabel5.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(43, 45, 66));
+        jLabel5.setText("<html>Ingresa a tu correo y te enviaremos un código de recuperación</html>");
+        recuperacion.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 210, -1));
+
         panelCustom2.setBackground(new java.awt.Color(255, 255, 255));
         panelCustom2.setRoundBottomLeft(20);
         panelCustom2.setRoundBottomRight(20);
         panelCustom2.setRoundTopLeft(20);
         panelCustom2.setRoundTopRight(20);
-
-        jSeparator1.setForeground(new java.awt.Color(82, 183, 136));
-
-        jLabel5.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(43, 45, 66));
-        jLabel5.setText("<html>Ingresa a tu correo y te enviaremos un código de recuperación</html>");
+        panelCustom2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelErrorRecuperacion.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         labelErrorRecuperacion.setForeground(new java.awt.Color(228, 49, 49));
-
-        javax.swing.GroupLayout panelCustom2Layout = new javax.swing.GroupLayout(panelCustom2);
-        panelCustom2.setLayout(panelCustom2Layout);
-        panelCustom2Layout.setHorizontalGroup(
-            panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom2Layout.createSequentialGroup()
-                .addGroup(panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCustom2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelCustom2Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(labelErrorRecuperacion, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
-        panelCustom2Layout.setVerticalGroup(
-            panelCustom2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCustom2Layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                .addComponent(labelErrorRecuperacion)
-                .addGap(91, 91, 91))
-        );
+        panelCustom2.add(labelErrorRecuperacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 280, 20));
 
         recuperacion.add(panelCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 350));
 
@@ -368,15 +350,15 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnEnviarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEnviarCodigoActionPerformed
-        if (jtxtCorreoRecuperacion.getText().isBlank()) {
+        if (jtxtEmailRecuperacion.getText().isBlank()) {
             labelErrorRecuperacion.setText("Error, debe completar todos los campos.");
             return;
         }
 
-        emailActualizar = jtxtCorreoRecuperacion.getText();
+        emailActualizar = jtxtEmailRecuperacion.getText();
 
         if (CONTROL.existeEmail(emailActualizar).equalsIgnoreCase("OK")) {
-            codigoGenerado = EMAIL.generarCorreo(jtxtCorreoRecuperacion.getText());
+            codigoGenerado = EMAIL.generarCorreo(jtxtEmailRecuperacion.getText());
             tabbedCustom1.setSelectedIndex(1);
             tabbedCustom1.setEnabledAt(0, false);
 
@@ -460,6 +442,10 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtxtPass2KeyTyped
 
+    private void jtxtEmailRecuperacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtEmailRecuperacionKeyTyped
+        labelErrorRecuperacion.setText(Validaciones.validateEmail(jtxtEmailRecuperacion.getText()));
+    }//GEN-LAST:event_jtxtEmailRecuperacionKeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCat;
     private javax.swing.JLabel jCat1;
@@ -488,7 +474,7 @@ public class DialogRecuperarPassword extends javax.swing.JFrame {
     private presentacion.files.componentes.TextFieldSuggestionCustom jtxt2;
     private presentacion.files.componentes.TextFieldSuggestionCustom jtxt3;
     private presentacion.files.componentes.TextFieldSuggestionCustom jtxt4;
-    private javax.swing.JTextField jtxtCorreoRecuperacion;
+    private javax.swing.JTextField jtxtEmailRecuperacion;
     private javax.swing.JPasswordField jtxtPass1;
     private javax.swing.JPasswordField jtxtPass2;
     private javax.swing.JLabel labelErrorNuevaClave;

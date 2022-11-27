@@ -1,6 +1,7 @@
 package presentacion.login;
 
 import businessobject.UsuarioControl;
+import businessobject.Validaciones;
 import javax.swing.JOptionPane;
 
 public class FrmRegistro extends javax.swing.JFrame {
@@ -360,7 +361,7 @@ public class FrmRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnRegistrarmeActionPerformed
 
     private void jtxtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCorreoKeyTyped
-
+        labelError.setText(Validaciones.validateEmail(jtxtCorreo.getText()));
     }//GEN-LAST:event_jtxtCorreoKeyTyped
 
     private void jtxtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNombresKeyTyped

@@ -10,22 +10,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     public FrmPrincipal (byte tipoUsuario) {
         initComponents();
-        addEvent();
+//        addEvent();
         showForm(new FrmVacio());
-        habilitarPorRol(tipoUsuario);
-    }
-
-    private void habilitarPorRol (byte tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
-        switch (tipoUsuario) {
-            case 0: {
-
-            }
-            case 1: {
-            }
-            case 2: {
-            }
-        }
     }
 
     public void showForm (Component com) {
@@ -34,44 +20,42 @@ public class FrmPrincipal extends javax.swing.JFrame {
         body.repaint();
         body.revalidate();
     }
-
-    private void addEvent () {
-        menu.addEvent((int index, int indexSubMenu) -> {
-            //                if (index == 0 && indexSubMenu == 0) {
-//                    showForm(new Form_Dashboard());
-//                } else {
-//                    showForm(new Form_Empty(index + " " + indexSubMenu));
-//                }
-            if (index == 0) {
-                showForm(new FrmInicio());
-            } else if (index == 1) {
-                showForm(new FrmCliente());
-            } else {
-                showForm(new FrmVacio());
-            }
-
-        });
-    }
+//
+//    private void addEvent () {
+//        menu.addEvent((int index, int indexSubMenu) -> {
+//            //                if (index == 0 && indexSubMenu == 0) {
+////                    showForm(new Form_Dashboard());
+////                } else {
+////                    showForm(new Form_Empty(index + " " + indexSubMenu));
+////                }
+//            if (index == 0) {
+//                showForm(new FrmInicio());
+//            } else if (index == 1) {
+//                showForm(new FrmCliente());
+//            } else {
+//                showForm(new FrmVacio());
+//            }
+//
+//        });
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        menu = new presentacion.files.componentes.menu.Menu();
         body = new javax.swing.JPanel();
+        menu1 = new presentacion.files.componentes.menu.Menu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        menu.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        jPanel1.add(menu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 900));
-
         body.setOpaque(false);
         body.setLayout(new java.awt.BorderLayout());
         jPanel1.add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 1300, 900));
+        jPanel1.add(menu1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 900));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1500, 900));
 
@@ -82,6 +66,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
     private javax.swing.JPanel jPanel1;
-    private presentacion.files.componentes.menu.Menu menu;
+    private presentacion.files.componentes.menu.Menu menu1;
     // End of variables declaration//GEN-END:variables
 }

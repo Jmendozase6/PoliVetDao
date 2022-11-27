@@ -22,11 +22,12 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
     }
 
     @Override
-    public List<UsuarioDTO> listar (String columna, String texto, byte idRol) {
+    public List<UsuarioDTO> listar (String columna, String texto, byte idRol, byte estado) {
         List<UsuarioDTO> usuarios = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT * FROM Usuario WHERE " + columna + " LIKE '%" + texto + "%' AND idRol = ?");
+            ps = CON.conectar().prepareStatement("SELECT * FROM Usuario WHERE " + columna + " LIKE '%" + texto + "%' AND idRol = ? AND estado = ?");
             ps.setByte(1, idRol);
+            ps.setByte(2, estado);
             rs = ps.executeQuery();
             while (rs.next()) {
                 usuarios.add(new UsuarioDTO(
@@ -146,21 +147,19 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
     @Override
     public boolean actualizar (UsuarioDTO objeto) {
         resp = false;
+        System.out.println("Usuario del actualizar dao" + objeto.toString());
         try {
-            ps = CON.conectar().prepareStatement("UPDATE Usuario SET idRol = ?, nombres = ?, apellidos = ?, idGenero = ?, fechaNacimiento = ?, idTipoDocumento = ?, documento = ?, direccion = ?, telefonoMovil = ?, email = ?, password = ? WHERE idUsuario = ?");
-            ps.setShort(1, objeto.getIdRol());
-            ps.setString(2, objeto.getNombre());
-            ps.setString(3, objeto.getApellidos());
-            ps.setByte(4, objeto.getIdGenero());
+            ps = CON.conectar().prepareStatement("UPDATE Usuario SET nombres = ?, apellidos = ?, idGenero = ?, fechaNacimiento = ?, documento = ?, direccion = ?, telefonoMovil = ?, email = ? WHERE idUsuario = ?");
+            ps.setString(1, objeto.getNombre());
+            ps.setString(2, objeto.getApellidos());
+            ps.setByte(3, objeto.getIdGenero());
             Date fechaNacimiento = Date.valueOf(objeto.getFechaNacimiento());
-            ps.setDate(5, fechaNacimiento);
-            ps.setByte(6, objeto.getIdTipoDocumento());
-            ps.setString(7, objeto.getDocumento());
-            ps.setString(8, objeto.getDireccion());
-            ps.setString(9, objeto.getTelefonoMovil());
-            ps.setString(10, objeto.getEmail());
-            ps.setString(11, objeto.getPassword());
-            ps.setInt(12, objeto.getIdUsuario());
+            ps.setDate(4, fechaNacimiento);
+            ps.setString(5, objeto.getDocumento());
+            ps.setString(6, objeto.getDireccion());
+            ps.setString(7, objeto.getTelefonoMovil());
+            ps.setString(8, objeto.getEmail());
+            ps.setInt(9, objeto.getIdUsuario());
 
             if (ps.executeUpdate() > 0) {
                 resp = true;
@@ -179,7 +178,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
     public boolean desactivar (int id) {
         resp = false;
         try {
-            ps = CON.conectar().prepareStatement("UPDATE Usuario SET estado = 0 WHERE id = ?");
+            ps = CON.conectar().prepareStatement("UPDATE Usuario SET estado = 0 WHERE idUsuario = ?");
             ps.setInt(1, id);
             if (ps.executeUpdate() > 0) {
                 resp = true;
@@ -200,7 +199,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
         resp = false;
 
         try {
-            ps = CON.conectar().prepareStatement("UPDATE Usuario SET estado = 1 WHERE id = ?");
+            ps = CON.conectar().prepareStatement("UPDATE Usuario SET estado = 1 WHERE idUsuario = ?");
             ps.setInt(1, id);
             if (ps.executeUpdate() > 0) {
                 resp = true;

@@ -1,5 +1,6 @@
 package presentacion.files.componentes.menu;
 
+import businessobject.UsuarioActivo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -21,6 +22,31 @@ public class Menu extends JPanel {
 
     public Menu () {
         init();
+        agregarItems();
+    }
+
+    private void agregarItems () {
+        switch (UsuarioActivo.idRol) {
+            case 1: {
+                addTitle("PRINCIPAL ADMINISTRADOR");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
+            }
+            break;
+            case 2: {
+                addTitle("PRINCIPAL CLIENTE");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
+            }
+            break;
+            case 3: {
+                addTitle("PRINCIPAL PROVEEDOR");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
+            }
+            case 4: {
+                addTitle("PRINCIPAL VETERINARIO");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
+            }
+            break;
+        }
     }
 
     private void init () {
@@ -32,20 +58,25 @@ public class Menu extends JPanel {
         scroll.getViewport().setOpaque(false);
         scroll.setViewportBorder(null);
         add(scroll);
-        addTitle("PRINCIPAL");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
-        addTitle("USUARIOS");
-//        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.MAIL_OUTLINE, "Email", "Inbox", "Read", "Compose"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Clientes"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Veterinarios"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Proveedores"));
-        addTitle("FACTURAS");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Historial"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART, "Gráficas"));
-        addTitle("INVENTARIO");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));
-        addTitle("CONFIGURACIÓN");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Editar perfil", "Idioma"));
+        /*
+         * addTitle("PRINCIPAL"); addMenuItem(new
+         * ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
+         * addTitle("USUARIOS"); // addMenuItem(new
+         * ModelMenuItem(GoogleMaterialDesignIcon.MAIL_OUTLINE, "Email",
+         * "Inbox", "Read", "Compose")); addMenuItem(new
+         * ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Clientes"));
+         * addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON,
+         * "Veterinarios")); addMenuItem(new
+         * ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Proveedores"));
+         * addTitle("FACTURAS"); addMenuItem(new
+         * ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Historial"));
+         * addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART,
+         * "Gráficas")); addTitle("INVENTARIO"); addMenuItem(new
+         * ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));
+         * addTitle("CONFIGURACIÓN"); addMenuItem(new
+         * ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Editar
+         * perfil", "Idioma", "Cerrar sesión"));
+         */
     }
 
     private JScrollPane createScroll () {

@@ -3,6 +3,7 @@ package presentacion.login;
 import businessobject.CorreosGuardadosControl;
 import businessobject.UsuarioActivo;
 import businessobject.UsuarioControl;
+import businessobject.Validaciones;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import presentacion.principal.FrmPrincipal;
@@ -14,7 +15,7 @@ public class FrmLogin extends javax.swing.JFrame {
     public FrmLogin () {
         initComponents();
         CONTROL = new CorreosGuardadosControl();
-        CONTROL.listarCorreos(jtxtCorreo);
+        CONTROL.listarCorreos(jtxtEmail);
     }
 
     @SuppressWarnings("unchecked")
@@ -31,7 +32,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jBrownBottonWave = new javax.swing.JLabel();
         jGreenTopWave = new javax.swing.JLabel();
         jTitle4 = new javax.swing.JLabel();
-        jtxtCorreo = new presentacion.files.componentes.TextFieldSuggestionCustom();
+        jtxtEmail = new presentacion.files.componentes.TextFieldSuggestionCustom();
         jtxtPass = new javax.swing.JPasswordField();
         jchRecordar = new presentacion.files.componentes.CheckBoxCustom();
         jCorreo = new javax.swing.JLabel();
@@ -91,24 +92,24 @@ public class FrmLogin extends javax.swing.JFrame {
         jTitle4.setText("Completa tus datos");
         jPanel1.add(jTitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(816, 234, -1, -1));
 
-        jtxtCorreo.setBorder(null);
-        jtxtCorreo.setText("manuelantoncisneros182020@gmail.com");
-        jtxtCorreo.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        jtxtCorreo.setSelectionColor(new java.awt.Color(82, 183, 136));
-        jtxtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+        jtxtEmail.setBorder(null);
+        jtxtEmail.setText("jhairmendoza2003@gmail.com");
+        jtxtEmail.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtEmail.setSelectionColor(new java.awt.Color(82, 183, 136));
+        jtxtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtCorreoKeyTyped(evt);
+                jtxtEmailKeyTyped(evt);
             }
         });
-        jPanel1.add(jtxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 310, 200, 30));
+        jPanel1.add(jtxtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 310, 200, 30));
 
         jtxtPass.setBackground(new java.awt.Color(255, 255, 255));
         jtxtPass.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jtxtPass.setText("manuel");
+        jtxtPass.setText("abc");
         jtxtPass.setBorder(null);
         jtxtPass.setEchoChar('*');
-        jPanel1.add(jtxtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 390, 150, 30));
+        jPanel1.add(jtxtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 390, 170, 30));
 
         jchRecordar.setBackground(new java.awt.Color(82, 183, 136));
         jchRecordar.setForeground(new java.awt.Color(43, 45, 66));
@@ -243,13 +244,13 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void jbtnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnIniciarSesionActionPerformed
 
-        if (UsuarioControl.sonTextfieldsVacios(jtxtCorreo, jtxtPass)) {
+        if (UsuarioControl.sonTextfieldsVacios(jtxtEmail, jtxtPass)) {
             labelError.setText("Error, debe completar todos los campos.");
             return;
         }
 
         UsuarioControl control = new UsuarioControl();
-        String resp = control.login(jtxtCorreo.getText(), jtxtPass.getText());
+        String resp = control.login(jtxtEmail.getText(), jtxtPass.getText());
 
         switch (resp) {
             case "0":
@@ -257,7 +258,7 @@ public class FrmLogin extends javax.swing.JFrame {
                 break;
             case "1":
                 if (jchRecordar.isSelected()) {
-                    CONTROL.guardarCorreo(jtxtCorreo.getText());
+                    CONTROL.guardarCorreo(jtxtEmail.getText());
                 }
                 this.dispose();
                 FrmPrincipal frm = new FrmPrincipal((byte) UsuarioActivo.idRol);
@@ -275,11 +276,12 @@ public class FrmLogin extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_jbtnOlvidasePassActionPerformed
 
-    private void jtxtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCorreoKeyTyped
+    private void jtxtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtEmailKeyTyped
+        labelError.setText(Validaciones.validateEmail(jtxtEmail.getText()));
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
             jtxtPass.requestFocus();
         }
-    }//GEN-LAST:event_jtxtCorreoKeyTyped
+    }//GEN-LAST:event_jtxtEmailKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jAstronautDog;
@@ -304,7 +306,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private presentacion.files.componentes.ButtonCustom jbtnRegistrarse;
     private presentacion.files.componentes.CheckBoxCustom jchRecordar;
     private javax.swing.JToggleButton jtgPassword;
-    private presentacion.files.componentes.TextFieldSuggestionCustom jtxtCorreo;
+    private presentacion.files.componentes.TextFieldSuggestionCustom jtxtEmail;
     private javax.swing.JPasswordField jtxtPass;
     private javax.swing.JLabel labelError;
     private presentacion.files.componentes.PanelCustom panelCustom2;

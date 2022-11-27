@@ -23,6 +23,18 @@ public class UsuarioDTO {
     public UsuarioDTO () {
     }
 
+    public UsuarioDTO (int idUsuario, String nombre, String apellidos, byte idGenero, String fechaNacimiento, String documento, String direccion, String telefonoMovil, String email) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.idGenero = idGenero;
+        this.fechaNacimiento = fechaNacimiento;
+        this.documento = documento;
+        this.direccion = direccion;
+        this.telefonoMovil = telefonoMovil;
+        this.email = email;
+    }
+
     public UsuarioDTO (short idRol, String nombre, String apellidos, byte idGenero, String fechaNacimiento, byte idTipoDocumento, String documento, String direccion, String telefonoMovil, String email, String password, byte estado) {
         this.idRol = idRol;
         this.nombre = nombre;
@@ -160,6 +172,7 @@ public class UsuarioDTO {
 
     @Override
     public String toString () {
+        System.out.println("Género del toString" + idGenero);
         return "UsuarioDTO{" + "idUsuario=" + idUsuario + ", idRol=" + idRol + ", nombre=" + nombre + ", apellidos=" + apellidos + ", idGenero=" + idGenero + ", fechaNacimiento=" + fechaNacimiento + ", idTipoDocumento=" + idTipoDocumento + ", documento=" + documento + ", direccion=" + direccion + ", telefonoMovil=" + telefonoMovil + ", email=" + email + ", password=" + password + ", estado=" + estado + '}';
     }
 

@@ -26,8 +26,11 @@ public class ConexionArchivo {
     public void guardarCorreo (String correo) {
         try {
             crearArchivo();
-            try (FileWriter escribir = new FileWriter(archivo, true)) {
-                escribir.write(correo + "\n");
+            boolean existe = new ConexionArchivo().existeCorreo(correo) != null;
+            if (!existe) {
+                try (FileWriter escribir = new FileWriter(archivo, true)) {
+                    escribir.write(correo + "\n");
+                }
             }
         } catch (IOException ex) {
             System.err.println("No se puedo escribir sobre el archivo");
@@ -52,6 +55,11 @@ public class ConexionArchivo {
             System.out.println(ex.getMessage());
         }
         return correos;
+    }
+
+    public String existeCorreo (String correo) {
+        List<String> correos = obtenerCorreos();
+        return correos.stream().filter(valor -> valor.equals(correo)).findFirst().orElse(null);
     }
 
 }
