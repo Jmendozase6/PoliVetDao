@@ -10,6 +10,9 @@ import presentacion.usuarios.cliente.FrmDetalleVentaCliente;
 import presentacion.usuarios.cliente.FrmGraficaCliente;
 import presentacion.usuarios.cliente.FrmProductoCliente;
 import presentacion.usuarios.cliente.FrmReservaCitaCliente;
+import presentacion.usuarios.veterinario.FrmCitasProgramadas;
+import presentacion.usuarios.veterinario.FrmMascotas;
+import presentacion.usuarios.veterinario.FrmTarjetaVacuna;
 import presentacion.vacio.FrmVacio;
 
 public class FrmPrincipal extends javax.swing.JFrame {
@@ -68,15 +71,33 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }
 
+    private void switchVeterinario (int index, int indexSubMenu) {
+        if (index == 0) {
+            showForm(new FrmInicio());
+        }
+        if (index == 1) {
+            showForm(new FrmMascotas());
+        }
+        if (index == 2) {
+            showForm(new FrmTarjetaVacuna());
+        }
+        if (index == 3) {
+            showForm(new FrmCitasProgramadas());
+        }
+    }
+
     private void addEvent () {
         menu.addEvent((int index, int indexSubMenu) -> {
-            switch (UsuarioActivo.idUsuario) {
+            switch (UsuarioActivo.idRol) {
                 case 1: {
                     switchAdministrador(index, indexSubMenu);
                 }
                 break;
                 case 2: {
                     switchCliente(index, indexSubMenu);
+                }
+                case 4: {
+                    switchVeterinario(index, indexSubMenu);
                 }
                 break;
                 default: {

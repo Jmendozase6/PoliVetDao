@@ -31,7 +31,7 @@ public class TipoMascotaDTO {
 
     @Override
     public String toString () {
-        return "TipoMascota{" + "idTipoMascota=" + idTipoMascota + ", descripcion=" + descripcion + '}';
+        return idTipoMascota + " - " + descripcion;
     }
 
 }

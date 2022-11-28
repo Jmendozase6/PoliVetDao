@@ -1,7 +1,7 @@
 package presentacion.login;
 
 import businessobject.UsuarioControl;
-import businessobject.Validaciones;
+import businessobject.Utilidades;
 import javax.swing.JOptionPane;
 
 public class FrmRegistro extends javax.swing.JFrame {
@@ -18,11 +18,11 @@ public class FrmRegistro extends javax.swing.JFrame {
         jtxtNombres = new presentacion.files.componentes.TextFieldSuggestionCustom();
         jtxtApellidos = new presentacion.files.componentes.TextFieldSuggestionCustom();
         jcbxGenero = new javax.swing.JComboBox<>();
-        jtxtFecha = new javax.swing.JFormattedTextField();
         jtxtDNI = new presentacion.files.componentes.TextFieldSuggestionCustom();
         jtxtDireccion = new presentacion.files.componentes.TextFieldSuggestionCustom();
         jtxtTelefono = new javax.swing.JFormattedTextField();
         jtxtCorreo = new presentacion.files.componentes.TextFieldSuggestionCustom();
+        jdcFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jtxtPass = new javax.swing.JPasswordField();
         jTitle4 = new javax.swing.JLabel();
         jCat = new javax.swing.JLabel();
@@ -65,7 +65,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtxtNombres.setBorder(null);
-        jtxtNombres.setText("Jhair");
+        jtxtNombres.setText("Jhair 2");
         jtxtNombres.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtNombres.setSelectionColor(new java.awt.Color(82, 183, 136));
         jtxtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -76,7 +76,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         jPanel1.add(jtxtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 190, 30));
 
         jtxtApellidos.setBorder(null);
-        jtxtApellidos.setText("Mendoza");
+        jtxtApellidos.setText("Mendoza 2");
         jtxtApellidos.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtApellidos.setSelectionColor(new java.awt.Color(82, 183, 136));
         jtxtApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -92,20 +92,8 @@ public class FrmRegistro extends javax.swing.JFrame {
         jcbxGenero.setBorder(null);
         jPanel1.add(jcbxGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 415, 210, 30));
 
-        jtxtFecha.setBackground(new java.awt.Color(255, 255, 255));
-        jtxtFecha.setBorder(null);
-        jtxtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
-        jtxtFecha.setText("2003-07-07");
-        jtxtFecha.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        jtxtFecha.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtFechaKeyTyped(evt);
-            }
-        });
-        jPanel1.add(jtxtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 485, 190, 30));
-
         jtxtDNI.setBorder(null);
-        jtxtDNI.setText("76565545");
+        jtxtDNI.setText("90909090");
         jtxtDNI.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtDNI.setSelectionColor(new java.awt.Color(82, 183, 136));
         jtxtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -129,12 +117,11 @@ public class FrmRegistro extends javax.swing.JFrame {
         jtxtTelefono.setBackground(new java.awt.Color(255, 255, 255));
         jtxtTelefono.setBorder(null);
         jtxtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        jtxtTelefono.setText("945295127");
         jtxtTelefono.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jPanel1.add(jtxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 263, 190, 30));
 
         jtxtCorreo.setBorder(null);
-        jtxtCorreo.setText("jhair@gmail.com");
+        jtxtCorreo.setText("jhair2@gmail.com");
         jtxtCorreo.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtCorreo.setSelectionColor(new java.awt.Color(82, 183, 136));
         jtxtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -144,10 +131,14 @@ public class FrmRegistro extends javax.swing.JFrame {
         });
         jPanel1.add(jtxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 350, 190, 30));
 
+        jdcFechaNacimiento.setBackground(new java.awt.Color(255, 255, 255));
+        jdcFechaNacimiento.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jPanel1.add(jdcFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 485, 190, 30));
+
         jtxtPass.setBackground(new java.awt.Color(255, 255, 255));
         jtxtPass.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jtxtPass.setText("jhair");
+        jtxtPass.setText("jhair2");
         jtxtPass.setBorder(null);
         jtxtPass.setEchoChar('*');
         jPanel1.add(jtxtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 437, 170, 30));
@@ -339,13 +330,14 @@ public class FrmRegistro extends javax.swing.JFrame {
 
     private void jbtnRegistrarmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarmeActionPerformed
 
-        if (UsuarioControl.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtFecha, jtxtDNI, jtxtDireccion, jtxtTelefono, jtxtCorreo, jtxtPass)) {
+        if (UsuarioControl.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDNI, jtxtDireccion, jtxtCorreo, jtxtPass)) {
             labelError.setText("Error, debe completar todos los campos.");
             return;
         }
 
         UsuarioControl CONTROL = new UsuarioControl();
-        String resp = CONTROL.agregar((byte) 2, jtxtNombres.getText(), jtxtApellidos.getText(), (byte) jcbxGenero.getSelectedIndex(), jtxtFecha.getText(), (byte) 1, jtxtDNI.getText(), jtxtDireccion.getText(), jtxtTelefono.getText(), jtxtCorreo.getText(), jtxtPass.getText());
+        String email = jtxtCorreo.getText(), pass = jtxtPass.getText();
+        String resp = CONTROL.agregar((byte) 2, jtxtNombres.getText(), jtxtApellidos.getText(), (byte) jcbxGenero.getSelectedIndex(), Utilidades.obtenerFechaChooser(jdcFechaNacimiento), (byte) 1, jtxtDNI.getText(), jtxtDireccion.getText(), jtxtTelefono.getText(), email, pass);
 
         switch (resp) {
             case "El registro ya existe.":
@@ -353,6 +345,8 @@ public class FrmRegistro extends javax.swing.JFrame {
                 break;
             case "OK":
                 JOptionPane.showMessageDialog(this, "Se registró correctamente", "Sistema", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+                new FrmLogin(email, pass).setVisible(true);
                 break;
             case "Error en el registro.":
                 JOptionPane.showMessageDialog(this, "Ocurrió un error en el registro.", "Sistema", JOptionPane.ERROR_MESSAGE);
@@ -361,7 +355,7 @@ public class FrmRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnRegistrarmeActionPerformed
 
     private void jtxtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCorreoKeyTyped
-        labelError.setText(Validaciones.validateEmail(jtxtCorreo.getText()));
+        labelError.setText(Utilidades.validarEmail(jtxtCorreo.getText()));
     }//GEN-LAST:event_jtxtCorreoKeyTyped
 
     private void jtxtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNombresKeyTyped
@@ -375,15 +369,6 @@ public class FrmRegistro extends javax.swing.JFrame {
     private void jtxtApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtApellidosKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtApellidosKeyTyped
-
-    private void jtxtFechaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtFechaKeyTyped
-        if (jtxtFecha.getText().length() == 2) {
-            jtxtFecha.setText(jtxtFecha.getText() + "-");
-        }
-        if (jtxtFecha.getText().length() == 5) {
-            jtxtFecha.setText(jtxtFecha.getText() + "-");
-        }
-    }//GEN-LAST:event_jtxtFechaKeyTyped
 
     private void jtxtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtDireccionKeyTyped
         // TODO add your handling code here:
@@ -419,12 +404,12 @@ public class FrmRegistro extends javax.swing.JFrame {
     private javax.swing.JLabel jTitle5;
     private presentacion.files.componentes.ButtonCustom jbtnRegistrarme;
     private javax.swing.JComboBox<String> jcbxGenero;
+    private com.toedter.calendar.JDateChooser jdcFechaNacimiento;
     private javax.swing.JToggleButton jtgPassword;
     private presentacion.files.componentes.TextFieldSuggestionCustom jtxtApellidos;
     private presentacion.files.componentes.TextFieldSuggestionCustom jtxtCorreo;
     private presentacion.files.componentes.TextFieldSuggestionCustom jtxtDNI;
     private presentacion.files.componentes.TextFieldSuggestionCustom jtxtDireccion;
-    private javax.swing.JFormattedTextField jtxtFecha;
     private presentacion.files.componentes.TextFieldSuggestionCustom jtxtNombres;
     private javax.swing.JPasswordField jtxtPass;
     private javax.swing.JFormattedTextField jtxtTelefono;

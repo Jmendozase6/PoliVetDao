@@ -3,7 +3,6 @@ package dataaccessobject;
 import datasource.ConexionSQL;
 import datatransferobject.UsuarioDTO;
 import interfaces.IUsuario;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,7 +35,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
                         rs.getString(3), // nombre
                         rs.getString(4), // apellidos
                         rs.getByte(5), // idGenero
-                        rs.getDate(6), // fechaNacimiento
+                        rs.getString(6), // fechaNacimiento
                         rs.getByte(7), // idTipoDocumento
                         rs.getString(8), // documento
                         rs.getString(9), // direccion
@@ -44,6 +43,27 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
                         rs.getString(11), // email
                         rs.getString(12), // password
                         rs.getByte(13))); // estado
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            ps = null;
+            rs = null;
+            CON.cerrarConexion();
+        }
+        return usuarios;
+    }
+
+    public List<String> seleccionar () {
+        List<String> usuarios = new ArrayList();
+        try {
+            ps = CON.conectar().prepareStatement("SELECT idUsuario, nombres, apellidos FROM Usuario");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                UsuarioDTO usuario = new UsuarioDTO(rs.getInt(1), rs.getString(2), rs.getString(3));
+                usuarios.add(usuario.toString());
             }
             ps.close();
             rs.close();
@@ -73,7 +93,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
                         rs.getString(3), // nombre
                         rs.getString(4), // apellidos
                         rs.getByte(5), // idGenero
-                        rs.getDate(6), // fechaNacimiento
+                        rs.getString(6), // fechaNacimiento
                         rs.getByte(7), // idTipoDocumento
                         rs.getString(8), // documento
                         rs.getString(9), // direccion
@@ -101,8 +121,6 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
 
             if (ps.executeUpdate() > 0) {
                 resp = true;
-            } else {
-                System.out.println("Filas afectadas menor k 0 k wea");
             }
             ps.close();
         } catch (SQLException e) {
@@ -117,6 +135,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
     @Override
     public boolean agregar (UsuarioDTO objeto) {
         resp = false;
+        System.out.println("Objeto fecha" + objeto.getFechaNacimiento());
 
         try {
             ps = CON.conectar().prepareStatement("INSERT INTO Usuario(idRol, nombres, apellidos, idGenero, fechaNacimiento, idTipoDocumento, documento, direccion, telefonoMovil, email, password, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,1)");
@@ -137,6 +156,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
             ps.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+            e.printStackTrace(System.out);
         } finally {
             ps = null;
             CON.cerrarConexion();
@@ -147,14 +167,13 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
     @Override
     public boolean actualizar (UsuarioDTO objeto) {
         resp = false;
-        System.out.println("Usuario del actualizar dao" + objeto.toString());
+
         try {
             ps = CON.conectar().prepareStatement("UPDATE Usuario SET nombres = ?, apellidos = ?, idGenero = ?, fechaNacimiento = ?, documento = ?, direccion = ?, telefonoMovil = ?, email = ? WHERE idUsuario = ?");
             ps.setString(1, objeto.getNombre());
             ps.setString(2, objeto.getApellidos());
             ps.setByte(3, objeto.getIdGenero());
-            Date fechaNacimiento = Date.valueOf(objeto.getFechaNacimiento());
-            ps.setDate(4, fechaNacimiento);
+            ps.setString(4, objeto.getFechaNacimiento());
             ps.setString(5, objeto.getDocumento());
             ps.setString(6, objeto.getDireccion());
             ps.setString(7, objeto.getTelefonoMovil());
@@ -201,6 +220,27 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
         try {
             ps = CON.conectar().prepareStatement("UPDATE Usuario SET estado = 1 WHERE idUsuario = ?");
             ps.setInt(1, id);
+            if (ps.executeUpdate() > 0) {
+                resp = true;
+            }
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ps = null;
+            CON.cerrarConexion();
+        }
+        return resp;
+    }
+
+    public boolean actualizarRol (int idUsuario, int idRol) {
+
+        resp = false;
+
+        try {
+            ps = CON.conectar().prepareStatement("UPDATE Usuario SET idRol = ? WHERE idUsuario = ?");
+            ps.setInt(1, idRol);
+            ps.setInt(2, idUsuario);
             if (ps.executeUpdate() > 0) {
                 resp = true;
             }

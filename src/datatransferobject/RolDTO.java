@@ -4,17 +4,13 @@ public class RolDTO {
 
     private int idRol;
     private String descripcion;
-    private int idEmpresa;
-    private String ruc;
 
     public RolDTO () {
     }
 
-    public RolDTO (int idRol, String descripcion, int idEmpresa, String ruc) {
+    public RolDTO (int idRol, String descripcion) {
         this.idRol = idRol;
         this.descripcion = descripcion;
-        this.idEmpresa = idEmpresa;
-        this.ruc = ruc;
     }
 
     public int getIdRol () {
@@ -33,25 +29,9 @@ public class RolDTO {
         this.descripcion = descripcion;
     }
 
-    public int getIdEmpresa () {
-        return idEmpresa;
-    }
-
-    public void setIdEmpresa (int idEmpresa) {
-        this.idEmpresa = idEmpresa;
-    }
-
-    public String getRuc () {
-        return ruc;
-    }
-
-    public void setRuc (String ruc) {
-        this.ruc = ruc;
-    }
-
     @Override
     public String toString () {
-        return "RolDTO{" + "idRol=" + idRol + ", descripcion=" + descripcion + ", idEmpresa=" + idEmpresa + ", ruc=" + ruc + '}';
+        return idRol + " - " + descripcion;
     }
 
 }

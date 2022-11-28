@@ -2,7 +2,7 @@ package presentacion.login;
 
 import businessobject.EmailControl;
 import businessobject.UsuarioControl;
-import businessobject.Validaciones;
+import businessobject.Utilidades;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
@@ -351,7 +351,7 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtxtEmailRecuperacionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtEmailRecuperacionKeyTyped
-        labelErrorRecuperacion.setText(Validaciones.validateEmail(jtxtEmailRecuperacion.getText()));
+        labelErrorRecuperacion.setText(Utilidades.validarEmail(jtxtEmailRecuperacion.getText()));
     }//GEN-LAST:event_jtxtEmailRecuperacionKeyTyped
 
     private void jbtnEnviarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEnviarCodigoActionPerformed

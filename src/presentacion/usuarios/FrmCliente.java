@@ -1,16 +1,22 @@
 package presentacion.usuarios;
 
+import businessobject.UsuarioActivo;
 import businessobject.UsuarioControl;
-import businessobject.Validaciones;
+import businessobject.Utilidades;
 import datatransferobject.UsuarioDTO;
 import java.awt.Font;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import presentacion.files.componentes.customswitch.SwitchListener;
 
 public class FrmCliente extends javax.swing.JPanel {
 
     private final UsuarioControl CONTROL;
-    private final byte idTipoRol = 1;
+    private final byte idTipoRol = 2;
     private UsuarioDTO usuarioActualizar;
 
     public FrmCliente () {
@@ -18,15 +24,29 @@ public class FrmCliente extends javax.swing.JPanel {
         CONTROL = new UsuarioControl();
         this.listar("nombres", "");
         jbtnSubir.setVisible(false);
+        jbtnCambiarRol.setVisible(false);
+        mostrarBotonCambioRol();
     }
 
-    private void mostrarBoton () {
+    private void mostrarBotonTabla () {
         if (jScrollPane1.getVerticalScrollBar().getValue() > 450) {
             jbtnSubir.setVisible(true);
             revalidate();
         } else {
             jbtnSubir.setVisible(false);
             revalidate();
+        }
+    }
+
+    private void mostrarBotonCambioRol () {
+        if (UsuarioActivo.idRol == 1) {
+            jbtnCambiarRol.setVisible(true);
+        }
+    }
+
+    public void actualizarRol (int idRol) {
+        if (tablaClientes.getSelectedRowCount() == 1) {
+            CONTROL.actualizarRol(Integer.parseInt(jtxtIdCliente.getText()), idRol);
         }
     }
 
@@ -37,7 +57,7 @@ public class FrmCliente extends javax.swing.JPanel {
         tablaClientes.getTableHeader().getColumnModel().getColumn(11).setMinWidth(0);
     }
 
-    private void listar (String columna, String buscar) {
+    public void listar (String columna, String buscar) {
         tablaClientes.setModel(this.CONTROL.listar(columna, buscar, idTipoRol, (byte) 1));
         ocultarColumnas();
     }
@@ -69,10 +89,10 @@ public class FrmCliente extends javax.swing.JPanel {
         jtxtNombres = new javax.swing.JTextField();
         jcbxGenero = new javax.swing.JComboBox<>();
         jtxtDocumento = new javax.swing.JFormattedTextField();
-        jtxtFecha = new javax.swing.JFormattedTextField();
         jtxtIdCliente = new javax.swing.JTextField();
         jtxtTelefono = new javax.swing.JFormattedTextField();
         jtxtEmail = new javax.swing.JTextField();
+        jdcFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jCorreo = new javax.swing.JLabel();
         jPassword = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -99,6 +119,7 @@ public class FrmCliente extends javax.swing.JPanel {
         jbtnActivarDesactivar = new presentacion.files.componentes.ButtonCustom();
         jchMostrarRegistrosInactivos = new presentacion.files.componentes.CheckBoxCustom();
         jLabel21 = new javax.swing.JLabel();
+        jbtnCambiarRol = new presentacion.files.componentes.ButtonCustom();
 
         setBackground(new java.awt.Color(232, 245, 254));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -231,18 +252,6 @@ public class FrmCliente extends javax.swing.JPanel {
         });
         add(jtxtDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 845, 190, 30));
 
-        jtxtFecha.setBackground(new java.awt.Color(232, 245, 254));
-        jtxtFecha.setBorder(null);
-        jtxtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy-MM-dd"))));
-        jtxtFecha.setText("2003-07-07");
-        jtxtFecha.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        jtxtFecha.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtFechaKeyTyped(evt);
-            }
-        });
-        add(jtxtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 765, 190, 30));
-
         jtxtIdCliente.setEditable(false);
         jtxtIdCliente.setBackground(new java.awt.Color(232, 245, 254));
         jtxtIdCliente.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
@@ -266,6 +275,10 @@ public class FrmCliente extends javax.swing.JPanel {
             }
         });
         add(jtxtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 685, 210, 30));
+
+        jdcFechaNacimiento.setBackground(new java.awt.Color(255, 255, 255));
+        jdcFechaNacimiento.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        add(jdcFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 765, 190, 30));
 
         jCorreo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/textfield/txtNombres.png"))); // NOI18N
         add(jCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
@@ -366,7 +379,7 @@ public class FrmCliente extends javax.swing.JPanel {
                 jbtnActualizarActionPerformed(evt);
             }
         });
-        add(jbtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 760, 280, 40));
+        add(jbtnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 760, 130, 40));
 
         jLabel20.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(43, 45, 66));
@@ -381,7 +394,7 @@ public class FrmCliente extends javax.swing.JPanel {
                 jbtnActivarDesactivarActionPerformed(evt);
             }
         });
-        add(jbtnActivarDesactivar, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 840, 280, 40));
+        add(jbtnActivarDesactivar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 760, 130, 40));
 
         jchMostrarRegistrosInactivos.setBackground(new java.awt.Color(82, 183, 136));
         jchMostrarRegistrosInactivos.setForeground(new java.awt.Color(43, 45, 66));
@@ -400,6 +413,16 @@ public class FrmCliente extends javax.swing.JPanel {
         jLabel21.setForeground(new java.awt.Color(43, 45, 66));
         jLabel21.setText("Dirección");
         add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 660, -1, -1));
+
+        jbtnCambiarRol.setText("Cambiar Rol");
+        jbtnCambiarRol.setFocusPainted(false);
+        jbtnCambiarRol.setFont(new java.awt.Font("Gilroy-Regular", 0, 16)); // NOI18N
+        jbtnCambiarRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCambiarRolActionPerformed(evt);
+            }
+        });
+        add(jbtnCambiarRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 840, 280, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtxtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyTyped
@@ -419,17 +442,8 @@ public class FrmCliente extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jtxtDocumentoKeyTyped
 
-    private void jtxtFechaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtFechaKeyTyped
-        if (jtxtFecha.getText().length() == 2) {
-            jtxtFecha.setText(jtxtFecha.getText() + "-");
-        }
-        if (jtxtFecha.getText().length() == 5) {
-            jtxtFecha.setText(jtxtFecha.getText() + "-");
-        }
-    }//GEN-LAST:event_jtxtFechaKeyTyped
-
     private void jScrollPane1MouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_jScrollPane1MouseWheelMoved
-        mostrarBoton();
+        mostrarBotonTabla();
     }//GEN-LAST:event_jScrollPane1MouseWheelMoved
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
@@ -439,49 +453,55 @@ public class FrmCliente extends javax.swing.JPanel {
             return;
         }
 
-        if (UsuarioControl.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtFecha, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail)) {
+        if (UsuarioControl.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail)) {
             JOptionPane.showMessageDialog(this, "Debe completar todos los campos.", "Sistema", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        usuarioActualizar = new UsuarioDTO(Integer.parseInt(jtxtIdCliente.getText()), jtxtNombres.getText(), jtxtApellidos.getText(), Byte.parseByte(String.valueOf(jcbxGenero.getSelectedIndex())), jtxtFecha.getText(), jtxtDocumento.getText(), jtxtDireccion.getText(), jtxtTelefono.getText(), jtxtEmail.getText());
+        usuarioActualizar = new UsuarioDTO(Integer.parseInt(jtxtIdCliente.getText()), jtxtNombres.getText(), jtxtApellidos.getText(), Byte.parseByte(String.valueOf(jcbxGenero.getSelectedIndex())), Utilidades.obtenerFechaChooser(jdcFechaNacimiento), jtxtDocumento.getText(), jtxtDireccion.getText(), jtxtTelefono.getText(), jtxtEmail.getText());
 
         String respuesta = CONTROL.actualizar(usuarioActualizar);
         if (respuesta.equalsIgnoreCase("OK")) {
-            UsuarioControl.limpiarTextfields(jtxtIdCliente, jtxtNombres, jtxtApellidos, jtxtFecha, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
+            UsuarioControl.limpiarTextfields(jtxtIdCliente, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
             JOptionPane.showMessageDialog(this, "Se actualizó correctamente el registro");
             this.listar("nombres", "");
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo actualizar el registro", "Sistema", JOptionPane.ERROR_MESSAGE);
         }
 
+        jchMostrarRegistrosInactivosActionPerformed(evt);
+
     }//GEN-LAST:event_jbtnActualizarActionPerformed
 
     private void tablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseClicked
         if (tablaClientes.getSelectedRowCount() == 1) {
-            String idCliente = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0));
-            String nombres = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 2));
-            String apellidos = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 3));
-            String genero = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 4));
-            String fecha = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 5));
-            String documento = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 7));
-            String direccion = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 8));
-            String telefono = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 9));
-            String email = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 10));
-            String estado = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 12));
+            try {
+                String idCliente = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0));
+                String nombres = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 2));
+                String apellidos = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 3));
+                String genero = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 4));
+                String fecha = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 5));
+                String documento = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 7));
+                String direccion = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 8));
+                String telefono = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 9));
+                String email = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 10));
+                String estado = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 12));
 
-            jtxtIdCliente.setText(idCliente);
-            jtxtNombres.setText(nombres);
-            jtxtApellidos.setText(apellidos);
-            jcbxGenero.setSelectedIndex(Integer.parseInt(genero));
-            jtxtFecha.setText(fecha);
-            jtxtDocumento.setText(documento);
-            jtxtDireccion.setText(direccion);
-            jtxtTelefono.setText(telefono);
-            jtxtEmail.setText(email);
-            setEstado(estado);
-            jbtnActivarDesactivar.setText(estado.equalsIgnoreCase("activo") ? "Desactivar" : "Activar");
-
+                jtxtIdCliente.setText(idCliente);
+                jtxtNombres.setText(nombres);
+                jtxtApellidos.setText(apellidos);
+                jcbxGenero.setSelectedIndex(Integer.parseInt(genero));
+                Date date = new SimpleDateFormat("yyyy-mm-dd").parse(fecha);
+                jdcFechaNacimiento.setDate(date);
+                jtxtDocumento.setText(documento);
+                jtxtDireccion.setText(direccion);
+                jtxtTelefono.setText(telefono);
+                jtxtEmail.setText(email);
+                setEstado(estado);
+                jbtnActivarDesactivar.setText(estado.equalsIgnoreCase("activo") ? "Desactivar" : "Activar");
+            } catch (ParseException ex) {
+                Logger.getLogger(FrmCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_tablaClientesMouseClicked
 
@@ -515,7 +535,7 @@ public class FrmCliente extends javax.swing.JPanel {
         if (resp.equals("OK")) {
             JOptionPane.showMessageDialog(this, "Se actualizó el estado del registro.");
             this.listar("nombres", "");
-            UsuarioControl.limpiarTextfields(jtxtIdCliente, jtxtNombres, jtxtApellidos, jtxtFecha, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
+            UsuarioControl.limpiarTextfields(jtxtIdCliente, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo actualizar el estado del registro", "Sistema", JOptionPane.ERROR_MESSAGE);
         }
@@ -532,8 +552,12 @@ public class FrmCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jchMostrarRegistrosInactivosActionPerformed
 
     private void jtxtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtEmailKeyTyped
-        labelError.setText(Validaciones.validateEmail(jtxtEmail.getText()));
+        labelError.setText(Utilidades.validarEmail(jtxtEmail.getText()));
     }//GEN-LAST:event_jtxtEmailKeyTyped
+
+    private void jbtnCambiarRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCambiarRolActionPerformed
+        new DialogModificarRol(null, true, this).setVisible(true);
+    }//GEN-LAST:event_jbtnCambiarRolActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -562,18 +586,19 @@ public class FrmCliente extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private presentacion.files.componentes.ButtonCustom jbtnActivarDesactivar;
     private presentacion.files.componentes.ButtonCustom jbtnActualizar;
+    private presentacion.files.componentes.ButtonCustom jbtnCambiarRol;
     private presentacion.files.componentes.ButtonCustom jbtnSubir;
     private javax.swing.JComboBox<String> jcbxGenero;
     private presentacion.files.componentes.CheckBoxCustom jchDocumento;
     private presentacion.files.componentes.CheckBoxCustom jchMostrarRegistrosInactivos;
     private presentacion.files.componentes.CheckBoxCustom jchNombres;
+    private com.toedter.calendar.JDateChooser jdcFechaNacimiento;
     private presentacion.files.componentes.customswitch.SwitchButton jswEstado;
     private javax.swing.JTextField jtxtApellidos;
     private javax.swing.JTextField jtxtBuscar;
     private javax.swing.JTextField jtxtDireccion;
     private javax.swing.JFormattedTextField jtxtDocumento;
     private javax.swing.JTextField jtxtEmail;
-    private javax.swing.JFormattedTextField jtxtFecha;
     private javax.swing.JTextField jtxtIdCliente;
     private javax.swing.JTextField jtxtNombres;
     private javax.swing.JFormattedTextField jtxtTelefono;

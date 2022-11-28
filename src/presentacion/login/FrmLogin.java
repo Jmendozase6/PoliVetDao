@@ -1,9 +1,8 @@
 package presentacion.login;
 
 import businessobject.CorreosGuardadosControl;
-import businessobject.UsuarioActivo;
 import businessobject.UsuarioControl;
-import businessobject.Validaciones;
+import businessobject.Utilidades;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import presentacion.principal.FrmPrincipal;
@@ -16,6 +15,14 @@ public class FrmLogin extends javax.swing.JFrame {
         initComponents();
         CONTROL = new CorreosGuardadosControl();
         CONTROL.listarCorreos(jtxtEmail);
+    }
+
+    public FrmLogin (String email, String password) {
+        initComponents();
+        CONTROL = new CorreosGuardadosControl();
+        CONTROL.listarCorreos(jtxtEmail);
+        jtxtEmail.setText(email);
+        jtxtPass.setText(password);
     }
 
     @SuppressWarnings("unchecked")
@@ -110,6 +117,11 @@ public class FrmLogin extends javax.swing.JFrame {
         jtxtPass.setBorder(null);
         jtxtPass.setEchoChar('*');
         jtxtPass.setSelectionColor(new java.awt.Color(82, 183, 136));
+        jtxtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtPassKeyTyped(evt);
+            }
+        });
         jPanel1.add(jtxtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 390, 170, 30));
 
         jchRecordar.setBackground(new java.awt.Color(82, 183, 136));
@@ -278,11 +290,17 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnOlvidasePassActionPerformed
 
     private void jtxtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtEmailKeyTyped
-        labelError.setText(Validaciones.validateEmail(jtxtEmail.getText()));
+        labelError.setText(Utilidades.validarEmail(jtxtEmail.getText()));
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
             jtxtPass.requestFocus();
         }
     }//GEN-LAST:event_jtxtEmailKeyTyped
+
+    private void jtxtPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPassKeyTyped
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            jbtnIniciarSesion.requestFocus();
+        }
+    }//GEN-LAST:event_jtxtPassKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jAstronautDog;

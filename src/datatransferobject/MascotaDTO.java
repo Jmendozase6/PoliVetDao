@@ -5,6 +5,7 @@ public class MascotaDTO {
     private int idMascota;
     private int idUsuario;
     private int idTipoMascota;
+    private String nombre;
     private String raza;
     private String genero;
     private String peso;
@@ -12,10 +13,20 @@ public class MascotaDTO {
     public MascotaDTO () {
     }
 
-    public MascotaDTO (int idMascota, int idUsuario, int idTipoMascota, String raza, String genero, String peso) {
+    public MascotaDTO (int idUsuario, int idTipoMascota, String nombre, String raza, String genero, String peso) {
+        this.idUsuario = idUsuario;
+        this.idTipoMascota = idTipoMascota;
+        this.nombre = nombre;
+        this.raza = raza;
+        this.genero = genero;
+        this.peso = peso;
+    }
+
+    public MascotaDTO (int idMascota, int idUsuario, int idTipoMascota, String nombre, String raza, String genero, String peso) {
         this.idMascota = idMascota;
         this.idUsuario = idUsuario;
         this.idTipoMascota = idTipoMascota;
+        this.nombre = nombre;
         this.raza = raza;
         this.genero = genero;
         this.peso = peso;
@@ -43,6 +54,14 @@ public class MascotaDTO {
 
     public void setIdTipoMascota (int idTipoMascota) {
         this.idTipoMascota = idTipoMascota;
+    }
+
+    public String getNombre () {
+        return nombre;
+    }
+
+    public void setNombre (String nombre) {
+        this.nombre = nombre;
     }
 
     public String getRaza () {

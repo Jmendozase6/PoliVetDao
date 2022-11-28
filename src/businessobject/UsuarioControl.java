@@ -4,6 +4,7 @@ import dataaccessobject.UsuarioDAO;
 import datatransferobject.UsuarioDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -123,6 +124,10 @@ public class UsuarioControl {
         }
     }
 
+    public DefaultComboBoxModel seleccionar () {
+        return new DefaultComboBoxModel(DATOS.seleccionar().toArray());
+    }
+
     public String desactivar (int id) {
         if (DATOS.desactivar(id)) {
             return "OK";
@@ -136,6 +141,14 @@ public class UsuarioControl {
             return "OK";
         } else {
             return "No se puede activar el registro";
+        }
+    }
+
+    public String actualizarRol (int idUsuario, int idRol) {
+        if (DATOS.actualizarRol(idUsuario, idRol)) {
+            return "OK";
+        } else {
+            return "No se puede modificar el rol del registro";
         }
     }
 

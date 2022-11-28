@@ -1,8 +1,5 @@
 package datatransferobject;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-
 public class UsuarioDTO {
 
     private int idUsuario;
@@ -18,9 +15,14 @@ public class UsuarioDTO {
     private String email;
     private String password;
     private byte estado;
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public UsuarioDTO () {
+    }
+
+    public UsuarioDTO (int idUsuario, String nombre, String apellidos) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
     }
 
     public UsuarioDTO (int idUsuario, String nombre, String apellidos, byte idGenero, String fechaNacimiento, String documento, String direccion, String telefonoMovil, String email) {
@@ -50,13 +52,13 @@ public class UsuarioDTO {
         this.estado = estado;
     }
 
-    public UsuarioDTO (int idUsuario, short idRol, String nombre, String apellidos, byte idGenero, Date fechaNacimiento, byte idTipoDocumento, String documento, String direccion, String telefonoMovil, String email, String password, byte estado) {
+    public UsuarioDTO (int idUsuario, short idRol, String nombre, String apellidos, byte idGenero, String fechaNacimiento, byte idTipoDocumento, String documento, String direccion, String telefonoMovil, String email, String password, byte estado) {
         this.idUsuario = idUsuario;
         this.idRol = idRol;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.idGenero = idGenero;
-        this.fechaNacimiento = sdf.format(fechaNacimiento);
+        this.fechaNacimiento = fechaNacimiento;
         this.idTipoDocumento = idTipoDocumento;
         this.documento = documento;
         this.direccion = direccion;
@@ -172,8 +174,7 @@ public class UsuarioDTO {
 
     @Override
     public String toString () {
-        System.out.println("Género del toString" + idGenero);
-        return "UsuarioDTO{" + "idUsuario=" + idUsuario + ", idRol=" + idRol + ", nombre=" + nombre + ", apellidos=" + apellidos + ", idGenero=" + idGenero + ", fechaNacimiento=" + fechaNacimiento + ", idTipoDocumento=" + idTipoDocumento + ", documento=" + documento + ", direccion=" + direccion + ", telefonoMovil=" + telefonoMovil + ", email=" + email + ", password=" + password + ", estado=" + estado + '}';
+        return idUsuario + " - " + nombre + " " + apellidos;
     }
 
 }
