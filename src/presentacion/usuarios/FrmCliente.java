@@ -276,7 +276,7 @@ public class FrmCliente extends javax.swing.JPanel {
         });
         add(jtxtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 685, 210, 30));
 
-        jdcFechaNacimiento.setBackground(new java.awt.Color(255, 255, 255));
+        jdcFechaNacimiento.setBackground(new java.awt.Color(232, 245, 254));
         jdcFechaNacimiento.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         add(jdcFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 765, 190, 30));
 
