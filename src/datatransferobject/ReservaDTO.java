@@ -1,7 +1,5 @@
 package datatransferobject;
 
-import java.sql.Date;
-
 public class ReservaDTO {
 
     private int idReserva;

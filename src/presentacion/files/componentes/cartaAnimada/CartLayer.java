@@ -1,13 +1,31 @@
 package presentacion.files.componentes.cartaAnimada;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class CartLayer extends javax.swing.JComponent {
+
+    private ModelCart model;
 
     public CartLayer () {
         initComponents();
     }
 
-    public void setModel (ModelCart model) {
-        txt.setText(model.getDescription());
+    private void buttonAction () {
+        try {
+            Desktop.getDesktop().browse(new URI(model.getNumero()));
+        } catch (URISyntaxException | IOException ex) {
+            Logger.getLogger(CartLayer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setTextos (ModelCart model) {
+        this.model = model;
+        labelDescripcion.setText(model.getDescription());
         labelNombres.setText(model.getNombres());
         labelApellidos.setText(model.getApellidos());
         labelDatos.setText(model.getEdad());
@@ -17,7 +35,7 @@ public class CartLayer extends javax.swing.JComponent {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txt = new cart.TextPaneCenter();
+        labelDescripcion = new cart.TextPaneCenter();
         labelLink = new cart.Button();
         labelDatos = new javax.swing.JLabel();
         labelApellidos = new javax.swing.JLabel();
@@ -26,11 +44,17 @@ public class CartLayer extends javax.swing.JComponent {
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txt.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        add(txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 148, 268, -1));
+        labelDescripcion.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        add(labelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 148, 268, -1));
 
-        labelLink.setText("GitHub");
-        labelLink.setFont(new java.awt.Font("Gilroy-Regular", 0, 16)); // NOI18N
+        labelLink.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/whatsapp.png"))); // NOI18N
+        labelLink.setText(" WhatsApp");
+        labelLink.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
+        labelLink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                labelLinkActionPerformed(evt);
+            }
+        });
         add(labelLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 150, 50));
 
         labelDatos.setFont(new java.awt.Font("Gilroy-Regular", 0, 18)); // NOI18N
@@ -54,11 +78,15 @@ public class CartLayer extends javax.swing.JComponent {
         add(labelNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 240, 20));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void labelLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labelLinkActionPerformed
+        buttonAction();
+    }//GEN-LAST:event_labelLinkActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel labelApellidos;
     private javax.swing.JLabel labelDatos;
+    private cart.TextPaneCenter labelDescripcion;
     private cart.Button labelLink;
     private javax.swing.JLabel labelNombres;
-    private cart.TextPaneCenter txt;
     // End of variables declaration//GEN-END:variables
 }

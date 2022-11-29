@@ -235,7 +235,6 @@ public class FrmCliente extends javax.swing.JPanel {
         add(jtxtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 765, 190, 30));
 
         jcbxGenero.setBackground(new java.awt.Color(232, 245, 254));
-        jcbxGenero.setEditable(true);
         jcbxGenero.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jcbxGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino" }));
         jcbxGenero.setBorder(null);
@@ -453,7 +452,7 @@ public class FrmCliente extends javax.swing.JPanel {
             return;
         }
 
-        if (UsuarioControl.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail)) {
+        if (Utilidades.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail)) {
             JOptionPane.showMessageDialog(this, "Debe completar todos los campos.", "Sistema", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -462,7 +461,7 @@ public class FrmCliente extends javax.swing.JPanel {
 
         String respuesta = CONTROL.actualizar(usuarioActualizar);
         if (respuesta.equalsIgnoreCase("OK")) {
-            UsuarioControl.limpiarTextfields(jtxtIdCliente, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
+            Utilidades.limpiarTextfields(jtxtIdCliente, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
             JOptionPane.showMessageDialog(this, "Se actualizó correctamente el registro");
             this.listar("nombres", "");
         } else {
@@ -535,7 +534,7 @@ public class FrmCliente extends javax.swing.JPanel {
         if (resp.equals("OK")) {
             JOptionPane.showMessageDialog(this, "Se actualizó el estado del registro.");
             this.listar("nombres", "");
-            UsuarioControl.limpiarTextfields(jtxtIdCliente, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
+            Utilidades.limpiarTextfields(jtxtIdCliente, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo actualizar el estado del registro", "Sistema", JOptionPane.ERROR_MESSAGE);
         }

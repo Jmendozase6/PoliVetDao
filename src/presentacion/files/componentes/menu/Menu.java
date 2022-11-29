@@ -29,50 +29,50 @@ public class Menu extends JPanel {
         switch (UsuarioActivo.idRol) {
             case 1: {
                 addTitle("ADMINISTRADOR");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));                   // 0
                 addTitle("USUARIOS");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Clientes"));
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Veterinarios"));
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Proveedores"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Clientes"));                    // 1
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Veterinarios"));                // 2
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Proveedores"));                 // 3
                 addTitle("VENTAS");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Detalles de Ventas"));
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART, "Gráficas"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Detalles de Ventas"));         // 4
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART, "Estadísticas"));             // 5
                 addTitle("INVENTARIO");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));            // 6
                 addTitle("CITAS");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Citas Programadas"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Reserva de Citas"));           // 7
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Citas Programadas"));         // 8
             }
             break;
             case 2: {
                 addTitle("CLIENTE");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
-                addTitle("VENTAS");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Detalles de Ventas"));
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART, "Gráficas"));
-                addTitle("CITAS");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Reserva de Citas"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));                   // 0
+                addTitle("COMPRAS");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Detalles de mis compras"));    // 1
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART, "Estadísticas"));             // 2
                 addTitle("INVENTARIO");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));            // 3
             }
             break;
             case 3: {
                 addTitle("PROVEEDOR");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));                   // 0
             }
             break;
             case 4: {
                 addTitle("VETERINARIO");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));                   // 0
                 addTitle("MASCOTAS");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Mascotas"));
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Tarjetas de Vacuna"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Mascotas"));                  // 1
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Tarjetas de Vacuna"));        // 2
                 addTitle("RESERVAS");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Citas Programadas"));
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Reserva de Citas"));           // 3
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Citas Programadas"));         // 4
             }
             break;
         }
         addTitle("CONFIGURACIÓN");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Configuración", "Modo Oscuro", "Cerrar Sesión"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Configuración", "Editar Perfil", "Color de alertas", "Cerrar Sesión"));
 
     }
 
@@ -134,8 +134,9 @@ public class Menu extends JPanel {
     public void addTitle (String title) {
         JLabel label = new JLabel(title);
         label.setBorder(new EmptyBorder(15, 20, 5, 5));
-        label.setFont(label.getFont().deriveFont(Font.BOLD));
-        label.setForeground(new Color(170, 170, 170));
+        label.setFont(new Font("Monospaced", Font.BOLD, 14) {
+        });
+        label.setForeground(new Color(82, 183, 136));
         panelMenu.add(label);
     }
 

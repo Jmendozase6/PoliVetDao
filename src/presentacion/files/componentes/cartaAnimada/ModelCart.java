@@ -9,16 +9,18 @@ public class ModelCart {
     private String edad;
     private String description;
     private Icon image;
+    private String numero;
 
     public ModelCart () {
     }
 
-    public ModelCart (String nombres, String apellidos, String edad, String description, Icon image) {
+    public ModelCart (String nombres, String apellidos, String edad, String description, Icon image, String numero) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.edad = edad;
         this.description = description;
         this.image = image;
+        this.numero = "https://wa.me/51" + numero;
     }
 
     public String getNombres () {
@@ -59,6 +61,14 @@ public class ModelCart {
 
     public void setImage (Icon image) {
         this.image = image;
+    }
+
+    public String getNumero () {
+        return numero;
+    }
+
+    public void setNumero (String url) {
+        this.numero = url;
     }
 
 }

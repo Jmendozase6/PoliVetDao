@@ -58,7 +58,6 @@ public class DialogModificarRol extends javax.swing.JDialog {
         panelCustom2.add(jTitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
 
         jcbxRol.setBackground(new java.awt.Color(255, 255, 255));
-        jcbxRol.setEditable(true);
         jcbxRol.setFont(new java.awt.Font("Gilroy-Regular", 0, 12)); // NOI18N
         jcbxRol.setBorder(null);
         panelCustom2.add(jcbxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 270, 40));

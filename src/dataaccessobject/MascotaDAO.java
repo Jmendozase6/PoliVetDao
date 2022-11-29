@@ -2,6 +2,7 @@ package dataaccessobject;
 
 import datasource.ConexionSQL;
 import datatransferobject.MascotaDTO;
+import datatransferobject.UsuarioDTO;
 import interfaces.IMascota;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -97,6 +98,27 @@ public class MascotaDAO implements IMascota<MascotaDTO> {
             CON.cerrarConexion();
         }
         return resp;
+    }
+
+    public List<String> seleccionar () {
+        List<String> mascotas = new ArrayList();
+        try {
+            ps = CON.conectar().prepareStatement("SELECT idMascota, CASE WHEN idTipoMascota = 1 THEN 'Can' WHEN idTipoMascota = 2 THEN 'Minino' END AS 'Tipo Mascota', nombre FROM Mascota");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                MascotaDTO mascota = new MascotaDTO(rs.getInt(1), rs.getString(2), rs.getString(3));
+                mascotas.add(mascota.toString());
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            ps = null;
+            rs = null;
+            CON.cerrarConexion();
+        }
+        return mascotas;
     }
 
 }

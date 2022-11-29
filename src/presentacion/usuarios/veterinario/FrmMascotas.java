@@ -2,6 +2,7 @@ package presentacion.usuarios.veterinario;
 
 import businessobject.MascotaControl;
 import businessobject.UsuarioControl;
+import businessobject.Utilidades;
 import datatransferobject.MascotaDTO;
 import javax.swing.JOptionPane;
 
@@ -309,7 +310,7 @@ public class FrmMascotas extends javax.swing.JPanel {
             return;
         }
 
-        if (UsuarioControl.sonTextfieldsVacios(jtxtIdMascota, jtxtIdCliente, jtxtIdTipoMascota, jtxtNombre, jtxtRaza, jtxtGenero, jtxtPeso)) {
+        if (Utilidades.sonTextfieldsVacios(jtxtIdMascota, jtxtIdCliente, jtxtIdTipoMascota, jtxtNombre, jtxtRaza, jtxtGenero, jtxtPeso)) {
             JOptionPane.showMessageDialog(this, "Debe completar todos los campos.", "Sistema", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -319,7 +320,7 @@ public class FrmMascotas extends javax.swing.JPanel {
         String respuesta = CONTROL.actualizar(mascotaActualizar);
 
         if (respuesta.equalsIgnoreCase("OK")) {
-            UsuarioControl.limpiarTextfields(jtxtIdMascota, jtxtIdCliente, jtxtIdTipoMascota, jtxtNombre, jtxtRaza, jtxtGenero, jtxtPeso);
+            Utilidades.limpiarTextfields(jtxtIdMascota, jtxtIdCliente, jtxtIdTipoMascota, jtxtNombre, jtxtRaza, jtxtGenero, jtxtPeso);
             JOptionPane.showMessageDialog(this, "Se actualizó correctamente el registro");
             this.listar("");
         } else {

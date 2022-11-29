@@ -2,6 +2,7 @@ package presentacion.login;
 
 import businessobject.UsuarioControl;
 import businessobject.Utilidades;
+import java.util.Objects;
 import javax.swing.JOptionPane;
 
 public class FrmRegistro extends javax.swing.JFrame {
@@ -68,22 +69,12 @@ public class FrmRegistro extends javax.swing.JFrame {
         jtxtNombres.setText("Jhair 2");
         jtxtNombres.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtNombres.setSelectionColor(new java.awt.Color(82, 183, 136));
-        jtxtNombres.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtNombresKeyTyped(evt);
-            }
-        });
         jPanel1.add(jtxtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 190, 30));
 
         jtxtApellidos.setBorder(null);
         jtxtApellidos.setText("Mendoza 2");
         jtxtApellidos.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtApellidos.setSelectionColor(new java.awt.Color(82, 183, 136));
-        jtxtApellidos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtApellidosKeyTyped(evt);
-            }
-        });
         jPanel1.add(jtxtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 335, 190, 30));
 
         jcbxGenero.setBackground(new java.awt.Color(255, 255, 255));
@@ -107,11 +98,6 @@ public class FrmRegistro extends javax.swing.JFrame {
         jtxtDireccion.setText("Piura Castilla");
         jtxtDireccion.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtDireccion.setSelectionColor(new java.awt.Color(82, 183, 136));
-        jtxtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtDireccionKeyTyped(evt);
-            }
-        });
         jPanel1.add(jtxtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 626, 190, 30));
 
         jtxtTelefono.setBackground(new java.awt.Color(255, 255, 255));
@@ -279,7 +265,7 @@ public class FrmRegistro extends javax.swing.JFrame {
 
         labelError.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         labelError.setForeground(new java.awt.Color(228, 49, 49));
-        jPanel1.add(labelError, new org.netbeans.lib.awtextra.AbsoluteConstraints(756, 487, 270, 20));
+        jPanel1.add(labelError, new org.netbeans.lib.awtextra.AbsoluteConstraints(756, 487, 310, 20));
 
         jbtnRegistrarme.setText("Registrarme");
         jbtnRegistrarme.setFocusPainted(false);
@@ -330,7 +316,7 @@ public class FrmRegistro extends javax.swing.JFrame {
 
     private void jbtnRegistrarmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarmeActionPerformed
 
-        if (UsuarioControl.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDNI, jtxtDireccion, jtxtCorreo, jtxtPass)) {
+        if (Utilidades.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDNI, jtxtDireccion, jtxtCorreo, jtxtPass) && Objects.isNull(jdcFechaNacimiento.getCalendar())) {
             labelError.setText("Error, debe completar todos los campos.");
             return;
         }
@@ -358,21 +344,9 @@ public class FrmRegistro extends javax.swing.JFrame {
         labelError.setText(Utilidades.validarEmail(jtxtCorreo.getText()));
     }//GEN-LAST:event_jtxtCorreoKeyTyped
 
-    private void jtxtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNombresKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtNombresKeyTyped
-
     private void jtxtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtDNIKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtDNIKeyTyped
-
-    private void jtxtApellidosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtApellidosKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtApellidosKeyTyped
-
-    private void jtxtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtDireccionKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtxtDireccionKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jBrownBottonWave;

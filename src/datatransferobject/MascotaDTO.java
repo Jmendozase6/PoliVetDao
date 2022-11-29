@@ -9,8 +9,15 @@ public class MascotaDTO {
     private String raza;
     private String genero;
     private String peso;
+    private String tipoMascota;
 
     public MascotaDTO () {
+    }
+
+    public MascotaDTO (int idMascota, String tipoMascota, String nombre) {
+        this.idMascota = idMascota;
+        this.tipoMascota = tipoMascota;
+        this.nombre = nombre;
     }
 
     public MascotaDTO (int idUsuario, int idTipoMascota, String nombre, String raza, String genero, String peso) {
@@ -88,9 +95,17 @@ public class MascotaDTO {
         this.peso = peso;
     }
 
+    public String getTipoMascota () {
+        return tipoMascota;
+    }
+
+    public void setTipoMascota (String tipoMascota) {
+        this.tipoMascota = tipoMascota;
+    }
+
     @Override
     public String toString () {
-        return "MascotaDTO{" + "idMascota=" + idMascota + ", idUsuario=" + idUsuario + ", idTipoMascota=" + idTipoMascota + ", raza=" + raza + ", genero=" + genero + ", peso=" + peso + '}';
+        return idMascota + " - " + tipoMascota + " - " + nombre;
     }
 
 }

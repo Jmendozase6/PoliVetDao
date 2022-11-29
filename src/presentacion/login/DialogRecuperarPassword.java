@@ -389,7 +389,7 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
     }//GEN-LAST:event_jtxt4KeyTyped
 
     private void jbtnVerificarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVerificarCodigoActionPerformed
-        if (UsuarioControl.sonTextfieldsVacios(jtxt1, jtxt2, jtxt3, jtxt4)) {
+        if (Utilidades.sonTextfieldsVacios(jtxt1, jtxt2, jtxt3, jtxt4)) {
             labelErrorVerificacion.setText("Error, debe completar todos los campos.");
             return;
         }
@@ -427,7 +427,7 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
 
     private void jbtnGuardarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarClaveActionPerformed
 
-        if (UsuarioControl.sonTextfieldsVacios(jtxtPass1, jtxtPass2)) {
+        if (Utilidades.sonTextfieldsVacios(jtxtPass1, jtxtPass2)) {
             labelErrorNuevaClave.setText("Error, debe completar todos los campos.");
             return;
         }

@@ -3,6 +3,7 @@ package presentacion.usuarios.veterinario;
 import businessobject.MascotaControl;
 import businessobject.TipoMascotaControl;
 import businessobject.UsuarioControl;
+import businessobject.Utilidades;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -60,7 +61,6 @@ public class DialogRegistrarMascota extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(320, 680));
-        setPreferredSize(new java.awt.Dimension(320, 680));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelCustom2.setBackground(new java.awt.Color(255, 255, 255));
@@ -71,13 +71,11 @@ public class DialogRegistrarMascota extends javax.swing.JDialog {
         panelCustom2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jcbxCliente.setBackground(new java.awt.Color(255, 255, 255));
-        jcbxCliente.setEditable(true);
         jcbxCliente.setFont(new java.awt.Font("Gilroy-Regular", 0, 12)); // NOI18N
         jcbxCliente.setBorder(null);
         panelCustom2.add(jcbxCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 105, 200, 30));
 
         jcbxTipoMascota.setBackground(new java.awt.Color(255, 255, 255));
-        jcbxTipoMascota.setEditable(true);
         jcbxTipoMascota.setFont(new java.awt.Font("Gilroy-Regular", 0, 12)); // NOI18N
         jcbxTipoMascota.setBorder(null);
         panelCustom2.add(jcbxTipoMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 185, 200, 30));
@@ -181,7 +179,7 @@ public class DialogRegistrarMascota extends javax.swing.JDialog {
 
     private void jbtnRegistrarMascotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarMascotaActionPerformed
 
-        if (UsuarioControl.sonTextfieldsVacios(jtxtNombre, jtxtRaza, jtxtGenero, jtxtPeso)) {
+        if (Utilidades.sonTextfieldsVacios(jtxtNombre, jtxtRaza, jtxtGenero, jtxtPeso)) {
             labelError.setText("Error, debe completar todos los campos.");
             return;
         }

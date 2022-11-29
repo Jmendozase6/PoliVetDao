@@ -32,7 +32,8 @@ public class Cart extends JComponent {
             "Apellidos",
             "Edad",
             "Description",
-            new ImageIcon(getClass().getResource("/presentacion/files/mascota/cart1.png")));
+            new ImageIcon(getClass().getResource("/presentacion/files/mascota/cart1.png")),
+            "https://Web.whatsapp.com/");
 
     public Cart () {
         setBackground(Color.WHITE);
@@ -175,6 +176,7 @@ public class Cart extends JComponent {
 
     public void setModel (ModelCart model) {
         this.model = model;
-        cartLayer.setModel(model);
+        cartLayer.setTextos(model);
     }
+
 }

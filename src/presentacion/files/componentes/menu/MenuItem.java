@@ -3,6 +3,7 @@ package presentacion.files.componentes.menu;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -45,6 +46,8 @@ public class MenuItem extends JPanel {
         Item menu = new Item(true, 0);
         menu.setGoogleIcon(item.getIcon());
         menu.setText("  " + item.getMenuName());
+        menu.setFont(new Font("Monospaced", 0, 12) {
+        });
         menu.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered (MouseEvent e) {
@@ -78,6 +81,8 @@ public class MenuItem extends JPanel {
         for (String subMenu : item.getSubMenu()) {
             Item sMenu = new Item(false, ++subIndex);
             sMenu.setText(subMenu);
+            sMenu.setFont(new Font("Monospaced", 0, 12) {
+            });
             sMenu.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed (ActionEvent arg0) {

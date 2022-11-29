@@ -4,6 +4,7 @@ import dataaccessobject.MascotaDAO;
 import datatransferobject.MascotaDTO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 public class MascotaControl {
@@ -59,6 +60,10 @@ public class MascotaControl {
         } else {
             return "No se puede actualizar el registro";
         }
+    }
+
+    public DefaultComboBoxModel seleccionar () {
+        return new DefaultComboBoxModel(DATOS.seleccionar().toArray());
     }
 
 }

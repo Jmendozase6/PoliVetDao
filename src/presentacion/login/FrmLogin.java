@@ -257,7 +257,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void jbtnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnIniciarSesionActionPerformed
 
-        if (UsuarioControl.sonTextfieldsVacios(jtxtEmail, jtxtPass)) {
+        if (Utilidades.sonTextfieldsVacios(jtxtEmail, jtxtPass)) {
             labelError.setText("Error, debe completar todos los campos.");
             return;
         }

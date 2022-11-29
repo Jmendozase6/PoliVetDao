@@ -4,6 +4,10 @@ import javaswingdev.GoogleMaterialDesignIcon;
 
 public class ModelMenuItem {
 
+    private GoogleMaterialDesignIcon icon;
+    private String menuName;
+    private String subMenu[];
+
     public GoogleMaterialDesignIcon getIcon () {
         return icon;
     }
@@ -37,7 +41,4 @@ public class ModelMenuItem {
     public ModelMenuItem () {
     }
 
-    private GoogleMaterialDesignIcon icon;
-    private String menuName;
-    private String subMenu[];
 }

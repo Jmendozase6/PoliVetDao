@@ -152,21 +152,4 @@ public class UsuarioControl {
         }
     }
 
-    public static boolean sonTextfieldsVacios (JTextField... jtxt) {
-        for (JTextField item : jtxt) {
-
-            if (item.getText().isBlank()) {
-                System.out.println(item.getText());
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static void limpiarTextfields (JTextField... jtxt) {
-        for (JTextField item : jtxt) {
-            item.setText("");
-        }
-    }
-
 }
