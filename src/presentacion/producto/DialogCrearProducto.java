@@ -65,6 +65,7 @@ public class DialogCrearProducto extends javax.swing.JDialog {
         jLabel12 = new javax.swing.JLabel();
         jtxtCantidad = new javax.swing.JTextField();
         jCorreo7 = new javax.swing.JLabel();
+        cerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(320, 680));
@@ -206,6 +207,18 @@ public class DialogCrearProducto extends javax.swing.JDialog {
         jCorreo7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/textfield/txtNombres.png"))); // NOI18N
         panelCustom2.add(jCorreo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 660, -1, -1));
 
+        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/iconCerrar.png"))); // NOI18N
+        cerrar.setBorderPainted(false);
+        cerrar.setContentAreaFilled(false);
+        cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cerrar.setFocusPainted(false);
+        cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarActionPerformed(evt);
+            }
+        });
+        panelCustom2.add(cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 24, 24));
+
         getContentPane().add(panelCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 810));
 
         pack();
@@ -238,7 +251,12 @@ public class DialogCrearProducto extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jbtnRegistrarMascotaActionPerformed
 
+    private void cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cerrarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cerrar;
     private javax.swing.JLabel jCorreo1;
     private javax.swing.JLabel jCorreo2;
     private javax.swing.JLabel jCorreo3;

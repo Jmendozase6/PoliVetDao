@@ -6,12 +6,12 @@ public class VentaDTO {
 
     private int idVenta;
     private int idUsuario;
-    private Date fecha;
+    private String fecha;
 
     public VentaDTO () {
     }
 
-    public VentaDTO (int idVenta, int idUsuario, Date fecha) {
+    public VentaDTO (int idVenta, int idUsuario, String fecha) {
         this.idVenta = idVenta;
         this.idUsuario = idUsuario;
         this.fecha = fecha;
@@ -33,11 +33,11 @@ public class VentaDTO {
         this.idUsuario = idUsuario;
     }
 
-    public Date getFecha () {
+    public String getFecha () {
         return fecha;
     }
 
-    public void setFecha (Date fecha) {
+    public void setFecha (String fecha) {
         this.fecha = fecha;
     }
 

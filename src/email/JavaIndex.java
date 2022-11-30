@@ -75,7 +75,7 @@ public class JavaIndex {
                     + "\n"
                     + "                            <p style=\"margin-top: 16px; margin-bottom: 16px;\">Atentamente.</p>\n"
                     + "\n"
-                    + "                            <p style=\"margin-top: 16px; margin-bottom: 16px;\">El equipo de cuentas de PoliVet PetCare</p>\n"
+                    + "                            <p style=\"margin-top: 16px; margin-bottom: 16px;\">El equipo de cuentas de PoliVet PetCare.</p>\n"
                     + "\n"
                     + "                            <img style=\"display: block; width: 100%; margin: 72px auto;\" src=\"https://res.cloudinary.com/dgna2mogt/image/upload/v1669742337/sdcmniswnoaneytmwr8h.png\" alt=\"\">\n"
                     + "                        </div>\n"

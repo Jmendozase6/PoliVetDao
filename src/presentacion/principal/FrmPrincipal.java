@@ -3,6 +3,7 @@ package presentacion.principal;
 import businessobject.UsuarioActivo;
 import java.awt.Component;
 import javax.swing.JOptionPane;
+import presentacion.configuracion.DialogColorAlertas;
 import presentacion.configuracion.FrmEditarPerfil;
 import presentacion.login.*;
 import presentacion.producto.*;
@@ -10,13 +11,13 @@ import presentacion.usuarios.*;
 import presentacion.usuarios.administador.FrmDetalleVenta;
 import presentacion.usuarios.administador.FrmEstadisticas;
 import presentacion.usuarios.veterinario.*;
-import presentacion.vacio.FrmVacio;
+import presentacion.inicio.FrmInicio;
 
 public class FrmPrincipal extends javax.swing.JFrame {
 
     public FrmPrincipal () {
         initComponents();
-        showForm(new FrmVacio());
+        showForm(new FrmInicio());
         addEvent();
     }
 
@@ -29,7 +30,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void switchAdministrador (int index, int indexSubMenu) {
         if (index == 0) {
-            showForm(new FrmVacio());
+            showForm(new FrmInicio());
         }
         if (index == 1) {
             showForm(new FrmCliente());
@@ -44,25 +45,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
             showForm(new FrmDetalleVenta());
         }
         if (index == 5) {
-            showForm(new FrmEstadisticas());
-        }
-        if (index == 6) {
             showForm(new FrmProducto());
         }
-        if (index == 7) {
+        if (index == 6) {
             showForm(new FrmReservaCitas());
         }
-        if (index == 8) {
+        if (index == 7) {
             showForm(new FrmMascotas());
         }
-        if (index == 9 && indexSubMenu == 1) {
+        if (index == 8 && indexSubMenu == 1) {
             showForm(new FrmEditarPerfil());
         }
-        if (index == 9 && indexSubMenu == 2) {
-            JOptionPane.showMessageDialog(null, "Alertas");
-            //TODO: MOSTRAR UN JOPTIONPANE PARA ACTIVAR EL MODO OSCURO
+        if (index == 8 && indexSubMenu == 2) {
+            new DialogColorAlertas(this, true).setVisible(true);
         }
-        if (index == 9 && indexSubMenu == 3) {
+        if (index == 8 && indexSubMenu == 3) {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 new FrmLogin().setVisible(true);
                 this.dispose();
@@ -72,7 +69,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void switchCliente (int index, int indexSubMenu) {
         if (index == 0) {
-            showForm(new FrmVacio());
+            showForm(new FrmInicio());
         }
         if (index == 1) {
             showForm(new FrmProducto());
@@ -81,7 +78,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             showForm(new FrmEditarPerfil());
         }
         if (index == 2 && indexSubMenu == 2) {
-            JOptionPane.showMessageDialog(null, "Alertas");
+            new DialogColorAlertas(this, true).setVisible(true);
         }
         if (index == 2 && indexSubMenu == 3) {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -91,26 +88,41 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     }
 
+    private void switchProveedor (int index, int indexSubMenu) {
+        if (index == 0) {
+            showForm(new FrmInicio());
+        }
+        if (index == 1 && indexSubMenu == 1) {
+            showForm(new FrmEditarPerfil());
+        }
+        if (index == 1 && indexSubMenu == 2) {
+            new DialogColorAlertas(this, true).setVisible(true);
+        }
+        if (index == 1 && indexSubMenu == 3) {
+            if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                new FrmLogin().setVisible(true);
+                this.dispose();
+            }
+        }
+    }
+
     private void switchVeterinario (int index, int indexSubMenu) {
         if (index == 0) {
-            showForm(new FrmVacio());
+            showForm(new FrmInicio());
         }
         if (index == 1) {
             showForm(new FrmMascotas());
         }
         if (index == 2) {
-            showForm(new FrmTarjetaVacuna());
-        }
-        if (index == 3) {
             showForm(new FrmReservaCitas());
         }
-        if (index == 4 && indexSubMenu == 1) {
+        if (index == 3 && indexSubMenu == 1) {
             showForm(new FrmEditarPerfil());
         }
-        if (index == 4 && indexSubMenu == 2) {
-            JOptionPane.showMessageDialog(null, "Alertas");
+        if (index == 3 && indexSubMenu == 2) {
+            new DialogColorAlertas(this, true).setVisible(true);
         }
-        if (index == 4 && indexSubMenu == 3) {
+        if (index == 3 && indexSubMenu == 3) {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 new FrmLogin().setVisible(true);
                 this.dispose();
@@ -129,6 +141,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 switchCliente(index, indexSubMenu);
                 return;
             }
+            if (UsuarioActivo.idRol == 3) {
+                switchProveedor(index, indexSubMenu);
+                return;
+            }
             if (UsuarioActivo.idRol == 4) {
                 switchVeterinario(index, indexSubMenu);
             }
@@ -144,9 +160,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menu = new presentacion.files.componentes.menu.Menu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         body.setOpaque(false);

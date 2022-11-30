@@ -2,7 +2,6 @@ package dataaccessobject;
 
 import datasource.ConexionSQL;
 import datatransferobject.MascotaDTO;
-import datatransferobject.UsuarioDTO;
 import interfaces.IMascota;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

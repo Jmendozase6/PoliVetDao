@@ -24,11 +24,20 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
         CONTROL = new UsuarioControl();
     }
 
-    private void validarTextfield (KeyEvent evt, JTextField txt, JTextField nextTxt) {
-        if (!Character.isDigit(evt.getKeyChar()) || txt.getText().length() > 1) {
-            evt.consume();
+    private void verificar () {
+        if (Utilidades.sonTextfieldsVacios(jtxt1, jtxt2, jtxt3, jtxt4)) {
+            labelErrorVerificacion.setText("Error, debe completar todos los campos.");
+            return;
+        }
+
+        String c1 = jtxt1.getText(), c2 = jtxt2.getText(), c3 = jtxt3.getText(), c4 = jtxt4.getText();
+        String codigoDialog = c1.concat(c2.concat(c3.concat(c4)));
+
+        if (codigoGenerado.equals(codigoDialog)) {
+            tabbedCustom1.setSelectedIndex(2);
+            tabbedCustom1.setEnabledAt(1, false);
         } else {
-            nextTxt.requestFocus();
+            labelErrorVerificacion.setText("El código es incorrecto.");
         }
     }
 
@@ -46,12 +55,14 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
         jbtnEnviarCodigo = new presentacion.files.componentes.ButtonCustom();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
-        panelCustom2 = new presentacion.files.componentes.PanelCustom();
         labelErrorRecuperacion = new javax.swing.JLabel();
+        cerrar = new javax.swing.JButton();
+        panelCustom2 = new presentacion.files.componentes.PanelCustom();
         verificacion = new javax.swing.JPanel();
         jCat1 = new javax.swing.JLabel();
         jTitle5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        cerrar1 = new javax.swing.JButton();
         panelCustom4 = new presentacion.files.componentes.PanelCustom();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
@@ -64,6 +75,7 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
         nuevaClave = new javax.swing.JPanel();
         jCat2 = new javax.swing.JLabel();
         jTitle6 = new javax.swing.JLabel();
+        cerrar2 = new javax.swing.JButton();
         panelCustom3 = new presentacion.files.componentes.PanelCustom();
         jSeparator3 = new javax.swing.JSeparator();
         jtxtPass1 = new javax.swing.JPasswordField();
@@ -78,6 +90,7 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
         jtgPassword = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tabbedCustom1.setForeground(new java.awt.Color(255, 255, 255));
@@ -85,7 +98,7 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
         recuperacion.setBackground(new Color(1, 1, 1, 0));
         recuperacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtxtEmailRecuperacion.setBackground(new java.awt.Color(255, 255, 255));
+        jtxtEmailRecuperacion.setBackground(new java.awt.Color(242, 255, 255));
         jtxtEmailRecuperacion.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtEmailRecuperacion.setForeground(new java.awt.Color(51, 51, 51));
         jtxtEmailRecuperacion.setText("jhairmendoza2003@gmail.com");
@@ -134,22 +147,32 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
         jLabel5.setText("<html>Ingresa a tu correo y te enviaremos un código de recuperación</html>");
         recuperacion.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 210, -1));
 
-        panelCustom2.setBackground(new java.awt.Color(255, 255, 255));
+        labelErrorRecuperacion.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        labelErrorRecuperacion.setForeground(new java.awt.Color(228, 49, 49));
+        recuperacion.add(labelErrorRecuperacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 280, 20));
+
+        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/iconCerrar.png"))); // NOI18N
+        cerrar.setBorderPainted(false);
+        cerrar.setContentAreaFilled(false);
+        cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cerrar.setFocusPainted(false);
+        cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarActionPerformed(evt);
+            }
+        });
+        recuperacion.add(cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 24, 24));
+
+        panelCustom2.setBackground(new java.awt.Color(242, 255, 255));
         panelCustom2.setRoundBottomLeft(20);
         panelCustom2.setRoundBottomRight(20);
         panelCustom2.setRoundTopLeft(20);
         panelCustom2.setRoundTopRight(20);
         panelCustom2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        labelErrorRecuperacion.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        labelErrorRecuperacion.setForeground(new java.awt.Color(228, 49, 49));
-        panelCustom2.add(labelErrorRecuperacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 280, 20));
-
         recuperacion.add(panelCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 350));
 
         tabbedCustom1.addTab("", recuperacion);
 
-        verificacion.setBackground(new Color(1,1,1,0));
         verificacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jCat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/catTopForm.png"))); // NOI18N
@@ -167,7 +190,19 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
         jLabel6.setText("Código");
         verificacion.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
 
-        panelCustom4.setBackground(new java.awt.Color(255, 255, 255));
+        cerrar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/iconCerrar.png"))); // NOI18N
+        cerrar1.setBorderPainted(false);
+        cerrar1.setContentAreaFilled(false);
+        cerrar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cerrar1.setFocusPainted(false);
+        cerrar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrar1ActionPerformed(evt);
+            }
+        });
+        verificacion.add(cerrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 24, 24));
+
+        panelCustom4.setBackground(new java.awt.Color(242, 255, 255));
         panelCustom4.setRoundBottomLeft(20);
         panelCustom4.setRoundBottomRight(20);
         panelCustom4.setRoundTopLeft(20);
@@ -253,7 +288,19 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
         jTitle6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         nuevaClave.add(jTitle6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 160, -1));
 
-        panelCustom3.setBackground(new java.awt.Color(255, 255, 255));
+        cerrar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/iconCerrar.png"))); // NOI18N
+        cerrar2.setBorderPainted(false);
+        cerrar2.setContentAreaFilled(false);
+        cerrar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cerrar2.setFocusPainted(false);
+        cerrar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrar2ActionPerformed(evt);
+            }
+        });
+        nuevaClave.add(cerrar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 24, 24));
+
+        panelCustom3.setBackground(new java.awt.Color(242, 255, 255));
         panelCustom3.setRoundBottomLeft(20);
         panelCustom3.setRoundBottomRight(20);
         panelCustom3.setRoundTopLeft(20);
@@ -263,7 +310,7 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
         jSeparator3.setForeground(new java.awt.Color(82, 183, 136));
         panelCustom3.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 109, 141, 10));
 
-        jtxtPass1.setBackground(new java.awt.Color(255, 255, 255));
+        jtxtPass1.setBackground(new java.awt.Color(242, 255, 255));
         jtxtPass1.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtPass1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jtxtPass1.setBorder(null);
@@ -276,7 +323,7 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
         });
         panelCustom3.add(jtxtPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 153, 170, 30));
 
-        jtxtPass2.setBackground(new java.awt.Color(255, 255, 255));
+        jtxtPass2.setBackground(new java.awt.Color(242, 255, 255));
         jtxtPass2.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtPass2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jtxtPass2.setBorder(null);
@@ -356,6 +403,7 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
     }//GEN-LAST:event_jtxtEmailRecuperacionKeyTyped
 
     private void jbtnEnviarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnEnviarCodigoActionPerformed
+
         if (jtxtEmailRecuperacion.getText().isBlank()) {
             labelErrorRecuperacion.setText("Error, debe completar todos los campos.");
             return;
@@ -374,36 +422,43 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
     }//GEN-LAST:event_jbtnEnviarCodigoActionPerformed
 
     private void jtxt1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxt1KeyTyped
-        validarTextfield(evt, jtxt1, jtxt2);
+
+        String portapapeles = new Utilidades().obtenerCodigoPortaPapeles();
+        if (portapapeles != null) {
+            char[] codigo = portapapeles.toCharArray();
+            jtxt1.setText(String.valueOf(codigo[0]));
+            jtxt2.setText(String.valueOf(codigo[1]));
+            jtxt3.setText(String.valueOf(codigo[2]));
+            jtxt4.setText(String.valueOf(codigo[3]));
+            this.verificar();
+            jbtnEnviarCodigo.requestFocus();
+        } else {
+            jtxt1.setText("");
+        }
+
     }//GEN-LAST:event_jtxt1KeyTyped
 
     private void jtxt2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxt2KeyTyped
-        validarTextfield(evt, jtxt2, jtxt3);
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jtxt2KeyTyped
 
     private void jtxt3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxt3KeyTyped
-        validarTextfield(evt, jtxt3, jtxt4);
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jtxt3KeyTyped
 
     private void jtxt4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxt4KeyTyped
-        validarTextfield(evt, jtxt4, jtxt4);
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jtxt4KeyTyped
 
     private void jbtnVerificarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVerificarCodigoActionPerformed
-        if (Utilidades.sonTextfieldsVacios(jtxt1, jtxt2, jtxt3, jtxt4)) {
-            labelErrorVerificacion.setText("Error, debe completar todos los campos.");
-            return;
-        }
 
-        String c1 = jtxt1.getText(), c2 = jtxt2.getText(), c3 = jtxt3.getText(), c4 = jtxt4.getText();
-        String codigoDialog = c1.concat(c2.concat(c3.concat(c4)));
-
-        if (codigoGenerado.equals(codigoDialog)) {
-            tabbedCustom1.setSelectedIndex(2);
-            tabbedCustom1.setEnabledAt(1, false);
-        } else {
-            labelErrorVerificacion.setText("El código es incorrecto.");
-        }
+        this.verificar();
     }//GEN-LAST:event_jbtnVerificarCodigoActionPerformed
 
     private void jtxtPass1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPass1KeyPressed
@@ -434,7 +489,7 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
         }
 
         String resp = CONTROL.actualizarPassword(emailActualizar, jtxtPass1.getText());
-        System.out.println(resp);
+
         if (resp.equalsIgnoreCase("OK")) {
             JOptionPane.showMessageDialog(this, "Se actualizó correctamente la contraseña.");
         } else {
@@ -449,7 +504,22 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
                 : '*');
     }//GEN-LAST:event_jtgPasswordActionPerformed
 
+    private void cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cerrarActionPerformed
+
+    private void cerrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrar1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cerrar1ActionPerformed
+
+    private void cerrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrar2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cerrar2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cerrar;
+    private javax.swing.JButton cerrar1;
+    private javax.swing.JButton cerrar2;
     private javax.swing.JLabel jCat;
     private javax.swing.JLabel jCat1;
     private javax.swing.JLabel jCat2;

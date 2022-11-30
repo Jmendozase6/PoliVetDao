@@ -6,7 +6,6 @@ public class EmailDTO {
     private final String passwordFOrigen = "ztngriztrdjhrzfj";
     private String destinatario;
     private String asunto;
-    private String contenido;
 
     public EmailDTO () {
     }
@@ -35,17 +34,9 @@ public class EmailDTO {
         this.asunto = asunto;
     }
 
-    public String getContenido () {
-        return contenido;
-    }
-
-    public void setContenido (String contenido) {
-        this.contenido = contenido;
-    }
-
     @Override
     public String toString () {
-        return "EmailDAO{" + "emailOrigen=" + emailOrigen + ", passwordFOrigen=" + passwordFOrigen + ", destinatario=" + destinatario + ", asunto=" + asunto + ", contenido=" + contenido + '}';
+        return "EmailDTO{" + "emailOrigen=" + emailOrigen + ", passwordFOrigen=" + passwordFOrigen + ", destinatario=" + destinatario + ", asunto=" + asunto + '}';
     }
 
 }

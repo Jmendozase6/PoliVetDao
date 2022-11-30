@@ -33,10 +33,11 @@ public class DialogCambiarTipo extends javax.swing.JDialog {
         jbtnRegistrarMascota = new presentacion.files.componentes.ButtonCustom();
         jTitle4 = new javax.swing.JLabel();
         jcbxTipoProducto = new javax.swing.JComboBox<>();
+        cerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panelCustom2.setBackground(new java.awt.Color(255, 255, 255));
+        panelCustom2.setBackground(new java.awt.Color(242, 255, 255));
         panelCustom2.setRoundBottomLeft(20);
         panelCustom2.setRoundBottomRight(20);
         panelCustom2.setRoundTopLeft(20);
@@ -55,14 +56,26 @@ public class DialogCambiarTipo extends javax.swing.JDialog {
 
         jTitle4.setFont(new java.awt.Font("Gilroy-ExtraBold", 0, 24)); // NOI18N
         jTitle4.setForeground(new java.awt.Color(82, 183, 136));
-        jTitle4.setText("Seleccione una categoría");
-        panelCustom2.add(jTitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        jTitle4.setText("Seleccione un tipo");
+        panelCustom2.add(jTitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, -1, -1));
 
-        jcbxTipoProducto.setBackground(new java.awt.Color(255, 255, 255));
+        jcbxTipoProducto.setBackground(new java.awt.Color(242, 255, 255));
         jcbxTipoProducto.setFont(new java.awt.Font("Gilroy-Regular", 0, 12)); // NOI18N
         jcbxTipoProducto.setForeground(new java.awt.Color(51, 51, 51));
         jcbxTipoProducto.setBorder(null);
         panelCustom2.add(jcbxTipoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 270, 40));
+
+        cerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/iconCerrar.png"))); // NOI18N
+        cerrar.setBorderPainted(false);
+        cerrar.setContentAreaFilled(false);
+        cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cerrar.setFocusPainted(false);
+        cerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrarActionPerformed(evt);
+            }
+        });
+        panelCustom2.add(cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 24, 24));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,7 +97,12 @@ public class DialogCambiarTipo extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jbtnRegistrarMascotaActionPerformed
 
+    private void cerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cerrarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cerrar;
     private javax.swing.JLabel jTitle4;
     private presentacion.files.componentes.ButtonCustom jbtnRegistrarMascota;
     private javax.swing.JComboBox<String> jcbxTipoProducto;

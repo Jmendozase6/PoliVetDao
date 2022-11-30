@@ -25,6 +25,34 @@ public class FrmLogin extends javax.swing.JFrame {
         jtxtPass.setText(password);
     }
 
+    private void iniciarSesion () {
+        if (Utilidades.sonTextfieldsVacios(jtxtEmail, jtxtPass)) {
+            labelError.setText("Error, debe completar todos los campos.");
+            return;
+        }
+
+        UsuarioControl control = new UsuarioControl();
+        String resp = control.login(jtxtEmail.getText(), jtxtPass.getText());
+
+        switch (resp) {
+            case "0":
+                JOptionPane.showMessageDialog(this, "Los datos de acceso son incorrectos.", "Sistema", JOptionPane.ERROR_MESSAGE);
+                break;
+            case "1":
+                if (jchRecordar.isSelected()) {
+                    CONTROL.guardarCorreo(jtxtEmail.getText());
+                }
+                this.dispose();
+                FrmPrincipal frm = new FrmPrincipal();
+                frm.toFront();
+                frm.setVisible(true);
+                break;
+            case "2":
+                JOptionPane.showMessageDialog(this, "Su cuenta está inactiva", "Sistema", JOptionPane.ERROR_MESSAGE);
+                break;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -37,7 +65,6 @@ public class FrmLogin extends javax.swing.JFrame {
         jAstronautDog = new javax.swing.JLabel();
         jDog = new javax.swing.JLabel();
         jBrownBottonWave = new javax.swing.JLabel();
-        jGreenTopWave = new javax.swing.JLabel();
         jTitle4 = new javax.swing.JLabel();
         jtxtEmail = new presentacion.files.componentes.TextFieldSuggestionCustom();
         jtxtPass = new javax.swing.JPasswordField();
@@ -55,10 +82,9 @@ public class FrmLogin extends javax.swing.JFrame {
         jGreenBackForm1 = new javax.swing.JLabel();
         jGreenBackForm2 = new javax.swing.JLabel();
         jbtnRegistrarse = new presentacion.files.componentes.ButtonCustom();
+        jGreenTopWave = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1300, 800));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(232, 245, 254));
@@ -90,9 +116,6 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jBrownBottonWave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/brownBottomWave.png"))); // NOI18N
         jPanel1.add(jBrownBottonWave, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 700, -1, -1));
-
-        jGreenTopWave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/greenTopWave.png"))); // NOI18N
-        jPanel1.add(jGreenTopWave, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jTitle4.setFont(new java.awt.Font("Gilroy-ExtraBold", 0, 24)); // NOI18N
         jTitle4.setForeground(new java.awt.Color(82, 183, 136));
@@ -231,6 +254,9 @@ public class FrmLogin extends javax.swing.JFrame {
         });
         jPanel1.add(jbtnRegistrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 240, 40));
 
+        jGreenTopWave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/greenTopWave.png"))); // NOI18N
+        jPanel1.add(jGreenTopWave, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -258,32 +284,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jtgPasswordActionPerformed
 
     private void jbtnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnIniciarSesionActionPerformed
-
-        if (Utilidades.sonTextfieldsVacios(jtxtEmail, jtxtPass)) {
-            labelError.setText("Error, debe completar todos los campos.");
-            return;
-        }
-
-        UsuarioControl control = new UsuarioControl();
-        String resp = control.login(jtxtEmail.getText(), jtxtPass.getText());
-
-        switch (resp) {
-            case "0":
-                JOptionPane.showMessageDialog(this, "Los datos de acceso son incorrectos.", "Sistema", JOptionPane.ERROR_MESSAGE);
-                break;
-            case "1":
-                if (jchRecordar.isSelected()) {
-                    CONTROL.guardarCorreo(jtxtEmail.getText());
-                }
-                this.dispose();
-                FrmPrincipal frm = new FrmPrincipal();
-                frm.toFront();
-                frm.setVisible(true);
-                break;
-            case "2":
-                JOptionPane.showMessageDialog(this, "El usuario está inactivo", "Sistema", JOptionPane.ERROR_MESSAGE);
-                break;
-        }
+        this.iniciarSesion();
     }//GEN-LAST:event_jbtnIniciarSesionActionPerformed
 
     private void jbtnOlvidasePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnOlvidasePassActionPerformed
@@ -300,11 +301,14 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void jtxtPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPassKeyTyped
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
-            jbtnIniciarSesion.requestFocus();
+            this.iniciarSesion();
         }
     }//GEN-LAST:event_jtxtPassKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cerrar2;
+    private javax.swing.JButton cerrar3;
+    private javax.swing.JButton cerrar4;
     private javax.swing.JLabel jAstronautDog;
     private javax.swing.JLabel jBrownBottonWave;
     private javax.swing.JLabel jCat;

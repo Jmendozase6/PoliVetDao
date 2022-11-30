@@ -74,7 +74,6 @@ public class FrmEditarPerfil extends javax.swing.JPanel {
         panelCustom2 = new presentacion.files.componentes.PanelCustom();
         jGreenBackForm1 = new javax.swing.JLabel();
         jGreenBackForm2 = new javax.swing.JLabel();
-        jGreenTopWave = new javax.swing.JLabel();
         jBrownBottonWave = new javax.swing.JLabel();
         jTitle5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -85,6 +84,7 @@ public class FrmEditarPerfil extends javax.swing.JPanel {
         jbtnActualizarDatos = new presentacion.files.componentes.ButtonCustom();
         panelCustom3 = new presentacion.files.componentes.PanelCustom();
         jGreenBackForm3 = new javax.swing.JLabel();
+        jGreenTopWave = new javax.swing.JLabel();
         jGreenBackForm4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(232, 245, 254));
@@ -233,9 +233,6 @@ public class FrmEditarPerfil extends javax.swing.JPanel {
         jGreenBackForm2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/greenBackForm.png"))); // NOI18N
         add(jGreenBackForm2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 123, -1, -1));
 
-        jGreenTopWave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/greenTopWave.png"))); // NOI18N
-        add(jGreenTopWave, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         jBrownBottonWave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/brownBottomWave.png"))); // NOI18N
         add(jBrownBottonWave, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 800, -1, -1));
 
@@ -285,12 +282,15 @@ public class FrmEditarPerfil extends javax.swing.JPanel {
         jGreenBackForm3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/greenBackForm.png"))); // NOI18N
         add(jGreenBackForm3, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 123, -1, -1));
 
+        jGreenTopWave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/greenTopWave.png"))); // NOI18N
+        add(jGreenTopWave, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         jGreenBackForm4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/greenBackForm.png"))); // NOI18N
         add(jGreenBackForm4, new org.netbeans.lib.awtextra.AbsoluteConstraints(735, 290, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtxtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtDNIKeyTyped
-        if (Character.isDigit(evt.getKeyChar()) || jtxtDNI.getText().length() == 8) {
+        if (!Character.isDigit(evt.getKeyChar()) || jtxtDNI.getText().length() == 8) {
             evt.consume();
         }
     }//GEN-LAST:event_jtxtDNIKeyTyped
@@ -304,6 +304,12 @@ public class FrmEditarPerfil extends javax.swing.JPanel {
         if (Utilidades.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDNI, jtxtDireccion, jtxtEmail) || Objects.isNull(jdcFechaNacimiento.getCalendar())) {
             labelError.setText("Error, debe completar todos los campos.");
             return;
+        }
+
+        try {
+            Long.parseLong(jtxtDNI.getText());
+        } catch (NumberFormatException e) {
+            labelError.setText("Error, el dni debe ser numérico");
         }
 
         UsuarioDTO userTemp = new UsuarioDTO(usuario.getIdUsuario(), jtxtNombres.getText(), jtxtApellidos.getText(), Byte.parseByte(String.valueOf(jcbxGenero.getSelectedIndex())), Utilidades.obtenerFechaChooser(jdcFechaNacimiento), jtxtDNI.getText(), jtxtDireccion.getText(), jtxtTelefono.getText(), jtxtEmail.getText());

@@ -238,10 +238,10 @@ public class FrmMascotas extends javax.swing.JPanel {
         jCorreo2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/textfield/txtCorreoElectronico.png"))); // NOI18N
         add(jCorreo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 680, -1, 40));
 
-        jLabel17.setFont(new java.awt.Font("Gilroy-Regular", 0, 48)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Hey Comic", 0, 48)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(43, 45, 66));
         jLabel17.setText("MASCOTAS");
-        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 45, -1, -1));
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 40, -1, -1));
 
         labelError.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         labelError.setForeground(new java.awt.Color(228, 49, 49));

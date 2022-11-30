@@ -1,5 +1,6 @@
 package dataaccessobject;
 
+import businessobject.EncriptacionAES;
 import businessobject.UsuarioActivo;
 import datasource.ConexionSQL;
 import datatransferobject.UsuarioDTO;
@@ -16,6 +17,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
     private PreparedStatement ps;
     private ResultSet rs;
     private boolean resp;
+    EncriptacionAES aes = new EncriptacionAES();
 
     public UsuarioDAO () {
         CON = ConexionSQL.getInstance();
@@ -81,10 +83,12 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
     public UsuarioDTO login (String email, String password) {
         UsuarioDTO usuario = null;
 
+        String passwordEncriptada = aes.encriptar(password);
+
         try {
             ps = CON.conectar().prepareStatement("SELECT * FROM Usuario WHERE email = ? AND password = ?");
             ps.setString(1, email);
-            ps.setString(2, password);
+            ps.setString(2, passwordEncriptada);
             rs = ps.executeQuery();
 
             if (rs.next()) {
@@ -115,9 +119,10 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
 
     public boolean actualizarPassword (String email, String pass) {
         resp = false;
+        String passwordEncriptada = aes.encriptar(pass);
         try {
             ps = CON.conectar().prepareStatement("UPDATE Usuario SET password = ? WHERE email = ?");
-            ps.setString(1, pass);
+            ps.setString(1, passwordEncriptada);
             ps.setString(2, email);
 
             if (ps.executeUpdate() > 0) {
@@ -136,7 +141,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
     @Override
     public boolean agregar (UsuarioDTO objeto) {
         resp = false;
-
+        String passwordEncriptada = aes.encriptar(objeto.getPassword());
         try {
             ps = CON.conectar().prepareStatement("INSERT INTO Usuario(idRol, nombres, apellidos, idGenero, fechaNacimiento, idTipoDocumento, documento, direccion, telefonoMovil, email, password, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,1)");
             ps.setShort(1, objeto.getIdRol());
@@ -149,7 +154,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
             ps.setString(8, objeto.getDireccion());
             ps.setString(9, objeto.getTelefonoMovil());
             ps.setString(10, objeto.getEmail());
-            ps.setString(11, objeto.getPassword());
+            ps.setString(11, passwordEncriptada);
             if (ps.executeUpdate() > 0) {
                 resp = true;
             }

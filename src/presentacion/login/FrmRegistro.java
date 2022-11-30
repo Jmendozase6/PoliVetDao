@@ -12,6 +12,44 @@ public class FrmRegistro extends javax.swing.JFrame {
         Utilidades.colorDateChooser(jdcFechaNacimiento);
     }
 
+    private void registrarme () {
+
+        if (Utilidades.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDNI, jtxtDireccion, jtxtCorreo, jtxtPass) || Objects.isNull(jdcFechaNacimiento.getCalendar())) {
+            labelError.setText("Error, debe completar todos los campos.");
+            return;
+        }
+
+        if (jtxtPass.getText().length() > 15) {
+            labelError.setText("La contraseña no debe ser mayor a 15 caractéres");
+            return;
+        }
+
+        try {
+            Integer.parseInt(jtxtDNI.getText());
+        } catch (NumberFormatException e) {
+            labelError.setText("Error, el dni debe ser numérico");
+            return;
+        }
+
+        UsuarioControl CONTROL = new UsuarioControl();
+        String email = jtxtCorreo.getText(), pass = jtxtPass.getText();
+        String resp = CONTROL.agregar((byte) 2, jtxtNombres.getText(), jtxtApellidos.getText(), (byte) jcbxGenero.getSelectedIndex(), Utilidades.obtenerFechaChooser(jdcFechaNacimiento), (byte) 1, jtxtDNI.getText(), jtxtDireccion.getText(), jtxtTelefono.getText(), email, pass);
+
+        switch (resp) {
+            case "El registro ya existe.":
+                JOptionPane.showMessageDialog(this, "El email o DNI ya están registrado en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
+                break;
+            case "OK":
+                JOptionPane.showMessageDialog(this, "Se registró correctamente", "Sistema", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+                new FrmLogin(email, pass).setVisible(true);
+                break;
+            case "Error en el registro.":
+                JOptionPane.showMessageDialog(this, "Ocurrió un error en el registro.", "Sistema", JOptionPane.ERROR_MESSAGE);
+                break;
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -137,6 +175,11 @@ public class FrmRegistro extends javax.swing.JFrame {
         jtxtPass.setText("jhair2");
         jtxtPass.setBorder(null);
         jtxtPass.setEchoChar('*');
+        jtxtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtPassKeyTyped(evt);
+            }
+        });
         jPanel1.add(jtxtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 437, 170, 30));
 
         jTitle4.setFont(new java.awt.Font("Gilroy-ExtraBold", 0, 24)); // NOI18N
@@ -325,29 +368,7 @@ public class FrmRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_jtgPasswordActionPerformed
 
     private void jbtnRegistrarmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarmeActionPerformed
-
-        if (Utilidades.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDNI, jtxtDireccion, jtxtCorreo, jtxtPass) || Objects.isNull(jdcFechaNacimiento.getCalendar())) {
-            labelError.setText("Error, debe completar todos los campos.");
-            return;
-        }
-
-        UsuarioControl CONTROL = new UsuarioControl();
-        String email = jtxtCorreo.getText(), pass = jtxtPass.getText();
-        String resp = CONTROL.agregar((byte) 2, jtxtNombres.getText(), jtxtApellidos.getText(), (byte) jcbxGenero.getSelectedIndex(), Utilidades.obtenerFechaChooser(jdcFechaNacimiento), (byte) 1, jtxtDNI.getText(), jtxtDireccion.getText(), jtxtTelefono.getText(), email, pass);
-
-        switch (resp) {
-            case "El registro ya existe.":
-                JOptionPane.showMessageDialog(this, "El email o DNI ya están registrado en el sistema.", "Error", JOptionPane.ERROR_MESSAGE);
-                break;
-            case "OK":
-                JOptionPane.showMessageDialog(this, "Se registró correctamente", "Sistema", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
-                new FrmLogin(email, pass).setVisible(true);
-                break;
-            case "Error en el registro.":
-                JOptionPane.showMessageDialog(this, "Ocurrió un error en el registro.", "Sistema", JOptionPane.ERROR_MESSAGE);
-                break;
-        }
+        this.registrarme();
     }//GEN-LAST:event_jbtnRegistrarmeActionPerformed
 
     private void jtxtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCorreoKeyTyped
@@ -355,10 +376,14 @@ public class FrmRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxtCorreoKeyTyped
 
     private void jtxtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtDNIKeyTyped
-        if (Character.isDigit(evt.getKeyChar()) || jtxtDNI.getText().length() == 8) {
+        if (!Character.isDigit(evt.getKeyChar()) || jtxtDNI.getText().length() == 8) {
             evt.consume();
         }
     }//GEN-LAST:event_jtxtDNIKeyTyped
+
+    private void jtxtPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtPassKeyTyped
+        this.registrarme();
+    }//GEN-LAST:event_jtxtPassKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jBrownBottonWave;

@@ -50,6 +50,7 @@ public class DialogCrearReserva extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTitle4 = new javax.swing.JLabel();
+        cerrar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(320, 680));
@@ -130,6 +131,18 @@ public class DialogCrearReserva extends javax.swing.JDialog {
         jTitle4.setText("Crear Reserva");
         panelCustom2.add(jTitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
 
+        cerrar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/iconCerrar.png"))); // NOI18N
+        cerrar2.setBorderPainted(false);
+        cerrar2.setContentAreaFilled(false);
+        cerrar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cerrar2.setFocusPainted(false);
+        cerrar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrar2ActionPerformed(evt);
+            }
+        });
+        panelCustom2.add(cerrar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 24, 24));
+
         getContentPane().add(panelCustom2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 500));
 
         pack();
@@ -159,7 +172,14 @@ public class DialogCrearReserva extends javax.swing.JDialog {
 
     }//GEN-LAST:event_jbtnRegistrarMascotaActionPerformed
 
+    private void cerrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrar2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cerrar2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cerrar;
+    private javax.swing.JButton cerrar1;
+    private javax.swing.JButton cerrar2;
     private javax.swing.JLabel jCorreo1;
     private javax.swing.JLabel jCorreo3;
     private javax.swing.JLabel jCorreo4;

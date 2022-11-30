@@ -1,4 +1,4 @@
-package presentacion.vacio;
+package presentacion.inicio;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -7,12 +7,12 @@ import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
 import presentacion.files.componentes.cartaAnimada.ModelCart;
 
-public class FrmVacio extends javax.swing.JPanel implements Runnable {
+public class FrmInicio extends javax.swing.JPanel implements Runnable {
 
     String horas, minutos, segundos;
     Thread hilo;
 
-    public FrmVacio () {
+    public FrmInicio () {
         initComponents();
         infoCarta();
         hilo = new Thread(this);

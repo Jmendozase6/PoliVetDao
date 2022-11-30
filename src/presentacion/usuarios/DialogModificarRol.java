@@ -32,10 +32,11 @@ public class DialogModificarRol extends javax.swing.JDialog {
         jbtnRegistrarMascota = new presentacion.files.componentes.ButtonCustom();
         jTitle4 = new javax.swing.JLabel();
         jcbxRol = new javax.swing.JComboBox<>();
+        cerrar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panelCustom2.setBackground(new java.awt.Color(255, 255, 255));
+        panelCustom2.setBackground(new java.awt.Color(242, 255, 255));
         panelCustom2.setRoundBottomLeft(20);
         panelCustom2.setRoundBottomRight(20);
         panelCustom2.setRoundTopLeft(20);
@@ -57,10 +58,22 @@ public class DialogModificarRol extends javax.swing.JDialog {
         jTitle4.setText("Seleccione un rol");
         panelCustom2.add(jTitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
 
-        jcbxRol.setBackground(new java.awt.Color(255, 255, 255));
+        jcbxRol.setBackground(new java.awt.Color(242, 255, 255));
         jcbxRol.setFont(new java.awt.Font("Gilroy-Regular", 0, 12)); // NOI18N
         jcbxRol.setBorder(null);
         panelCustom2.add(jcbxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 270, 40));
+
+        cerrar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/iconCerrar.png"))); // NOI18N
+        cerrar2.setBorderPainted(false);
+        cerrar2.setContentAreaFilled(false);
+        cerrar2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cerrar2.setFocusPainted(false);
+        cerrar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cerrar2ActionPerformed(evt);
+            }
+        });
+        panelCustom2.add(cerrar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 24, 24));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,7 +96,12 @@ public class DialogModificarRol extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jbtnRegistrarMascotaActionPerformed
 
+    private void cerrar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrar2ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_cerrar2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cerrar2;
     private javax.swing.JLabel jTitle4;
     private presentacion.files.componentes.ButtonCustom jbtnRegistrarMascota;
     private javax.swing.JComboBox<String> jcbxRol;
