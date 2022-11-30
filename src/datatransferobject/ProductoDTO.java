@@ -10,11 +10,18 @@ public class ProductoDTO {
     private String marca;
     private float precio;
     private float cantidad;
+    private byte estado;
 
     public ProductoDTO () {
     }
 
-    public ProductoDTO (int idProducto, byte idTipoProducto, int idProveedor, String nombre, String descripcion, String marca, float precio, float cantidad) {
+    public ProductoDTO (int idProducto, String nombre, float precio) {
+        this.idProducto = idProducto;
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+
+    public ProductoDTO (int idProducto, byte idTipoProducto, int idProveedor, String nombre, String descripcion, String marca, float precio, float cantidad, byte estado) {
         this.idProducto = idProducto;
         this.idTipoProducto = idTipoProducto;
         this.idProveedor = idProveedor;
@@ -23,6 +30,7 @@ public class ProductoDTO {
         this.marca = marca;
         this.precio = precio;
         this.cantidad = cantidad;
+        this.estado = estado;
     }
 
     public int getIdProducto () {
@@ -89,9 +97,17 @@ public class ProductoDTO {
         this.cantidad = cantidad;
     }
 
+    public byte getEstado () {
+        return estado;
+    }
+
+    public void setEstado (byte estado) {
+        this.estado = estado;
+    }
+
     @Override
     public String toString () {
-        return "ProductoDTO{" + "idProducto=" + idProducto + ", idTipoProducto=" + idTipoProducto + ", idProveedor=" + idProveedor + ", nombre=" + nombre + ", descripcion=" + descripcion + ", marca=" + marca + ", precio=" + precio + ", cantidad=" + cantidad + '}';
+        return idProducto + " - " + nombre + " - " + precio;
     }
 
 }

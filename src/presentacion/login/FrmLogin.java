@@ -100,7 +100,8 @@ public class FrmLogin extends javax.swing.JFrame {
         jPanel1.add(jTitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(816, 234, -1, -1));
 
         jtxtEmail.setBorder(null);
-        jtxtEmail.setText("jhairmendoza2003@gmail.com");
+        jtxtEmail.setForeground(new java.awt.Color(51, 51, 51));
+        jtxtEmail.setText("manuelantoncisneros2020@hotmail.com");
         jtxtEmail.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtEmail.setSelectionColor(new java.awt.Color(82, 183, 136));
         jtxtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -112,8 +113,9 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jtxtPass.setBackground(new java.awt.Color(255, 255, 255));
         jtxtPass.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtPass.setForeground(new java.awt.Color(51, 51, 51));
         jtxtPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jtxtPass.setText("jhair");
+        jtxtPass.setText("manuel");
         jtxtPass.setBorder(null);
         jtxtPass.setEchoChar('*');
         jtxtPass.setSelectionColor(new java.awt.Color(82, 183, 136));

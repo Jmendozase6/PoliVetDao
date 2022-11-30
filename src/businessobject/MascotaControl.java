@@ -25,7 +25,7 @@ public class MascotaControl {
         String[] titulos = {"ID", "Id Usuario", "Id Tipo de Mascota", "Nombre", "Raza", "Genero", "Peso"};
         this.modeloTabla = new DefaultTableModel(null, titulos);
 
-        String[] registro = new String[7];
+        String[] registro = new String[titulos.length];
         for (MascotaDTO item : lista) {
             registro[0] = Integer.toString(item.getIdMascota());
             registro[1] = Integer.toString(item.getIdUsuario());

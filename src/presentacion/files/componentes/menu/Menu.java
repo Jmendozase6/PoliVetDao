@@ -35,28 +35,21 @@ public class Menu extends JPanel {
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Veterinarios"));                // 2
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Proveedores"));                 // 3
                 addTitle("VENTAS");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Detalles de Ventas"));         // 4
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART, "Estadísticas"));             // 5
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Detalles de Ventas"));         // 4 FALTA
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART, "Estadísticas"));             // 5 FALTA
                 addTitle("INVENTARIO");
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));            // 6
                 addTitle("CITAS");
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Reserva de Citas"));           // 7
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Citas Programadas"));         // 8
+                addTitle("MASCOTAS");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PETS, "Mascotas"));                      // 8
             }
             break;
             case 2: {
                 addTitle("CLIENTE");
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));                   // 0
-                addTitle("COMPRAS");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Detalles de mis compras"));    // 1
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PIE_CHART, "Estadísticas"));             // 2
                 addTitle("INVENTARIO");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));            // 3
-            }
-            break;
-            case 3: {
-                addTitle("PROVEEDOR");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));                   // 0
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));            // 1 REVISAR
             }
             break;
             case 4: {
@@ -64,10 +57,9 @@ public class Menu extends JPanel {
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));                   // 0
                 addTitle("MASCOTAS");
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Mascotas"));                  // 1
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Tarjetas de Vacuna"));        // 2
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Tarjetas de Vacuna"));        // 2 FALTA
                 addTitle("RESERVAS");
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Reserva de Citas"));           // 3
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Citas Programadas"));         // 4
             }
             break;
         }

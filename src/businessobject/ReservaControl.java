@@ -24,7 +24,7 @@ public class ReservaControl {
         String[] titulos = {"ID", "Id Mascota", "Fecha", "Descripción"};
         this.modeloTabla = new DefaultTableModel(null, titulos);
 
-        String[] registro = new String[4];
+        String[] registro = new String[titulos.length];
         for (ReservaDTO item : lista) {
             registro[0] = Integer.toString(item.getIdReserva());
             registro[1] = Integer.toString(item.getIdMascota());

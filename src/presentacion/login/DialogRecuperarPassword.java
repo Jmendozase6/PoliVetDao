@@ -87,6 +87,7 @@ public class DialogRecuperarPassword extends javax.swing.JDialog {
 
         jtxtEmailRecuperacion.setBackground(new java.awt.Color(255, 255, 255));
         jtxtEmailRecuperacion.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtEmailRecuperacion.setForeground(new java.awt.Color(51, 51, 51));
         jtxtEmailRecuperacion.setText("jhairmendoza2003@gmail.com");
         jtxtEmailRecuperacion.setBorder(null);
         jtxtEmailRecuperacion.addKeyListener(new java.awt.event.KeyAdapter() {

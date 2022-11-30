@@ -14,13 +14,8 @@ public class EmailControl {
     public String generarCorreo (String emailDestino) {
 
         String fecha = String.valueOf(LocalDate.now());
-        String asunto = "PoliVet Piura - Código de confirmación";
         String clave = generarClave();
-        String contenido
-                = "<h1>PoliVet Piura</h1><br><h2>Recibió una solicitud para el <i>cambio de la contraseña</i> asociada a este correo.</h2>"
-                + "<br><h3>Su código de confirmación es " + clave + "</h3>"
-                + "<br><h3>Fecha <b>" + fecha + "</h3></b>";
-        DATOS.crearEmail(emailDestino, asunto, contenido);
+        DATOS.crearEmail(emailDestino, clave, fecha);
         DATOS.enviarEmail();
         return clave;
     }

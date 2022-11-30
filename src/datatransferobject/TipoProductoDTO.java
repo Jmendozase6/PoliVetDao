@@ -31,7 +31,7 @@ public class TipoProductoDTO {
 
     @Override
     public String toString () {
-        return "TipoProducto{" + "idTipoProducto=" + idTipoProducto + ", descripcion=" + descripcion + '}';
+        return idTipoProducto + " - " + descripcion;
     }
 
 }

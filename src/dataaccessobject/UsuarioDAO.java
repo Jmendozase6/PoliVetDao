@@ -1,5 +1,6 @@
 package dataaccessobject;
 
+import businessobject.UsuarioActivo;
 import datasource.ConexionSQL;
 import datatransferobject.UsuarioDTO;
 import interfaces.IUsuario;
@@ -135,7 +136,6 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
     @Override
     public boolean agregar (UsuarioDTO objeto) {
         resp = false;
-        System.out.println("Objeto fecha" + objeto.getFechaNacimiento());
 
         try {
             ps = CON.conectar().prepareStatement("INSERT INTO Usuario(idRol, nombres, apellidos, idGenero, fechaNacimiento, idTipoDocumento, documento, direccion, telefonoMovil, email, password, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,1)");
@@ -252,6 +252,40 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
             CON.cerrarConexion();
         }
         return resp;
+    }
+
+    public UsuarioDTO traerUsuarioActualizar () {
+        UsuarioDTO usuario = new UsuarioDTO();
+        try {
+            ps = CON.conectar().prepareStatement("SELECT * FROM Usuario WHERE idUsuario = " + UsuarioActivo.idUsuario + " AND estado = 1");
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                usuario = new UsuarioDTO(
+                        rs.getInt(1), // idUsuario
+                        rs.getShort(2), // idRol
+                        rs.getString(3), // nombre
+                        rs.getString(4), // apellidos
+                        rs.getByte(5), // idGenero
+                        rs.getString(6), // fechaNacimiento
+                        rs.getByte(7), // idTipoDocumento
+                        rs.getString(8), // documento
+                        rs.getString(9), // direccion
+                        rs.getString(10), // telefonoMovil
+                        rs.getString(11), // email
+                        rs.getString(12), // password
+                        rs.getByte(13)); // estado 
+            }
+
+            ps.close();
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            ps = null;
+            rs = null;
+            CON.cerrarConexion();
+        }
+        return usuario;
     }
 
     @Override

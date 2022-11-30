@@ -9,6 +9,7 @@ public class FrmRegistro extends javax.swing.JFrame {
 
     public FrmRegistro () {
         initComponents();
+        Utilidades.colorDateChooser(jdcFechaNacimiento);
     }
 
     @SuppressWarnings("unchecked")
@@ -66,12 +67,14 @@ public class FrmRegistro extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jtxtNombres.setBorder(null);
+        jtxtNombres.setForeground(new java.awt.Color(51, 51, 51));
         jtxtNombres.setText("Jhair 2");
         jtxtNombres.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtNombres.setSelectionColor(new java.awt.Color(82, 183, 136));
         jPanel1.add(jtxtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 190, 30));
 
         jtxtApellidos.setBorder(null);
+        jtxtApellidos.setForeground(new java.awt.Color(51, 51, 51));
         jtxtApellidos.setText("Mendoza 2");
         jtxtApellidos.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtApellidos.setSelectionColor(new java.awt.Color(82, 183, 136));
@@ -79,11 +82,13 @@ public class FrmRegistro extends javax.swing.JFrame {
 
         jcbxGenero.setBackground(new java.awt.Color(255, 255, 255));
         jcbxGenero.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jcbxGenero.setForeground(new java.awt.Color(51, 51, 51));
         jcbxGenero.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Masculino", "Femenino" }));
         jcbxGenero.setBorder(null);
         jPanel1.add(jcbxGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 415, 210, 30));
 
         jtxtDNI.setBorder(null);
+        jtxtDNI.setForeground(new java.awt.Color(51, 51, 51));
         jtxtDNI.setText("90909090");
         jtxtDNI.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtDNI.setSelectionColor(new java.awt.Color(82, 183, 136));
@@ -95,6 +100,7 @@ public class FrmRegistro extends javax.swing.JFrame {
         jPanel1.add(jtxtDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 555, 190, 30));
 
         jtxtDireccion.setBorder(null);
+        jtxtDireccion.setForeground(new java.awt.Color(51, 51, 51));
         jtxtDireccion.setText("Piura Castilla");
         jtxtDireccion.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtDireccion.setSelectionColor(new java.awt.Color(82, 183, 136));
@@ -102,11 +108,13 @@ public class FrmRegistro extends javax.swing.JFrame {
 
         jtxtTelefono.setBackground(new java.awt.Color(255, 255, 255));
         jtxtTelefono.setBorder(null);
+        jtxtTelefono.setForeground(new java.awt.Color(51, 51, 51));
         jtxtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         jtxtTelefono.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jPanel1.add(jtxtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 263, 190, 30));
 
         jtxtCorreo.setBorder(null);
+        jtxtCorreo.setForeground(new java.awt.Color(51, 51, 51));
         jtxtCorreo.setText("jhair2@gmail.com");
         jtxtCorreo.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtCorreo.setSelectionColor(new java.awt.Color(82, 183, 136));
@@ -118,11 +126,13 @@ public class FrmRegistro extends javax.swing.JFrame {
         jPanel1.add(jtxtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 350, 190, 30));
 
         jdcFechaNacimiento.setBackground(new java.awt.Color(255, 255, 255));
+        jdcFechaNacimiento.setForeground(new java.awt.Color(51, 51, 51));
         jdcFechaNacimiento.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        jPanel1.add(jdcFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 485, 190, 30));
+        jPanel1.add(jdcFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(315, 480, 230, 40));
 
         jtxtPass.setBackground(new java.awt.Color(255, 255, 255));
         jtxtPass.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtPass.setForeground(new java.awt.Color(51, 51, 51));
         jtxtPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jtxtPass.setText("jhair2");
         jtxtPass.setBorder(null);
@@ -265,7 +275,7 @@ public class FrmRegistro extends javax.swing.JFrame {
 
         labelError.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         labelError.setForeground(new java.awt.Color(228, 49, 49));
-        jPanel1.add(labelError, new org.netbeans.lib.awtextra.AbsoluteConstraints(756, 487, 310, 20));
+        jPanel1.add(labelError, new org.netbeans.lib.awtextra.AbsoluteConstraints(756, 487, 280, 20));
 
         jbtnRegistrarme.setText("Registrarme");
         jbtnRegistrarme.setFocusPainted(false);
@@ -316,7 +326,7 @@ public class FrmRegistro extends javax.swing.JFrame {
 
     private void jbtnRegistrarmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnRegistrarmeActionPerformed
 
-        if (Utilidades.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDNI, jtxtDireccion, jtxtCorreo, jtxtPass) && Objects.isNull(jdcFechaNacimiento.getCalendar())) {
+        if (Utilidades.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDNI, jtxtDireccion, jtxtCorreo, jtxtPass) || Objects.isNull(jdcFechaNacimiento.getCalendar())) {
             labelError.setText("Error, debe completar todos los campos.");
             return;
         }
@@ -345,7 +355,9 @@ public class FrmRegistro extends javax.swing.JFrame {
     }//GEN-LAST:event_jtxtCorreoKeyTyped
 
     private void jtxtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtDNIKeyTyped
-        // TODO add your handling code here:
+        if (Character.isDigit(evt.getKeyChar()) || jtxtDNI.getText().length() == 8) {
+            evt.consume();
+        }
     }//GEN-LAST:event_jtxtDNIKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

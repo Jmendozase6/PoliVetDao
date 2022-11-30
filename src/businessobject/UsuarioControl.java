@@ -5,7 +5,6 @@ import datatransferobject.UsuarioDTO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class UsuarioControl {
@@ -27,7 +26,7 @@ public class UsuarioControl {
         this.modeloTabla = new DefaultTableModel(null, titulos);
 
         String estado;
-        String[] registro = new String[13];
+        String[] registro = new String[titulos.length];
         for (UsuarioDTO item : lista) {
             if (item.getEstado() == 1) {
                 estado = "Activo";
@@ -114,6 +113,10 @@ public class UsuarioControl {
                 return "Error en el registro.";
             }
         }
+    }
+
+    public UsuarioDTO traerUsuarioActualizar () {
+        return DATOS.traerUsuarioActualizar();
     }
 
     public String actualizar (UsuarioDTO objeto) {

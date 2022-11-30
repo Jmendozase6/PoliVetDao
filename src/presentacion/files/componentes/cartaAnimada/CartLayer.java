@@ -35,27 +35,14 @@ public class CartLayer extends javax.swing.JComponent {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelDescripcion = new cart.TextPaneCenter();
-        labelLink = new cart.Button();
         labelDatos = new javax.swing.JLabel();
         labelApellidos = new javax.swing.JLabel();
         labelNombres = new javax.swing.JLabel();
+        labelDescripcion = new presentacion.files.componentes.cartaAnimada.TextPaneCenter();
+        button1 = new presentacion.files.componentes.cartaAnimada.Button();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        labelDescripcion.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        add(labelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 148, 268, -1));
-
-        labelLink.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/whatsapp.png"))); // NOI18N
-        labelLink.setText(" WhatsApp");
-        labelLink.setFont(new java.awt.Font("Monospaced", 0, 16)); // NOI18N
-        labelLink.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                labelLinkActionPerformed(evt);
-            }
-        });
-        add(labelLink, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 150, 50));
 
         labelDatos.setFont(new java.awt.Font("Gilroy-Regular", 0, 18)); // NOI18N
         labelDatos.setForeground(new java.awt.Color(82, 183, 136));
@@ -76,17 +63,19 @@ public class CartLayer extends javax.swing.JComponent {
         labelNombres.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelNombres.setText("Nombres");
         add(labelNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 240, 20));
+        add(labelDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 260, -1));
+
+        button1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/whatsapp.png"))); // NOI18N
+        button1.setText(" WhatsApp");
+        button1.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 150, 50));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void labelLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_labelLinkActionPerformed
-        buttonAction();
-    }//GEN-LAST:event_labelLinkActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private presentacion.files.componentes.cartaAnimada.Button button1;
     private javax.swing.JLabel labelApellidos;
     private javax.swing.JLabel labelDatos;
-    private cart.TextPaneCenter labelDescripcion;
-    private cart.Button labelLink;
+    private presentacion.files.componentes.cartaAnimada.TextPaneCenter labelDescripcion;
     private javax.swing.JLabel labelNombres;
     // End of variables declaration//GEN-END:variables
 }

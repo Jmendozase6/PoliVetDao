@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -26,6 +27,7 @@ public class FrmCliente extends javax.swing.JPanel {
         jbtnSubir.setVisible(false);
         jbtnCambiarRol.setVisible(false);
         mostrarBotonCambioRol();
+        Utilidades.colorDateChooser(jdcFechaNacimiento);
     }
 
     private void mostrarBotonTabla () {
@@ -277,7 +279,7 @@ public class FrmCliente extends javax.swing.JPanel {
 
         jdcFechaNacimiento.setBackground(new java.awt.Color(232, 245, 254));
         jdcFechaNacimiento.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        add(jdcFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 765, 190, 30));
+        add(jdcFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 760, 230, 40));
 
         jCorreo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/textfield/txtNombres.png"))); // NOI18N
         add(jCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
@@ -343,10 +345,10 @@ public class FrmCliente extends javax.swing.JPanel {
         jLabel16.setText("Teléfono");
         add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 740, -1, -1));
 
-        jLabel17.setFont(new java.awt.Font("Gilroy-Regular", 0, 48)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Hey Comic", 0, 48)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(43, 45, 66));
         jLabel17.setText("CLIENTES");
-        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 45, -1, -1));
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 40, -1, -1));
 
         labelActivo.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         labelActivo.setForeground(new java.awt.Color(43, 45, 66));
@@ -447,12 +449,17 @@ public class FrmCliente extends javax.swing.JPanel {
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
 
-        if (tablaClientes.getSelectedRowCount() != 1) {
+        if (jtxtIdCliente.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "No ha seleccionado un usuario de la tabla", "Sistema", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         if (Utilidades.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail)) {
+            JOptionPane.showMessageDialog(this, "Debe completar todos los campos.", "Sistema", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (Objects.isNull(jdcFechaNacimiento.getCalendar())) {
             JOptionPane.showMessageDialog(this, "Debe completar todos los campos.", "Sistema", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -490,7 +497,7 @@ public class FrmCliente extends javax.swing.JPanel {
                 jtxtNombres.setText(nombres);
                 jtxtApellidos.setText(apellidos);
                 jcbxGenero.setSelectedIndex(Integer.parseInt(genero));
-                Date date = new SimpleDateFormat("yyyy-mm-dd").parse(fecha);
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
                 jdcFechaNacimiento.setDate(date);
                 jtxtDocumento.setText(documento);
                 jtxtDireccion.setText(direccion);
@@ -506,7 +513,7 @@ public class FrmCliente extends javax.swing.JPanel {
 
     private void jbtnActivarDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActivarDesactivarActionPerformed
 
-        if (tablaClientes.getSelectedRowCount() != 1) {
+        if (jtxtIdCliente.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "No ha seleccionado un usuario de la tabla", "Sistema", JOptionPane.WARNING_MESSAGE);
             return;
         }

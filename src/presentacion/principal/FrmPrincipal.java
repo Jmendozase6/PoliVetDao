@@ -2,12 +2,13 @@ package presentacion.principal;
 
 import businessobject.UsuarioActivo;
 import java.awt.Component;
+import javax.swing.JOptionPane;
+import presentacion.configuracion.FrmEditarPerfil;
 import presentacion.login.*;
 import presentacion.producto.*;
 import presentacion.usuarios.*;
 import presentacion.usuarios.administador.FrmDetalleVenta;
 import presentacion.usuarios.administador.FrmEstadisticas;
-import presentacion.usuarios.cliente.*;
 import presentacion.usuarios.veterinario.*;
 import presentacion.vacio.FrmVacio;
 
@@ -15,8 +16,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     public FrmPrincipal () {
         initComponents();
-        addEvent();
         showForm(new FrmVacio());
+        addEvent();
     }
 
     private void showForm (Component com) {
@@ -28,7 +29,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     private void switchAdministrador (int index, int indexSubMenu) {
         if (index == 0) {
-            showForm(new FrmInicio());
+            showForm(new FrmVacio());
         }
         if (index == 1) {
             showForm(new FrmCliente());
@@ -37,7 +38,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             showForm(new FrmVeterinario());
         }
         if (index == 3) {
-            showForm(new FrmInicio());
+            showForm(new FrmProveedor());
         }
         if (index == 4) {
             showForm(new FrmDetalleVenta());
@@ -52,51 +53,47 @@ public class FrmPrincipal extends javax.swing.JFrame {
             showForm(new FrmReservaCitas());
         }
         if (index == 8) {
-            showForm(new FrmCitasProgramadas());
+            showForm(new FrmMascotas());
         }
         if (index == 9 && indexSubMenu == 1) {
-            //TODO: MOSTRAR UN FORMULARIO PARA ACTUALIZAR MI CUENTA
+            showForm(new FrmEditarPerfil());
         }
         if (index == 9 && indexSubMenu == 2) {
+            JOptionPane.showMessageDialog(null, "Alertas");
             //TODO: MOSTRAR UN JOPTIONPANE PARA ACTIVAR EL MODO OSCURO
         }
         if (index == 9 && indexSubMenu == 3) {
-            //TODO: MOSTRAR UN JOPTIONPANE PARA CERRAR SESIÓN
-            new FrmLogin().setVisible(true);
-            this.dispose();
+            if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                new FrmLogin().setVisible(true);
+                this.dispose();
+            }
         }
     }
 
     private void switchCliente (int index, int indexSubMenu) {
         if (index == 0) {
-            showForm(new FrmInicio());
+            showForm(new FrmVacio());
         }
         if (index == 1) {
-            showForm(new FrmDetallesComprasCliente());
-        }
-        if (index == 2) {
-            showForm(new FrmEstadisticasCliente());
-        }
-        if (index == 3) {
             showForm(new FrmProducto());
         }
-
-        if (index == 5) {
-            showForm(new FrmConfiguracion());
+        if (index == 2 && indexSubMenu == 1) {
+            showForm(new FrmEditarPerfil());
         }
-        if (index == 5 && indexSubMenu == 1) {
-            //TODO: MOSTRAR UN JOPTIONPANE PARA ACTIVAR EL MODO OSCURO
+        if (index == 2 && indexSubMenu == 2) {
+            JOptionPane.showMessageDialog(null, "Alertas");
         }
-        if (index == 5 && indexSubMenu == 2) {
-            //TODO: MOSTRAR UN JOPTIONPANE PARA CERRAR SESIÓN
-            new FrmLogin().setVisible(true);
-            this.dispose();
+        if (index == 2 && indexSubMenu == 3) {
+            if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                new FrmLogin().setVisible(true);
+                this.dispose();
+            }
         }
     }
 
     private void switchVeterinario (int index, int indexSubMenu) {
         if (index == 0) {
-            showForm(new FrmInicio());
+            showForm(new FrmVacio());
         }
         if (index == 1) {
             showForm(new FrmMascotas());
@@ -107,28 +104,33 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (index == 3) {
             showForm(new FrmReservaCitas());
         }
-        if (index == 4) {
-            showForm(new FrmCitasProgramadas());
+        if (index == 4 && indexSubMenu == 1) {
+            showForm(new FrmEditarPerfil());
+        }
+        if (index == 4 && indexSubMenu == 2) {
+            JOptionPane.showMessageDialog(null, "Alertas");
+        }
+        if (index == 4 && indexSubMenu == 3) {
+            if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                new FrmLogin().setVisible(true);
+                this.dispose();
+            }
         }
     }
 
     private void addEvent () {
+
         menu.addEvent((int index, int indexSubMenu) -> {
-            switch (UsuarioActivo.idRol) {
-                case 1: {
-                    switchAdministrador(index, indexSubMenu);
-                }
-                break;
-                case 2: {
-                    switchCliente(index, indexSubMenu);
-                }
-                case 4: {
-                    switchVeterinario(index, indexSubMenu);
-                }
-                break;
-                default: {
-                    switchCliente(index, indexSubMenu);
-                }
+            if (UsuarioActivo.idRol == 1) {
+                switchAdministrador(index, indexSubMenu);
+                return;
+            }
+            if (UsuarioActivo.idRol == 2) {
+                switchCliente(index, indexSubMenu);
+                return;
+            }
+            if (UsuarioActivo.idRol == 4) {
+                switchVeterinario(index, indexSubMenu);
             }
         });
     }

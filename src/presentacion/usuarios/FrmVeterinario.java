@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,6 +24,7 @@ public class FrmVeterinario extends javax.swing.JPanel {
         CONTROL = new UsuarioControl();
         this.listar("nombres", "");
         jbtnSubir.setVisible(false);
+        Utilidades.colorDateChooser(jdcFechaNacimiento);
     }
 
     private void mostrarBotonTabla () {
@@ -37,7 +39,7 @@ public class FrmVeterinario extends javax.swing.JPanel {
 
     public void actualizarRol (int idRol) {
         if (tablaClientes.getSelectedRowCount() == 1) {
-            CONTROL.actualizarRol(Integer.parseInt(jtxtIdCliente.getText()), idRol);
+            CONTROL.actualizarRol(Integer.parseInt(jtxtidVeterinario.getText()), idRol);
         }
     }
 
@@ -80,7 +82,7 @@ public class FrmVeterinario extends javax.swing.JPanel {
         jtxtNombres = new javax.swing.JTextField();
         jcbxGenero = new javax.swing.JComboBox<>();
         jtxtDocumento = new javax.swing.JFormattedTextField();
-        jtxtIdCliente = new javax.swing.JTextField();
+        jtxtidVeterinario = new javax.swing.JTextField();
         jtxtTelefono = new javax.swing.JFormattedTextField();
         jtxtEmail = new javax.swing.JTextField();
         jdcFechaNacimiento = new com.toedter.calendar.JDateChooser();
@@ -241,12 +243,12 @@ public class FrmVeterinario extends javax.swing.JPanel {
         });
         add(jtxtDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 845, 190, 30));
 
-        jtxtIdCliente.setEditable(false);
-        jtxtIdCliente.setBackground(new java.awt.Color(232, 245, 254));
-        jtxtIdCliente.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        jtxtIdCliente.setBorder(null);
-        jtxtIdCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        add(jtxtIdCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 685, 190, 30));
+        jtxtidVeterinario.setEditable(false);
+        jtxtidVeterinario.setBackground(new java.awt.Color(232, 245, 254));
+        jtxtidVeterinario.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtidVeterinario.setBorder(null);
+        jtxtidVeterinario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        add(jtxtidVeterinario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 685, 190, 30));
 
         jtxtTelefono.setBackground(new java.awt.Color(232, 245, 254));
         jtxtTelefono.setBorder(null);
@@ -268,7 +270,7 @@ public class FrmVeterinario extends javax.swing.JPanel {
         jdcFechaNacimiento.setBackground(new java.awt.Color(232, 245, 254));
         jdcFechaNacimiento.setToolTipText("Selecciona la fecha de forma correcta");
         jdcFechaNacimiento.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        add(jdcFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 765, 190, 30));
+        add(jdcFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 760, 230, 40));
 
         jCorreo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/textfield/txtNombres.png"))); // NOI18N
         add(jCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
@@ -284,7 +286,7 @@ public class FrmVeterinario extends javax.swing.JPanel {
 
         jLabel11.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(43, 45, 66));
-        jLabel11.setText("ID Cliente");
+        jLabel11.setText("ID Veterinario");
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 660, -1, -1));
 
         jPassword1.setBackground(new java.awt.Color(255, 255, 255));
@@ -334,10 +336,10 @@ public class FrmVeterinario extends javax.swing.JPanel {
         jLabel16.setText("Teléfono");
         add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 740, -1, -1));
 
-        jLabel17.setFont(new java.awt.Font("Gilroy-Regular", 0, 48)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Hey Comic", 0, 48)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(43, 45, 66));
         jLabel17.setText("VETERINARIOS");
-        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 45, -1, -1));
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 40, -1, -1));
 
         labelActivo.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         labelActivo.setForeground(new java.awt.Color(43, 45, 66));
@@ -428,21 +430,26 @@ public class FrmVeterinario extends javax.swing.JPanel {
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
 
-        if (tablaClientes.getSelectedRowCount() != 1) {
+        if (jtxtidVeterinario.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "No ha seleccionado un veterinario de la tabla", "Sistema", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        if (Utilidades.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtEmail)) {
+        if (Utilidades.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtEmail) && Objects.isNull(jdcFechaNacimiento)) {
             JOptionPane.showMessageDialog(this, "Debe completar todos los campos.", "Sistema", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        usuarioActualizar = new UsuarioDTO(Integer.parseInt(jtxtIdCliente.getText()), jtxtNombres.getText(), jtxtApellidos.getText(), Byte.parseByte(String.valueOf(jcbxGenero.getSelectedIndex())), Utilidades.obtenerFechaChooser(jdcFechaNacimiento), jtxtDocumento.getText(), jtxtDireccion.getText(), jtxtTelefono.getText(), jtxtEmail.getText());
+        if (Objects.isNull(jdcFechaNacimiento.getCalendar())) {
+            JOptionPane.showMessageDialog(this, "Debe completar todos los campos.", "Sistema", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        usuarioActualizar = new UsuarioDTO(Integer.parseInt(jtxtidVeterinario.getText()), jtxtNombres.getText(), jtxtApellidos.getText(), Byte.parseByte(String.valueOf(jcbxGenero.getSelectedIndex())), Utilidades.obtenerFechaChooser(jdcFechaNacimiento), jtxtDocumento.getText(), jtxtDireccion.getText(), jtxtTelefono.getText(), jtxtEmail.getText());
 
         String respuesta = CONTROL.actualizar(usuarioActualizar);
         if (respuesta.equalsIgnoreCase("OK")) {
-            Utilidades.limpiarTextfields(jtxtIdCliente, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
+            Utilidades.limpiarTextfields(jtxtidVeterinario, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
             JOptionPane.showMessageDialog(this, "Se actualizó correctamente el registro");
             this.listar("nombres", "");
         } else {
@@ -467,11 +474,11 @@ public class FrmVeterinario extends javax.swing.JPanel {
                 String email = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 10));
                 String estado = String.valueOf(tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 12));
 
-                jtxtIdCliente.setText(idCliente);
+                jtxtidVeterinario.setText(idCliente);
                 jtxtNombres.setText(nombres);
                 jtxtApellidos.setText(apellidos);
                 jcbxGenero.setSelectedIndex(Integer.parseInt(genero));
-                Date date = new SimpleDateFormat("yyyy-mm-dd").parse(fecha);
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
                 jdcFechaNacimiento.setDate(date);
                 jtxtDocumento.setText(documento);
                 jtxtDireccion.setText(direccion);
@@ -487,7 +494,7 @@ public class FrmVeterinario extends javax.swing.JPanel {
 
     private void jbtnActivarDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActivarDesactivarActionPerformed
 
-        if (tablaClientes.getSelectedRowCount() != 1) {
+        if (jtxtidVeterinario.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "No ha seleccionado un veterinario de la tabla", "Sistema", JOptionPane.WARNING_MESSAGE);
             return;
         }
@@ -515,7 +522,7 @@ public class FrmVeterinario extends javax.swing.JPanel {
         if (resp.equals("OK")) {
             JOptionPane.showMessageDialog(this, "Se actualizó el estado del registro.");
             this.listar("nombres", "");
-            Utilidades.limpiarTextfields(jtxtIdCliente, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
+            Utilidades.limpiarTextfields(jtxtidVeterinario, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo actualizar el estado del registro", "Sistema", JOptionPane.ERROR_MESSAGE);
         }
@@ -574,9 +581,9 @@ public class FrmVeterinario extends javax.swing.JPanel {
     private javax.swing.JTextField jtxtDireccion;
     private javax.swing.JFormattedTextField jtxtDocumento;
     private javax.swing.JTextField jtxtEmail;
-    private javax.swing.JTextField jtxtIdCliente;
     private javax.swing.JTextField jtxtNombres;
     private javax.swing.JFormattedTextField jtxtTelefono;
+    private javax.swing.JTextField jtxtidVeterinario;
     private javax.swing.JLabel labelActivo;
     private javax.swing.JLabel labelError;
     private javax.swing.JTable tablaClientes;

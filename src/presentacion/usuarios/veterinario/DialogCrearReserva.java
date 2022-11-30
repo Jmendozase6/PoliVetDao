@@ -25,6 +25,7 @@ public class DialogCrearReserva extends javax.swing.JDialog {
         jcbxMascota.setModel(MASCOTA_CONTROL.seleccionar());
         jcbxMascota.setSelectedIndex(0);
         jdcFechaReserva.setMinSelectableDate(new Date());
+        Utilidades.colorDateChooser(jdcFechaReserva);
     }
 
     private int obtenerIdDelCombo (JComboBox combo) {
@@ -62,8 +63,9 @@ public class DialogCrearReserva extends javax.swing.JDialog {
         panelCustom2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jdcFechaReserva.setBackground(new java.awt.Color(242, 255, 255));
+        jdcFechaReserva.setForeground(new java.awt.Color(51, 51, 51));
         jdcFechaReserva.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        panelCustom2.add(jdcFechaReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 185, 200, 30));
+        panelCustom2.add(jdcFechaReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 230, 40));
 
         jScrollPane1.setBorder(null);
 
@@ -81,6 +83,7 @@ public class DialogCrearReserva extends javax.swing.JDialog {
 
         jcbxMascota.setBackground(new java.awt.Color(242, 255, 255));
         jcbxMascota.setFont(new java.awt.Font("Gilroy-Regular", 0, 12)); // NOI18N
+        jcbxMascota.setForeground(new java.awt.Color(51, 51, 51));
         jcbxMascota.setBorder(null);
         panelCustom2.add(jcbxMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 105, 200, 30));
 

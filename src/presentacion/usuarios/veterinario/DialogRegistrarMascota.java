@@ -72,11 +72,13 @@ public class DialogRegistrarMascota extends javax.swing.JDialog {
 
         jcbxCliente.setBackground(new java.awt.Color(255, 255, 255));
         jcbxCliente.setFont(new java.awt.Font("Gilroy-Regular", 0, 12)); // NOI18N
+        jcbxCliente.setForeground(new java.awt.Color(51, 51, 51));
         jcbxCliente.setBorder(null);
         panelCustom2.add(jcbxCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 105, 200, 30));
 
         jcbxTipoMascota.setBackground(new java.awt.Color(255, 255, 255));
         jcbxTipoMascota.setFont(new java.awt.Font("Gilroy-Regular", 0, 12)); // NOI18N
+        jcbxTipoMascota.setForeground(new java.awt.Color(51, 51, 51));
         jcbxTipoMascota.setBorder(null);
         panelCustom2.add(jcbxTipoMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 185, 200, 30));
 
@@ -92,7 +94,7 @@ public class DialogRegistrarMascota extends javax.swing.JDialog {
 
         jLabel7.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(43, 45, 66));
-        jLabel7.setText("Id Tipo Mascota");
+        jLabel7.setText("ID Tipo Mascota");
         panelCustom2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
 
         jbtnRegistrarMascota.setText("Registrar");
@@ -107,6 +109,7 @@ public class DialogRegistrarMascota extends javax.swing.JDialog {
 
         jtxtNombre.setBackground(new java.awt.Color(255, 255, 255));
         jtxtNombre.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtNombre.setForeground(new java.awt.Color(51, 51, 51));
         jtxtNombre.setBorder(null);
         jtxtNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         panelCustom2.add(jtxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 265, 200, 30));
@@ -121,6 +124,7 @@ public class DialogRegistrarMascota extends javax.swing.JDialog {
 
         jtxtRaza.setBackground(new java.awt.Color(255, 255, 255));
         jtxtRaza.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtRaza.setForeground(new java.awt.Color(51, 51, 51));
         jtxtRaza.setBorder(null);
         jtxtRaza.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         panelCustom2.add(jtxtRaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 345, 200, 30));
@@ -135,6 +139,7 @@ public class DialogRegistrarMascota extends javax.swing.JDialog {
 
         jtxtGenero.setBackground(new java.awt.Color(255, 255, 255));
         jtxtGenero.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtGenero.setForeground(new java.awt.Color(51, 51, 51));
         jtxtGenero.setBorder(null);
         jtxtGenero.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         panelCustom2.add(jtxtGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 425, 200, 30));
@@ -149,6 +154,7 @@ public class DialogRegistrarMascota extends javax.swing.JDialog {
 
         jtxtPeso.setBackground(new java.awt.Color(255, 255, 255));
         jtxtPeso.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtPeso.setForeground(new java.awt.Color(51, 51, 51));
         jtxtPeso.setBorder(null);
         jtxtPeso.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         panelCustom2.add(jtxtPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 505, 200, 30));

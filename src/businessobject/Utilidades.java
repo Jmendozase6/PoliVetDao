@@ -2,11 +2,21 @@ package businessobject;
 
 import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 import javax.swing.JTextField;
 
 public class Utilidades {
+
+    public static final Color PRIMARY_COLOR = new Color(232, 245, 254);
+
+    public static void colorDateChooser (JDateChooser jdc) {
+        for (Component c : jdc.getComponents()) {
+            c.setBackground(Utilidades.PRIMARY_COLOR);
+        }
+    }
 
     public static String validarEmail (String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."

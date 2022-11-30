@@ -104,6 +104,16 @@ public class FrmVacio extends javax.swing.JPanel implements Runnable {
         jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(232, 245, 254));
+        addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                formMouseDragged(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelHora.setFont(new java.awt.Font("Gilroy-Bold", 0, 36)); // NOI18N
@@ -168,6 +178,14 @@ public class FrmVacio extends javax.swing.JPanel implements Runnable {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/principal/jGreenBack.png"))); // NOI18N
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMousePressed
+
+    private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formMouseDragged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private presentacion.files.componentes.cartaAnimada.Cart cart1;

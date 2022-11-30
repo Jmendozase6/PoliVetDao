@@ -1,6 +1,7 @@
 package dataaccessobject;
 
 import datatransferobject.EmailDTO;
+import email.JavaIndex;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,10 +27,8 @@ public class EmailDAO {
         PROPS = new Properties();
     }
 
-    public void crearEmail (String emailDestino, String asunto, String contenido) {
+    public void crearEmail (String emailDestino, String clave, String fecha) {
         EMAIL.setDestinatario(emailDestino.trim());
-        EMAIL.setAsunto(asunto.trim());
-        EMAIL.setContenido(contenido.trim());
 
         // Protocolo para el envío de emails
         PROPS.put("mail.transport.protocol", "smtp");
@@ -49,8 +48,12 @@ public class EmailDAO {
 
             mCorreo.setFrom(new InternetAddress(EMAIL.getEmailOrigen()));
             mCorreo.setRecipient(Message.RecipientType.TO, new InternetAddress(emailDestino));
-            mCorreo.setSubject(EMAIL.getAsunto());
-            mCorreo.setText(EMAIL.getContenido(), "ISO-8859-1", "html");
+            mCorreo.setSubject("PoliVet - Código de recuperación");
+//            mCorreo.setText(EMAIL.getContenido(), "ISO-8859-1", "html"); // ORIGINAL - FUNCIONAL
+            JavaIndex ej = new JavaIndex();
+            ej.emailDestino = emailDestino;
+            ej.clave = clave;
+            mCorreo.setContent(ej.obtenerEmail(), "text/html; charset=utf-8");
 
         } catch (AddressException ex) {
             Logger.getLogger(EmailDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -1,7 +1,6 @@
 package presentacion.usuarios.veterinario;
 
 import businessobject.ReservaControl;
-import businessobject.UsuarioControl;
 import businessobject.Utilidades;
 import datatransferobject.ReservaDTO;
 import java.awt.Font;
@@ -23,6 +22,10 @@ public class FrmReservaCitas extends javax.swing.JPanel {
         CONTROL = new ReservaControl();
         jbtnSubir.setVisible(false);
         tablaReservas.setModel(this.CONTROL.listar(Utilidades.obtenerFechaSqlFormat(), "Especifica", ""));
+        Utilidades.colorDateChooser(jdcFechaProgramada);
+        Utilidades.colorDateChooser(jdcEspecifica);
+        Utilidades.colorDateChooser(jdcFechaInicial);
+        Utilidades.colorDateChooser(jdcFechaFinal);
     }
 
     private void mostrarBotonTabla () {
@@ -37,33 +40,41 @@ public class FrmReservaCitas extends javax.swing.JPanel {
 
     public void listar () {
         if (jchEspecificas.isSelected()) {
-            if (Objects.nonNull(jchEspecifica)) {
-                tablaReservas.setModel(this.CONTROL.listar(Utilidades.obtenerFechaChooser(jchEspecifica), "Especifica", ""));
+            if (Objects.nonNull(jdcEspecifica.getCalendar())) {
+                tablaReservas.setModel(this.CONTROL.listar(Utilidades.obtenerFechaChooser(jdcEspecifica), "Especifica", ""));
                 jtxtIdReserva.setText("");
                 jtxtIdMascota.setText("");
                 jtxtDescripcion.setText("");
                 return;
+            } else {
+                labelError.setText("Debes seleccionar una fecha");
             }
         }
 
         if (jchPasadas.isSelected()) {
             tablaReservas.setModel(this.CONTROL.listar(Utilidades.obtenerFechaSqlFormat(), "Pasadas", ""));
+            labelError.setText("");
             return;
         }
 
         if (jchProximas.isSelected()) {
             tablaReservas.setModel(this.CONTROL.listar(Utilidades.obtenerFechaSqlFormat(), "Proximas", ""));
+            labelError.setText("");
             return;
         }
 
         if (jchHoy.isSelected()) {
             tablaReservas.setModel(this.CONTROL.listar(Utilidades.obtenerFechaSqlFormat(), "Especifica", ""));
+
             return;
         }
 
         if (jchDosFechas.isSelected()) {
-            if (Objects.nonNull(jdcFechaInicial) && Objects.nonNull(jdcFechaFinal)) {
+            if (Objects.nonNull(jdcFechaInicial.getCalendar()) && Objects.nonNull(jdcFechaFinal.getCalendar())) {
                 tablaReservas.setModel(this.CONTROL.listar(Utilidades.obtenerFechaChooser(jdcFechaInicial), "Entre dos", Utilidades.obtenerFechaChooser(jdcFechaFinal)));
+                labelError.setText("");
+            } else {
+                labelError.setText("Debes seleccionar ambas fechas");
             }
         }
         Utilidades.limpiarTextfields(jtxtIdReserva, jtxtIdMascota);
@@ -87,7 +98,6 @@ public class FrmReservaCitas extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPassword1 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         jPassword2 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -101,9 +111,10 @@ public class FrmReservaCitas extends javax.swing.JPanel {
         jchDosFechas = new presentacion.files.componentes.CheckBoxCustom();
         jchProximas = new presentacion.files.componentes.CheckBoxCustom();
         jdcFechaFinal = new com.toedter.calendar.JDateChooser();
-        jchEspecifica = new com.toedter.calendar.JDateChooser();
+        jdcEspecifica = new com.toedter.calendar.JDateChooser();
         jchHoy = new presentacion.files.componentes.CheckBoxCustom();
         jbtnFiltrar = new presentacion.files.componentes.ButtonCustom();
+        jLabel14 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(232, 245, 254));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -157,6 +168,7 @@ public class FrmReservaCitas extends javax.swing.JPanel {
         jtxtIdMascota.setEditable(false);
         jtxtIdMascota.setBackground(new java.awt.Color(232, 245, 254));
         jtxtIdMascota.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtIdMascota.setForeground(new java.awt.Color(51, 51, 51));
         jtxtIdMascota.setBorder(null);
         jtxtIdMascota.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         add(jtxtIdMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 755, 190, 30));
@@ -164,6 +176,7 @@ public class FrmReservaCitas extends javax.swing.JPanel {
         jtxtIdReserva.setEditable(false);
         jtxtIdReserva.setBackground(new java.awt.Color(232, 245, 254));
         jtxtIdReserva.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtIdReserva.setForeground(new java.awt.Color(51, 51, 51));
         jtxtIdReserva.setBorder(null);
         jtxtIdReserva.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         add(jtxtIdReserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 685, 190, 30));
@@ -184,7 +197,7 @@ public class FrmReservaCitas extends javax.swing.JPanel {
 
         jdcFechaProgramada.setBackground(new java.awt.Color(232, 245, 254));
         jdcFechaProgramada.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        add(jdcFechaProgramada, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 685, 190, 30));
+        add(jdcFechaProgramada, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 680, 230, 40));
 
         jCorreo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/textfield/txtNombres.png"))); // NOI18N
         add(jCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 680, -1, -1));
@@ -207,11 +220,6 @@ public class FrmReservaCitas extends javax.swing.JPanel {
         jPassword1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/textfield/txtNombres.png"))); // NOI18N
         add(jPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 750, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(43, 45, 66));
-        jLabel12.setText("ID Mascota");
-        add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 730, -1, -1));
-
         jPassword2.setBackground(new java.awt.Color(255, 255, 255));
         jPassword2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/textfield/txtFechaNacimiento.png"))); // NOI18N
         add(jPassword2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 680, -1, -1));
@@ -221,10 +229,10 @@ public class FrmReservaCitas extends javax.swing.JPanel {
         jLabel13.setText("Fecha Programada");
         add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 660, -1, -1));
 
-        jLabel17.setFont(new java.awt.Font("Gilroy-Regular", 0, 48)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Hey Comic", 0, 48)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(43, 45, 66));
         jLabel17.setText("RESERVAS PROGRAMADAS");
-        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, -1));
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 74, -1, 50));
 
         labelError.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         labelError.setForeground(new java.awt.Color(228, 49, 49));
@@ -253,7 +261,7 @@ public class FrmReservaCitas extends javax.swing.JPanel {
         jchEspecificas.setBackground(new java.awt.Color(82, 183, 136));
         groupReservas.add(jchEspecificas);
         jchEspecificas.setForeground(new java.awt.Color(43, 45, 66));
-        jchEspecificas.setText("Reservas especificas");
+        jchEspecificas.setText("Reservas fecha específica");
         jchEspecificas.setContentAreaFilled(false);
         jchEspecificas.setFocusPainted(false);
         jchEspecificas.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
@@ -272,8 +280,9 @@ public class FrmReservaCitas extends javax.swing.JPanel {
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jdcFechaInicial.setBackground(new java.awt.Color(232, 245, 254));
+        jdcFechaInicial.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fecha Inicial", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Gilroy-Regular", 0, 12))); // NOI18N
         jdcFechaInicial.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        add(jdcFechaInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 810, 190, 30));
+        add(jdcFechaInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 760, 190, 45));
 
         jchDosFechas.setBackground(new java.awt.Color(82, 183, 136));
         groupReservas.add(jchDosFechas);
@@ -294,12 +303,13 @@ public class FrmReservaCitas extends javax.swing.JPanel {
         add(jchProximas, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 720, -1, -1));
 
         jdcFechaFinal.setBackground(new java.awt.Color(232, 245, 254));
+        jdcFechaFinal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fecha Máxima", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Gilroy-Regular", 0, 12))); // NOI18N
         jdcFechaFinal.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        add(jdcFechaFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 810, 190, 30));
+        add(jdcFechaFinal, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 760, 190, 45));
 
-        jchEspecifica.setBackground(new java.awt.Color(232, 245, 254));
-        jchEspecifica.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        add(jchEspecifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 650, 190, 30));
+        jdcEspecifica.setBackground(new java.awt.Color(232, 245, 254));
+        jdcEspecifica.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        add(jdcEspecifica, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 650, 190, 30));
 
         jchHoy.setBackground(new java.awt.Color(82, 183, 136));
         groupReservas.add(jchHoy);
@@ -319,7 +329,12 @@ public class FrmReservaCitas extends javax.swing.JPanel {
                 jbtnFiltrarActionPerformed(evt);
             }
         });
-        add(jbtnFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1040, 800, 140, 40));
+        add(jbtnFiltrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 830, 140, 40));
+
+        jLabel14.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(43, 45, 66));
+        jLabel14.setText("ID Mascota");
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 730, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubirActionPerformed
@@ -363,15 +378,19 @@ public class FrmReservaCitas extends javax.swing.JPanel {
     private void tablaReservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaReservasMouseClicked
         if (tablaReservas.getSelectedRowCount() == 1) {
             try {
+
                 String idReserva = String.valueOf(tablaReservas.getValueAt(tablaReservas.getSelectedRow(), 0));
                 String idMascota = String.valueOf(tablaReservas.getValueAt(tablaReservas.getSelectedRow(), 1));
                 String fecha = String.valueOf(tablaReservas.getValueAt(tablaReservas.getSelectedRow(), 2));
                 String aDescripcion = String.valueOf(tablaReservas.getValueAt(tablaReservas.getSelectedRow(), 3));
+
                 jtxtIdReserva.setText(idReserva);
                 jtxtIdMascota.setText(idMascota);
-                Date date = new SimpleDateFormat("yyyy-mm-dd").parse(fecha);
+
+                Date date = new SimpleDateFormat("yyyy-MM-dd").parse(fecha);
                 jdcFechaProgramada.setDate(date);
                 jtxtDescripcion.setText(aDescripcion);
+
             } catch (ParseException ex) {
                 Logger.getLogger(FrmReservaCitas.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -392,8 +411,8 @@ public class FrmReservaCitas extends javax.swing.JPanel {
     private javax.swing.JLabel jCorreo;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jPassword1;
@@ -405,11 +424,11 @@ public class FrmReservaCitas extends javax.swing.JPanel {
     private presentacion.files.componentes.ButtonCustom jbtnNuevaCita;
     private presentacion.files.componentes.ButtonCustom jbtnSubir;
     private presentacion.files.componentes.CheckBoxCustom jchDosFechas;
-    private com.toedter.calendar.JDateChooser jchEspecifica;
     private presentacion.files.componentes.CheckBoxCustom jchEspecificas;
     private presentacion.files.componentes.CheckBoxCustom jchHoy;
     private presentacion.files.componentes.CheckBoxCustom jchPasadas;
     private presentacion.files.componentes.CheckBoxCustom jchProximas;
+    private com.toedter.calendar.JDateChooser jdcEspecifica;
     private com.toedter.calendar.JDateChooser jdcFechaFinal;
     private com.toedter.calendar.JDateChooser jdcFechaInicial;
     private com.toedter.calendar.JDateChooser jdcFechaProgramada;

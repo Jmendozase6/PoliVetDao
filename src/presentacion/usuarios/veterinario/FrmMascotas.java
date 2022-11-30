@@ -1,7 +1,6 @@
 package presentacion.usuarios.veterinario;
 
 import businessobject.MascotaControl;
-import businessobject.UsuarioControl;
 import businessobject.Utilidades;
 import datatransferobject.MascotaDTO;
 import javax.swing.JOptionPane;
@@ -135,6 +134,7 @@ public class FrmMascotas extends javax.swing.JPanel {
         jtxtIdTipoMascota.setEditable(false);
         jtxtIdTipoMascota.setBackground(new java.awt.Color(232, 245, 254));
         jtxtIdTipoMascota.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtIdTipoMascota.setForeground(new java.awt.Color(51, 51, 51));
         jtxtIdTipoMascota.setBorder(null);
         jtxtIdTipoMascota.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         add(jtxtIdTipoMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 845, 190, 30));
@@ -142,30 +142,35 @@ public class FrmMascotas extends javax.swing.JPanel {
         jtxtIdMascota.setEditable(false);
         jtxtIdMascota.setBackground(new java.awt.Color(232, 245, 254));
         jtxtIdMascota.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtIdMascota.setForeground(new java.awt.Color(51, 51, 51));
         jtxtIdMascota.setBorder(null);
         jtxtIdMascota.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         add(jtxtIdMascota, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 685, 200, 30));
 
         jtxtPeso.setBackground(new java.awt.Color(232, 245, 254));
         jtxtPeso.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtPeso.setForeground(new java.awt.Color(51, 51, 51));
         jtxtPeso.setBorder(null);
         jtxtPeso.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         add(jtxtPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 685, 210, 30));
 
         jtxtNombre.setBackground(new java.awt.Color(232, 245, 254));
         jtxtNombre.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtNombre.setForeground(new java.awt.Color(51, 51, 51));
         jtxtNombre.setBorder(null);
         jtxtNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         add(jtxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 685, 210, 30));
 
         jtxtRaza.setBackground(new java.awt.Color(232, 245, 254));
         jtxtRaza.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtRaza.setForeground(new java.awt.Color(51, 51, 51));
         jtxtRaza.setBorder(null);
         jtxtRaza.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         add(jtxtRaza, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 765, 210, 30));
 
         jtxtGenero.setBackground(new java.awt.Color(232, 245, 254));
         jtxtGenero.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtGenero.setForeground(new java.awt.Color(51, 51, 51));
         jtxtGenero.setBorder(null);
         jtxtGenero.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         add(jtxtGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 845, 210, 30));
@@ -173,6 +178,7 @@ public class FrmMascotas extends javax.swing.JPanel {
         jtxtIdCliente.setEditable(false);
         jtxtIdCliente.setBackground(new java.awt.Color(232, 245, 254));
         jtxtIdCliente.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtIdCliente.setForeground(new java.awt.Color(51, 51, 51));
         jtxtIdCliente.setBorder(null);
         jtxtIdCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         add(jtxtIdCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 765, 210, 30));
@@ -305,7 +311,7 @@ public class FrmMascotas extends javax.swing.JPanel {
 
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
 
-        if (tablaMascotas.getSelectedRowCount() != 1) {
+        if (jtxtIdMascota.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "No ha seleccionado una mascota de la tabla", "Sistema", JOptionPane.WARNING_MESSAGE);
             return;
         }
