@@ -55,6 +55,35 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
         return productos;
     }
 
+    public List<ProductoDTO> listarModoInvitado (String nombre) {
+        List<ProductoDTO> productos = new ArrayList();
+
+        try {
+
+            ps = CON.conectar().prepareStatement("SELECT nombre, descripcion, marca, precio, cantidad FROM Producto WHERE nombre LIKE '%" + nombre + "%' AND estado = 1");
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                productos.add(new ProductoDTO(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getFloat(4),
+                        rs.getFloat(5)
+                ));
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            ps = null;
+            rs = null;
+            CON.cerrarConexion();
+        }
+        return productos;
+    }
+
     @Override
     public boolean agregar (ProductoDTO objeto) {
         resp = false;

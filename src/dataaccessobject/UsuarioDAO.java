@@ -59,10 +59,10 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
         return usuarios;
     }
 
-    public List<String> seleccionar () {
+    public List<String> seleccionarCliente () {
         List<String> usuarios = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT idUsuario, nombres, apellidos FROM Usuario");
+            ps = CON.conectar().prepareStatement("SELECT idUsuario, nombres, apellidos FROM Usuario WHERE idUsuario = 2");
             rs = ps.executeQuery();
             while (rs.next()) {
                 UsuarioDTO usuario = new UsuarioDTO(rs.getInt(1), rs.getString(2), rs.getString(3));

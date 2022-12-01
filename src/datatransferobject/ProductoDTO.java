@@ -21,6 +21,14 @@ public class ProductoDTO {
         this.precio = precio;
     }
 
+    public ProductoDTO (String nombre, String descripcion, String marca, float precio, float cantidad) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.marca = marca;
+        this.precio = precio;
+        this.cantidad = cantidad;
+    }
+
     public ProductoDTO (int idProducto, byte idTipoProducto, int idProveedor, String nombre, String descripcion, String marca, float precio, float cantidad, byte estado) {
         this.idProducto = idProducto;
         this.idTipoProducto = idTipoProducto;

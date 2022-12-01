@@ -62,12 +62,24 @@ public class Menu extends JPanel {
                 addTitle("MASCOTAS");
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.TIMELINE, "Mascotas"));                  // 1
                 addTitle("RESERVAS");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Reserva de Citas"));           // 3
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Reserva de Citas"));           // 2
+            }
+            break;
+            case 5: {
+                addTitle("INVITADO");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.DASHBOARD, "Inicio"));                   // 0
+                addTitle("PRODUCTOS");
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));            // 1
             }
             break;
         }
-        addTitle("CONFIGURACIÓN");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Configuración", "Editar Perfil", "Color de alertas", "Cerrar Sesión"));
+        if (UsuarioActivo.idRol != 5) {
+            addTitle("CONFIGURACIÓN");
+            addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.SETTINGS, "Editar Perfil", "Color de alertas", "Cerrar Sesión"));
+        } else {
+            addTitle("CONFIGURACIÓN");
+            addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CLOSE, "Color de alertas", "Cerrar Sesión"));
+        }
 
     }
 

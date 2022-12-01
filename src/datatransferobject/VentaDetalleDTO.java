@@ -5,20 +5,52 @@ public class VentaDetalleDTO {
     private int idVentaDetalle;
     private int idVenta;
     private int idProducto;
-    private String descripcion;
-    private float cantidad;
-    private float costo;
+    private String nombreProducto;
+    private int stockProducto;
+    private int cantidad;
+    private double precio;
 
     public VentaDetalleDTO () {
     }
 
-    public VentaDetalleDTO (int idVentaDetalle, int idVenta, int idProducto, String descripcion, float cantidad, float costo) {
+    public VentaDetalleDTO (int idProducto, String nombreProducto, int cantidad, double precio) {
+        this.idProducto = idProducto;
+        this.nombreProducto = nombreProducto;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    public VentaDetalleDTO (int idProducto, int cantidad, double precio) {
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    public VentaDetalleDTO (int idProducto, String nombreProducto, int stockProducto, int cantidad, double precio) {
+        this.idProducto = idProducto;
+        this.nombreProducto = nombreProducto;
+        this.stockProducto = stockProducto;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    public VentaDetalleDTO (int idVenta, int idProducto, String nombreProducto, int stockProducto, int cantidad, double precio) {
+        this.idVenta = idVenta;
+        this.idProducto = idProducto;
+        this.nombreProducto = nombreProducto;
+        this.stockProducto = stockProducto;
+        this.cantidad = cantidad;
+        this.precio = precio;
+    }
+
+    public VentaDetalleDTO (int idVentaDetalle, int idVenta, int idProducto, String nombreProducto, int stockProducto, int cantidad, double precio) {
         this.idVentaDetalle = idVentaDetalle;
         this.idVenta = idVenta;
         this.idProducto = idProducto;
-        this.descripcion = descripcion;
+        this.nombreProducto = nombreProducto;
+        this.stockProducto = stockProducto;
         this.cantidad = cantidad;
-        this.costo = costo;
+        this.precio = precio;
     }
 
     public int getIdVentaDetalle () {
@@ -45,33 +77,41 @@ public class VentaDetalleDTO {
         this.idProducto = idProducto;
     }
 
-    public String getDescripcion () {
-        return descripcion;
+    public String getNombreProducto () {
+        return nombreProducto;
     }
 
-    public void setDescripcion (String descripcion) {
-        this.descripcion = descripcion;
+    public void setNombreProducto (String nombreProducto) {
+        this.nombreProducto = nombreProducto;
     }
 
-    public float getCantidad () {
+    public int getStockProducto () {
+        return stockProducto;
+    }
+
+    public void setStockProducto (int stockProducto) {
+        this.stockProducto = stockProducto;
+    }
+
+    public int getCantidad () {
         return cantidad;
     }
 
-    public void setCantidad (float cantidad) {
+    public void setCantidad (int cantidad) {
         this.cantidad = cantidad;
     }
 
-    public float getCosto () {
-        return costo;
+    public double getPrecio () {
+        return precio;
     }
 
-    public void setCosto (float costo) {
-        this.costo = costo;
+    public void setPrecio (double precio) {
+        this.precio = precio;
     }
 
     @Override
     public String toString () {
-        return "VentaDetalleDTO{" + "idVentaDetalle=" + idVentaDetalle + ", idVenta=" + idVenta + ", idProducto=" + idProducto + ", descripcion=" + descripcion + ", cantidad=" + cantidad + ", costo=" + costo + '}';
+        return "VentaDetalleDTO{" + "idVentaDetalle=" + idVentaDetalle + ", idVenta=" + idVenta + ", idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", stockProducto=" + stockProducto + ", cantidad=" + cantidad + ", precio=" + precio + '}';
     }
 
 }

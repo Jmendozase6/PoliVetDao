@@ -17,6 +17,10 @@ public class EncriptacionAES {
 
     private final String LLAVE = "PoliVet";
 
+    public static void main (String[] args) {
+        System.out.println(new EncriptacionAES().encriptar("cliente"));
+    }
+
     public SecretKeySpec crearClave (String llave) {
         try {
             byte[] cadena = llave.getBytes("UTF-8");

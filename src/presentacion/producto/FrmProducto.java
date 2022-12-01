@@ -6,9 +6,11 @@ import datatransferobject.ProductoDTO;
 import java.awt.Font;
 import javax.swing.JOptionPane;
 import presentacion.files.componentes.customswitch.SwitchListener;
+import presentacion.usuarios.administador.FrmVenta;
 
 public class FrmProducto extends javax.swing.JPanel {
 
+    private FrmVenta frm;
     private final ProductoControl CONTROL;
     private ProductoDTO productoActualizar;
 
@@ -17,6 +19,10 @@ public class FrmProducto extends javax.swing.JPanel {
         CONTROL = new ProductoControl();
         this.listar("");
         jbtnSubir.setVisible(false);
+    }
+
+    public void setModel (FrmVenta frm) {
+        this.frm = frm;
     }
 
     private void mostrarBotonTabla () {
@@ -213,11 +219,6 @@ public class FrmProducto extends javax.swing.JPanel {
         jtxtMarca.setForeground(new java.awt.Color(51, 51, 51));
         jtxtMarca.setBorder(null);
         jtxtMarca.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jtxtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtMarcaKeyTyped(evt);
-            }
-        });
         add(jtxtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 685, 210, 30));
 
         jtxtNombre.setBackground(new java.awt.Color(232, 245, 254));
@@ -390,7 +391,7 @@ public class FrmProducto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtxtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyTyped
-        this.listar(jtxtBuscar.getText().trim());
+
     }//GEN-LAST:event_jtxtBuscarKeyTyped
 
     private void jbtnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubirActionPerformed
@@ -510,10 +511,6 @@ public class FrmProducto extends javax.swing.JPanel {
             this.listar("");
         }
     }//GEN-LAST:event_jchMostrarRegistrosInactivosActionPerformed
-
-    private void jtxtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtMarcaKeyTyped
-        labelError.setText(Utilidades.validarEmail(jtxtMarca.getText()));
-    }//GEN-LAST:event_jtxtMarcaKeyTyped
 
     private void jbtnCrearProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCrearProductoActionPerformed
         new DialogCrearProducto(null, true, this).setVisible(true);

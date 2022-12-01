@@ -8,10 +8,10 @@ import presentacion.configuracion.FrmEditarPerfil;
 import presentacion.login.*;
 import presentacion.producto.*;
 import presentacion.usuarios.*;
-import presentacion.usuarios.administador.FrmDetalleVenta;
-import presentacion.usuarios.administador.FrmEstadisticas;
+import presentacion.usuarios.administador.FrmVenta;
 import presentacion.usuarios.veterinario.*;
 import presentacion.inicio.FrmInicio;
+import presentacion.usuarios.invitado.FrmProductoInvitado;
 
 public class FrmPrincipal extends javax.swing.JFrame {
 
@@ -42,7 +42,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             showForm(new FrmProveedor());
         }
         if (index == 4) {
-            showForm(new FrmDetalleVenta());
+            showForm(new FrmVenta());
         }
         if (index == 5) {
             showForm(new FrmProducto());
@@ -53,13 +53,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (index == 7) {
             showForm(new FrmMascotas());
         }
-        if (index == 8 && indexSubMenu == 1) {
+        if (index == 8 && indexSubMenu == 0) {
             showForm(new FrmEditarPerfil());
         }
-        if (index == 8 && indexSubMenu == 2) {
+        if (index == 8 && indexSubMenu == 1) {
             new DialogColorAlertas(this, true).setVisible(true);
         }
-        if (index == 8 && indexSubMenu == 3) {
+        if (index == 8 && indexSubMenu == 2) {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 new FrmLogin().setVisible(true);
                 this.dispose();
@@ -74,13 +74,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (index == 1) {
             showForm(new FrmProducto());
         }
-        if (index == 2 && indexSubMenu == 1) {
+        if (index == 2 && indexSubMenu == 0) {
             showForm(new FrmEditarPerfil());
         }
-        if (index == 2 && indexSubMenu == 2) {
+        if (index == 2 && indexSubMenu == 1) {
             new DialogColorAlertas(this, true).setVisible(true);
         }
-        if (index == 2 && indexSubMenu == 3) {
+        if (index == 2 && indexSubMenu == 2) {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 new FrmLogin().setVisible(true);
                 this.dispose();
@@ -92,13 +92,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (index == 0) {
             showForm(new FrmInicio());
         }
-        if (index == 1 && indexSubMenu == 1) {
+        if (index == 1 && indexSubMenu == 0) {
             showForm(new FrmEditarPerfil());
         }
-        if (index == 1 && indexSubMenu == 2) {
+        if (index == 1 && indexSubMenu == 1) {
             new DialogColorAlertas(this, true).setVisible(true);
         }
-        if (index == 1 && indexSubMenu == 3) {
+        if (index == 1 && indexSubMenu == 2) {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 new FrmLogin().setVisible(true);
                 this.dispose();
@@ -116,13 +116,31 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (index == 2) {
             showForm(new FrmReservaCitas());
         }
-        if (index == 3 && indexSubMenu == 1) {
+        if (index == 3 && indexSubMenu == 0) {
             showForm(new FrmEditarPerfil());
         }
-        if (index == 3 && indexSubMenu == 2) {
+        if (index == 3 && indexSubMenu == 1) {
             new DialogColorAlertas(this, true).setVisible(true);
         }
-        if (index == 3 && indexSubMenu == 3) {
+        if (index == 3 && indexSubMenu == 2) {
+            if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                new FrmLogin().setVisible(true);
+                this.dispose();
+            }
+        }
+    }
+
+    private void switchInvitado (int index, int indexSubMenu) {
+        if (index == 0) {
+            showForm(new FrmInicio());
+        }
+        if (index == 1) {
+            showForm(new FrmProductoInvitado());
+        }
+        if (index == 2 && indexSubMenu == 0) {
+            new DialogColorAlertas(this, true).setVisible(true);
+        }
+        if (index == 2 && indexSubMenu == 1) {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 new FrmLogin().setVisible(true);
                 this.dispose();
@@ -147,6 +165,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
             if (UsuarioActivo.idRol == 4) {
                 switchVeterinario(index, indexSubMenu);
+            }
+            if (UsuarioActivo.idRol == 5) {
+                switchInvitado(index, indexSubMenu);
             }
         });
     }

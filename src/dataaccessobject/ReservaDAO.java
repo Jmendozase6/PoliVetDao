@@ -43,7 +43,7 @@ public class ReservaDAO implements IReserva<ReservaDTO> {
                 reservas.add(new ReservaDTO(
                         rs.getInt(1),
                         rs.getInt(2),
-                        rs.getString(3),
+                        String.valueOf(rs.getDate(3)),
                         rs.getString(4)));
             }
             rs.close();

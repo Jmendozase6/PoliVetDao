@@ -66,7 +66,10 @@ public class Utilidades {
         int dia = c.getCalendar().get(Calendar.DAY_OF_MONTH);
         int mes = c.getCalendar().get(Calendar.MONTH) + 1;
         int anio = c.getCalendar().get(Calendar.YEAR);
-        return anio + "" + mes + "" + dia;
+        if (dia <= 9) {
+            return anio + "" + mes + "0" + dia;
+        }
+        return anio + "" + mes + dia;
     }
 
     public String obtenerCodigoPortaPapeles () {

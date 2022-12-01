@@ -1,6 +1,7 @@
 package presentacion.login;
 
 import businessobject.CorreosGuardadosControl;
+import businessobject.UsuarioActivo;
 import businessobject.UsuarioControl;
 import businessobject.Utilidades;
 import java.awt.event.KeyEvent;
@@ -82,6 +83,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jGreenBackForm1 = new javax.swing.JLabel();
         jGreenBackForm2 = new javax.swing.JLabel();
         jbtnRegistrarse = new presentacion.files.componentes.ButtonCustom();
+        jbtnModoInvitado = new presentacion.files.componentes.ButtonCustom();
         jGreenTopWave = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -124,7 +126,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jtxtEmail.setBorder(null);
         jtxtEmail.setForeground(new java.awt.Color(51, 51, 51));
-        jtxtEmail.setText("manuelantoncisneros2020@hotmail.com");
+        jtxtEmail.setText("jhairmendoza2003@gmail.com");
         jtxtEmail.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtEmail.setSelectionColor(new java.awt.Color(82, 183, 136));
         jtxtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -138,7 +140,7 @@ public class FrmLogin extends javax.swing.JFrame {
         jtxtPass.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtPass.setForeground(new java.awt.Color(51, 51, 51));
         jtxtPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jtxtPass.setText("manuel");
+        jtxtPass.setText("admin");
         jtxtPass.setBorder(null);
         jtxtPass.setEchoChar('*');
         jtxtPass.setSelectionColor(new java.awt.Color(82, 183, 136));
@@ -252,7 +254,18 @@ public class FrmLogin extends javax.swing.JFrame {
                 jbtnRegistrarseActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnRegistrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 390, 240, 40));
+        jPanel1.add(jbtnRegistrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 380, 240, 50));
+
+        jbtnModoInvitado.setText("Modo Invitado");
+        jbtnModoInvitado.setFocusPainted(false);
+        jbtnModoInvitado.setFont(new java.awt.Font("Gilroy-Regular", 0, 16)); // NOI18N
+        jbtnModoInvitado.setStyle(presentacion.files.componentes.ButtonCustom.ButtonStyle.DESTRUCTIVE);
+        jbtnModoInvitado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnModoInvitadoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jbtnModoInvitado, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 440, 190, 40));
 
         jGreenTopWave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/greenTopWave.png"))); // NOI18N
         jPanel1.add(jGreenTopWave, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -305,10 +318,14 @@ public class FrmLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtxtPassKeyTyped
 
+    private void jbtnModoInvitadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnModoInvitadoActionPerformed
+        UsuarioActivo.idRol = 5;
+        FrmPrincipal frm = new FrmPrincipal();
+        frm.toFront();
+        frm.setVisible(true);
+    }//GEN-LAST:event_jbtnModoInvitadoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cerrar2;
-    private javax.swing.JButton cerrar3;
-    private javax.swing.JButton cerrar4;
     private javax.swing.JLabel jAstronautDog;
     private javax.swing.JLabel jBrownBottonWave;
     private javax.swing.JLabel jCat;
@@ -327,6 +344,7 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jTitle4;
     private javax.swing.JLabel jVetXRay;
     private presentacion.files.componentes.ButtonCustom jbtnIniciarSesion;
+    private presentacion.files.componentes.ButtonCustom jbtnModoInvitado;
     private javax.swing.JButton jbtnOlvidasePass;
     private presentacion.files.componentes.ButtonCustom jbtnRegistrarse;
     private presentacion.files.componentes.CheckBoxCustom jchRecordar;

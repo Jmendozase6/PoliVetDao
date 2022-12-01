@@ -127,8 +127,8 @@ public class UsuarioControl {
         }
     }
 
-    public DefaultComboBoxModel seleccionar () {
-        return new DefaultComboBoxModel(DATOS.seleccionar().toArray());
+    public DefaultComboBoxModel seleccionarCliente () {
+        return new DefaultComboBoxModel(DATOS.seleccionarCliente().toArray());
     }
 
     public String desactivar (int id) {

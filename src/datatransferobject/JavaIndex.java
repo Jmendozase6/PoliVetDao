@@ -1,16 +1,8 @@
-package email;
+package datatransferobject;
 
 public class JavaIndex {
 
     public String emailDestino, clave;
-    StringBuilder xd = new StringBuilder();
-
-    public static void main (String[] args) {
-        JavaIndex a = new JavaIndex();
-        a.clave = "123456";
-        a.emailDestino = "Jhair@gmail.com";
-        System.out.println(a.obtenerEmail());
-    }
 
     public JavaIndex () {
 

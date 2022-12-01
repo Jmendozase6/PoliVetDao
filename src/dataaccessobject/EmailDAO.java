@@ -1,7 +1,7 @@
 package dataaccessobject;
 
 import datatransferobject.EmailDTO;
-import email.JavaIndex;
+import datatransferobject.JavaIndex;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -47,6 +47,25 @@ public class ProductoControl {
         return this.modeloTabla;
     }
 
+    public DefaultTableModel listarModoInvitado (String nombre) {
+        List<ProductoDTO> productos = new ArrayList();
+        productos.addAll(DATOS.listarModoInvitado(nombre));
+
+        String[] titulos = {"Nombre", "Descripción", "Marca", "Precio", "Cantidad"};
+        this.modeloTabla = new DefaultTableModel(null, titulos);
+
+        String[] registro = new String[titulos.length];
+        for (ProductoDTO item : productos) {
+            registro[0] = item.getNombre();
+            registro[1] = item.getDescripcion();
+            registro[2] = item.getMarca();
+            registro[3] = Float.toString(item.getPrecio());
+            registro[4] = Float.toString(item.getCantidad());
+            this.modeloTabla.addRow(registro);
+        }
+        return this.modeloTabla;
+    }
+
     public String existe (String nombre, int idProveedor) {
         if (DATOS.existe(nombre, idProveedor)) {
             return "OK";

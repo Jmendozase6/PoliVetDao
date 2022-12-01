@@ -22,7 +22,7 @@ public class DialogRegistrarMascota extends javax.swing.JDialog {
         USUARIO_CONTROL = new UsuarioControl();
         T_MASCOTA_CONTROL = new TipoMascotaControl();
         this.FRM_Mascotas = frmMascotas;
-        jcbxCliente.setModel(USUARIO_CONTROL.seleccionar());
+        jcbxCliente.setModel(USUARIO_CONTROL.seleccionarCliente());
         jcbxCliente.setSelectedIndex(0);
         jcbxTipoMascota.setModel(T_MASCOTA_CONTROL.seleccionar());
         jcbxTipoMascota.setSelectedIndex(0);
