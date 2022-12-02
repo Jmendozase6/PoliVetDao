@@ -49,9 +49,9 @@ public class VentaControl {
         return new DefaultComboBoxModel(DATOS_PRO.seleccionar().toArray());
     }
 
-    public DefaultTableModel listarDetalle (int id) {
+    public DefaultTableModel listarDetalle (int idVenta) {
         List<VentaDetalleDTO> lista = new ArrayList();
-        lista.addAll(DATOS.listarDetalle(id));
+        lista.addAll(DATOS.listarDetalle(idVenta));
 
         String[] titulos = {"ID Producto", "Nombre Producto", "Stock de Producto", "Cantidad", "Precio"};
         this.modeloTabla = new DefaultTableModel(null, titulos);
@@ -94,7 +94,7 @@ public class VentaControl {
 
             obj.setDetalles(detalles);
 
-            if (DATOS.insertarNOTRAN(obj)) {
+            if (DATOS.insertar(obj)) {
                 return "OK";
             } else {
                 return "Error en el registro.";

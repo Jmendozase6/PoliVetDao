@@ -1,4 +1,6 @@
-package interfaces;
+package dataaccessobject;
+
+import dataaccessobject.IOperacionesCrud;
 
 public interface IUsuario<T> extends IOperacionesCrud<T> {
 

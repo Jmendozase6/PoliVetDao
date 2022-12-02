@@ -35,7 +35,7 @@ public class Menu extends JPanel {
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Veterinarios"));                // 2
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PERSON, "Proveedores"));                 // 3
                 addTitle("VENTAS");
-                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Detalles de Ventas"));         // 4 FALTA
+                addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HISTORY, "Detalles de Ventas"));         // 4
                 addTitle("INVENTARIO");
                 addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.ACCESSIBILITY, "Productos"));            // 6
                 addTitle("CITAS");
@@ -75,10 +75,11 @@ public class Menu extends JPanel {
         }
         if (UsuarioActivo.idRol != 5) {
             addTitle("CONFIGURACIÓN");
-            addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.SETTINGS, "Editar Perfil", "Color de alertas", "Cerrar Sesión"));
+            addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.SETTINGS, "Editar Perfil", "Alertas", "Cerrar Sesión"));
         } else {
+            // MODO INVITADO
             addTitle("CONFIGURACIÓN");
-            addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CLOSE, "Color de alertas", "Cerrar Sesión"));
+            addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.CLOSE, "Cerrar Sesión"));
         }
 
     }

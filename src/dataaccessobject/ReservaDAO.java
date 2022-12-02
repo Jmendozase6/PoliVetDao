@@ -2,7 +2,6 @@ package dataaccessobject;
 
 import datasource.ConexionSQL;
 import datatransferobject.ReservaDTO;
-import interfaces.IReserva;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -68,8 +68,17 @@ public class CartLayer extends javax.swing.JComponent {
         button1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/buttons/whatsapp.png"))); // NOI18N
         button1.setText(" WhatsApp");
         button1.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
         add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 150, 50));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        buttonAction();
+    }//GEN-LAST:event_button1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private presentacion.files.componentes.cartaAnimada.Button button1;

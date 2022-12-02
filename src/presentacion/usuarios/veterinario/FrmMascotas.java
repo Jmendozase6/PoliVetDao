@@ -110,8 +110,8 @@ public class FrmMascotas extends javax.swing.JPanel {
         jtxtBuscar.setText(" ");
         jtxtBuscar.setBorder(null);
         jtxtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtBuscarKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtBuscarKeyReleased(evt);
             }
         });
         add(jtxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 640, 40));
@@ -293,10 +293,6 @@ public class FrmMascotas extends javax.swing.JPanel {
         mostrarBoton();
     }//GEN-LAST:event_jScrollPane1MouseWheelMoved
 
-    private void jtxtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyTyped
-        this.listar(jtxtBuscar.getText().trim());
-    }//GEN-LAST:event_jtxtBuscarKeyTyped
-
     private void jbtnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubirActionPerformed
         jScrollPane1.getVerticalScrollBar().setValue(0);
     }//GEN-LAST:event_jbtnSubirActionPerformed
@@ -361,6 +357,10 @@ public class FrmMascotas extends javax.swing.JPanel {
     private void jbtnNuevoRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNuevoRegistroActionPerformed
         new DialogRegistrarMascota(null, true, this).setVisible(true);
     }//GEN-LAST:event_jbtnNuevoRegistroActionPerformed
+
+    private void jtxtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyReleased
+        this.listar(jtxtBuscar.getText().trim());
+    }//GEN-LAST:event_jtxtBuscarKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jCorreo;

@@ -26,7 +26,7 @@ public class FrmCliente extends javax.swing.JPanel {
         this.listar("nombres", "");
         jbtnSubir.setVisible(false);
         jbtnCambiarRol.setVisible(false);
-        mostrarBotonCambioRol();
+        mostrarBotones();
         Utilidades.colorDateChooser(jdcFechaNacimiento);
     }
 
@@ -40,7 +40,7 @@ public class FrmCliente extends javax.swing.JPanel {
         }
     }
 
-    private void mostrarBotonCambioRol () {
+    private void mostrarBotones () {
         if (UsuarioActivo.idRol == 1) {
             jbtnCambiarRol.setVisible(true);
         }
@@ -53,6 +53,19 @@ public class FrmCliente extends javax.swing.JPanel {
     }
 
     private void ocultarColumnas () {
+
+        //Ocultar la columna id
+        tablaClientes.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaClientes.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaClientes.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaClientes.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+
+        //Ocultar la columna idRol
+        tablaClientes.getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaClientes.getColumnModel().getColumn(1).setMinWidth(0);
+        tablaClientes.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaClientes.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
+
         tablaClientes.getColumnModel().getColumn(11).setMaxWidth(0);
         tablaClientes.getColumnModel().getColumn(11).setMinWidth(0);
         tablaClientes.getTableHeader().getColumnModel().getColumn(11).setMaxWidth(0);
@@ -165,8 +178,8 @@ public class FrmCliente extends javax.swing.JPanel {
         jtxtBuscar.setText(" ");
         jtxtBuscar.setBorder(null);
         jtxtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtBuscarKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtBuscarKeyReleased(evt);
             }
         });
         add(jtxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 640, 40));
@@ -426,10 +439,6 @@ public class FrmCliente extends javax.swing.JPanel {
         add(jbtnCambiarRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 840, 280, 40));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtxtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyTyped
-        this.listar(getSelected(), jtxtBuscar.getText().trim());
-    }//GEN-LAST:event_jtxtBuscarKeyTyped
-
     private void jbtnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubirActionPerformed
         jScrollPane1.getVerticalScrollBar().setValue(0);
     }//GEN-LAST:event_jbtnSubirActionPerformed
@@ -454,7 +463,7 @@ public class FrmCliente extends javax.swing.JPanel {
             return;
         }
 
-        if (Utilidades.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail)) {
+        if (Utilidades.sonTextfieldsVacios(jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtEmail)) {
             JOptionPane.showMessageDialog(this, "Debe completar todos los campos.", "Sistema", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -540,7 +549,7 @@ public class FrmCliente extends javax.swing.JPanel {
 
         if (resp.equals("OK")) {
             JOptionPane.showMessageDialog(this, "Se actualizó el estado del registro.");
-            this.listar("nombres", "");
+            jchMostrarRegistrosInactivosActionPerformed(evt);
             Utilidades.limpiarTextfields(jtxtIdCliente, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo actualizar el estado del registro", "Sistema", JOptionPane.ERROR_MESSAGE);
@@ -564,6 +573,10 @@ public class FrmCliente extends javax.swing.JPanel {
     private void jbtnCambiarRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCambiarRolActionPerformed
         new DialogModificarRol(null, true, this).setVisible(true);
     }//GEN-LAST:event_jbtnCambiarRolActionPerformed
+
+    private void jtxtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyReleased
+        this.listar(getSelected(), jtxtBuscar.getText().trim());
+    }//GEN-LAST:event_jtxtBuscarKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

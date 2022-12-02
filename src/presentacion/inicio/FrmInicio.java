@@ -65,7 +65,7 @@ public class FrmInicio extends javax.swing.JPanel implements Runnable {
                 "Geampier Eduardo",
                 "Atoche Córdova",
                 "19 años",
-                "Sullana - dministrador",
+                "Sullana - Aministrador",
                 new ImageIcon(getClass().getResource("/presentacion/files/mascota/cart2.png")),
                 "URL"));
 

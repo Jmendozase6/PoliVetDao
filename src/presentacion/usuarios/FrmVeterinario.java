@@ -44,6 +44,18 @@ public class FrmVeterinario extends javax.swing.JPanel {
     }
 
     private void ocultarColumnas () {
+        //Ocultar la columna id
+        tablaClientes.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaClientes.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaClientes.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaClientes.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+
+        //Ocultar la columna idRol
+        tablaClientes.getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaClientes.getColumnModel().getColumn(1).setMinWidth(0);
+        tablaClientes.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaClientes.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
+
         tablaClientes.getColumnModel().getColumn(11).setMaxWidth(0);
         tablaClientes.getColumnModel().getColumn(11).setMinWidth(0);
         tablaClientes.getTableHeader().getColumnModel().getColumn(11).setMaxWidth(0);
@@ -155,8 +167,8 @@ public class FrmVeterinario extends javax.swing.JPanel {
         jtxtBuscar.setText(" ");
         jtxtBuscar.setBorder(null);
         jtxtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtBuscarKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtBuscarKeyReleased(evt);
             }
         });
         add(jtxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 640, 40));
@@ -407,10 +419,6 @@ public class FrmVeterinario extends javax.swing.JPanel {
         add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 660, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtxtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyTyped
-        this.listar(getSelected(), jtxtBuscar.getText().trim());
-    }//GEN-LAST:event_jtxtBuscarKeyTyped
-
     private void jbtnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubirActionPerformed
         jScrollPane1.getVerticalScrollBar().setValue(0);
     }//GEN-LAST:event_jbtnSubirActionPerformed
@@ -449,7 +457,7 @@ public class FrmVeterinario extends javax.swing.JPanel {
 
         String respuesta = CONTROL.actualizar(usuarioActualizar);
         if (respuesta.equalsIgnoreCase("OK")) {
-            Utilidades.limpiarTextfields(jtxtidVeterinario, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
+            Utilidades.limpiarTextfields(jtxtidVeterinario, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtEmail, jtxtBuscar);
             JOptionPane.showMessageDialog(this, "Se actualizó correctamente el registro");
             this.listar("nombres", "");
         } else {
@@ -521,7 +529,7 @@ public class FrmVeterinario extends javax.swing.JPanel {
 
         if (resp.equals("OK")) {
             JOptionPane.showMessageDialog(this, "Se actualizó el estado del registro.");
-            this.listar("nombres", "");
+            jchMostrarRegistrosInactivosActionPerformed(evt);
             Utilidades.limpiarTextfields(jtxtidVeterinario, jtxtNombres, jtxtApellidos, jtxtDocumento, jtxtDireccion, jtxtTelefono, jtxtEmail, jtxtBuscar);
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo actualizar el estado del registro", "Sistema", JOptionPane.ERROR_MESSAGE);
@@ -541,6 +549,10 @@ public class FrmVeterinario extends javax.swing.JPanel {
     private void jtxtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtEmailKeyTyped
         labelError.setText(Utilidades.validarEmail(jtxtEmail.getText()));
     }//GEN-LAST:event_jtxtEmailKeyTyped
+
+    private void jtxtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyReleased
+        this.listar(getSelected(), jtxtBuscar.getText().trim());
+    }//GEN-LAST:event_jtxtBuscarKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

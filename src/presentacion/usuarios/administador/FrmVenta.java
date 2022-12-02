@@ -3,8 +3,8 @@ package presentacion.usuarios.administador;
 import businessobject.UsuarioControl;
 import businessobject.Utilidades;
 import businessobject.VentaControl;
-import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.HeadlessException;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,6 +14,8 @@ public class FrmVenta extends javax.swing.JPanel {
     private final VentaControl CONTROL;
     public DefaultTableModel modeloDetalles;
     private final UsuarioControl USUARIO_CONTROL;
+    private double cantidadTotalProducto;
+    private double nuevoStock;
 
     public FrmVenta () {
         initComponents();
@@ -30,8 +32,23 @@ public class FrmVenta extends javax.swing.JPanel {
     private void crearDetalle () {
         modeloDetalles = new DefaultTableModel() {
             @Override
+            public boolean isCellEditable (int row, int column) {
+                if (column == 2) {
+                    return column == 2;
+                }
+                return column == 2;
+            }
+
+            @Override
             public void setValueAt (Object aValue, int row, int column) {
                 super.setValueAt(aValue, row, column); //To change body of generated methods, choose Tools | Templates.
+
+                nuevoStock = Double.parseDouble((String) getValueAt(row, 2));
+
+                if (nuevoStock > cantidadTotalProducto) {
+                    super.setValueAt(cantidadTotalProducto, row, 2);
+                    JOptionPane.showMessageDialog(null, "La cantidad deseada sobrepasa el stock disponible,\nusted podrá vender cómo máximo: " + cantidadTotalProducto, "Sistema", JOptionPane.ERROR_MESSAGE);
+                }
                 calcularTotales();
                 fireTableDataChanged();
             }
@@ -42,6 +59,7 @@ public class FrmVenta extends javax.swing.JPanel {
     }
 
     public void agregarDetalles (String idProducto, String nombre, String cantidad, String precio) {
+
         String idT;
         boolean existe = false;
         for (int i = 0; i < this.modeloDetalles.getRowCount(); i++) {
@@ -66,7 +84,7 @@ public class FrmVenta extends javax.swing.JPanel {
         } else {
             double totalT = 0;
             for (int i = 0; i < items; i++) {
-                totalT = Double.parseDouble(String.valueOf(modeloDetalles.getValueAt(i, 3))) * Double.parseDouble(String.valueOf(modeloDetalles.getValueAt(i, 3)));
+                totalT = Double.parseDouble(String.valueOf(modeloDetalles.getValueAt(i, 2))) * Double.parseDouble(String.valueOf(modeloDetalles.getValueAt(i, 3)));
                 total += totalT;
             }
         }
@@ -96,6 +114,19 @@ public class FrmVenta extends javax.swing.JPanel {
         return combo.getSelectedItem().toString().split("-")[1].trim();
     }
 
+    private void verBotonNuevaVenta (boolean mostrar) {
+        tabGeneral.setEnabledAt(1, !mostrar);
+        tabGeneral.setEnabledAt(0, mostrar);
+        tabGeneral.setSelectedIndex(1);
+        jbtnGuardar.setVisible(mostrar);
+        jbtnQuitarProducto.setVisible(mostrar);
+        jbtnVerProductos.setVisible(mostrar);
+        jLabel18.setVisible(mostrar);
+        jtxtNumeroComprobante.setFocusable(mostrar);
+        jcbxCliente.setEnabled(mostrar);
+        tablaDetalles.setFocusable(mostrar);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -105,7 +136,7 @@ public class FrmVenta extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jbtnSubir = new presentacion.files.componentes.ButtonCustom();
         jLabel17 = new javax.swing.JLabel();
-        jbtnActualizarTotal = new presentacion.files.componentes.ButtonCustom();
+        jbtnVerVenta = new presentacion.files.componentes.ButtonCustom();
         jbtnCrearProducto = new presentacion.files.componentes.ButtonCustom();
         tabGeneral = new presentacion.files.componentes.TabbedCustom();
         jPanel1 = new javax.swing.JPanel();
@@ -116,10 +147,10 @@ public class FrmVenta extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         tablaDetalles = new javax.swing.JTable();
         jbtnCancelar = new presentacion.files.componentes.ButtonCustom();
+        jtxtNumeroComprobante = new javax.swing.JTextField();
         jPassword4 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jtxtNumeroComprobante = new javax.swing.JFormattedTextField();
         jPassword5 = new javax.swing.JLabel();
         jbtnGuardar = new presentacion.files.componentes.ButtonCustom();
         jLabel19 = new javax.swing.JLabel();
@@ -127,6 +158,8 @@ public class FrmVenta extends javax.swing.JPanel {
         jtxtTotal = new javax.swing.JFormattedTextField();
         jPassword3 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jbtnQuitarProducto = new presentacion.files.componentes.ButtonCustom();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(232, 245, 254));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -155,22 +188,23 @@ public class FrmVenta extends javax.swing.JPanel {
                 jbtnSubirActionPerformed(evt);
             }
         });
-        add(jbtnSubir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 660, 40, 40));
+        add(jbtnSubir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 855, 40, 40));
 
         jLabel17.setFont(new java.awt.Font("Hey Comic", 0, 48)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(43, 45, 66));
         jLabel17.setText("VENTAS");
         add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 40, -1, -1));
 
-        jbtnActualizarTotal.setText("Actualizar");
-        jbtnActualizarTotal.setFocusPainted(false);
-        jbtnActualizarTotal.setFont(new java.awt.Font("Gilroy-Regular", 0, 16)); // NOI18N
-        jbtnActualizarTotal.addActionListener(new java.awt.event.ActionListener() {
+        jbtnVerVenta.setText("Ver venta");
+        jbtnVerVenta.setFocusPainted(false);
+        jbtnVerVenta.setFont(new java.awt.Font("Gilroy-Regular", 0, 16)); // NOI18N
+        jbtnVerVenta.setStyle(presentacion.files.componentes.ButtonCustom.ButtonStyle.DESTRUCTIVE);
+        jbtnVerVenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnActualizarTotalActionPerformed(evt);
+                jbtnVerVentaActionPerformed(evt);
             }
         });
-        add(jbtnActualizarTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 650, 130, 40));
+        add(jbtnVerVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 130, 40));
 
         jbtnCrearProducto.setText("Nueva venta");
         jbtnCrearProducto.setFocusPainted(false);
@@ -180,7 +214,7 @@ public class FrmVenta extends javax.swing.JPanel {
                 jbtnCrearProductoActionPerformed(evt);
             }
         });
-        add(jbtnCrearProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 650, 130, 40));
+        add(jbtnCrearProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 130, 40));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -211,7 +245,7 @@ public class FrmVenta extends javax.swing.JPanel {
         tablaVentas.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaVentas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1255, 486));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1255, 626));
 
         tabGeneral.addTab("", jPanel1);
 
@@ -248,9 +282,14 @@ public class FrmVenta extends javax.swing.JPanel {
         tablaDetalles.setShowGrid(true);
         tablaDetalles.getTableHeader().setResizingAllowed(false);
         tablaDetalles.getTableHeader().setReorderingAllowed(false);
+        tablaDetalles.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tablaDetallesFocusGained(evt);
+            }
+        });
         jScrollPane3.setViewportView(tablaDetalles);
 
-        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1255, 310));
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1255, 440));
 
         jbtnCancelar.setText("Cancelar");
         jbtnCancelar.setFocusPainted(false);
@@ -261,7 +300,13 @@ public class FrmVenta extends javax.swing.JPanel {
                 jbtnCancelarActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, 130, 40));
+        jPanel2.add(jbtnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 560, 130, 40));
+
+        jtxtNumeroComprobante.setBackground(new java.awt.Color(232, 245, 254));
+        jtxtNumeroComprobante.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
+        jtxtNumeroComprobante.setForeground(new java.awt.Color(51, 51, 51));
+        jtxtNumeroComprobante.setBorder(null);
+        jPanel2.add(jtxtNumeroComprobante, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 55, 190, 30));
 
         jPassword4.setBackground(new java.awt.Color(255, 255, 255));
         jPassword4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/producto/txtCantidad.png"))); // NOI18N
@@ -277,14 +322,6 @@ public class FrmVenta extends javax.swing.JPanel {
         jLabel18.setText("Seleccione artículos");
         jPanel2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, -1, -1));
 
-        jtxtNumeroComprobante.setBackground(new java.awt.Color(232, 245, 254));
-        jtxtNumeroComprobante.setBorder(null);
-        jtxtNumeroComprobante.setForeground(new java.awt.Color(51, 51, 51));
-        jtxtNumeroComprobante.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
-        jtxtNumeroComprobante.setText("0001");
-        jtxtNumeroComprobante.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        jPanel2.add(jtxtNumeroComprobante, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 55, 190, 30));
-
         jPassword5.setBackground(new java.awt.Color(255, 255, 255));
         jPassword5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/producto/txtCantidad.png"))); // NOI18N
         jPanel2.add(jPassword5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, -1, -1));
@@ -297,7 +334,7 @@ public class FrmVenta extends javax.swing.JPanel {
                 jbtnGuardarActionPerformed(evt);
             }
         });
-        jPanel2.add(jbtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 430, 130, 40));
+        jPanel2.add(jbtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 560, 130, 40));
 
         jLabel19.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(43, 45, 66));
@@ -324,20 +361,34 @@ public class FrmVenta extends javax.swing.JPanel {
                 jtxtTotalKeyTyped(evt);
             }
         });
-        jPanel2.add(jtxtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 445, 190, 30));
+        jPanel2.add(jtxtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 575, 190, 30));
 
         jPassword3.setBackground(new java.awt.Color(255, 255, 255));
         jPassword3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/producto/txtCantidad.png"))); // NOI18N
-        jPanel2.add(jPassword3, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 440, -1, -1));
+        jPanel2.add(jPassword3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 570, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(43, 45, 66));
         jLabel15.setText("TOTAL");
-        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 420, -1, -1));
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 550, -1, -1));
+
+        jbtnQuitarProducto.setText("Quitar producto");
+        jbtnQuitarProducto.setFocusPainted(false);
+        jbtnQuitarProducto.setFont(new java.awt.Font("Gilroy-Regular", 0, 16)); // NOI18N
+        jbtnQuitarProducto.setStyle(presentacion.files.componentes.ButtonCustom.ButtonStyle.SECONDARY);
+        jbtnQuitarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnQuitarProductoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jbtnQuitarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 560, 150, 40));
 
         tabGeneral.addTab("", jPanel2);
 
-        add(tabGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 1260, 530));
+        add(tabGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 1260, 670));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/presentacion/files/iniciosesion/astronautDog.png"))); // NOI18N
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 30, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtxtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyTyped
@@ -356,6 +407,8 @@ public class FrmVenta extends javax.swing.JPanel {
         tabGeneral.setEnabledAt(1, true);
         tabGeneral.setEnabledAt(0, false);
         tabGeneral.setSelectedIndex(1);
+        jbtnGuardar.setVisible(true);
+        this.verBotonNuevaVenta(true);
     }//GEN-LAST:event_jbtnCrearProductoActionPerformed
 
     private void jtxtTotalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtTotalKeyTyped
@@ -377,12 +430,18 @@ public class FrmVenta extends javax.swing.JPanel {
         tabGeneral.setSelectedIndex(0);
         Utilidades.limpiarTextfields(jtxtNumeroComprobante, jtxtTotal, jtxtBuscar);
         jcbxCliente.setSelectedIndex(0);
-        modeloDetalles.setColumnIdentifiers(new Object[]{"ID Producto", "Nombre Producto", "Cantidad", "Precio"});
-        modeloDetalles.setRowCount(0);
-        tablaDetalles.setModel(modeloDetalles);
+        crearDetalle();
+//        tablaDetalles.setModel(modeloDetalles);
+//        cantidadTotalProducto = 0;
+//        nuevoStock = 0;
     }//GEN-LAST:event_jbtnCancelarActionPerformed
 
     private void jbtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGuardarActionPerformed
+
+        if (modeloDetalles.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado productos", "Sistema", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
         if (Utilidades.sonTextfieldsVacios(jtxtNumeroComprobante)) {
             JOptionPane.showMessageDialog(null, "Defina el número de comprobante", "Sistema", JOptionPane.WARNING_MESSAGE);
@@ -395,12 +454,13 @@ public class FrmVenta extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Se registró la venta correctamente");
             Utilidades.limpiarTextfields(jtxtNumeroComprobante, jtxtTotal, jtxtBuscar);
             this.listar("");
-
             tabGeneral.setSelectedIndex(0);
             tabGeneral.setEnabledAt(1, false);
             tabGeneral.setEnabledAt(0, true);
 
-        } else {
+        } else if (resp.equals("El registro ya existe.")) {
+            JOptionPane.showMessageDialog(null, "Ya existe un registro con ese número de comprobante", "Sistema", JOptionPane.ERROR_MESSAGE);
+        } else if (resp.equals("Error en el registro.")) {
             JOptionPane.showMessageDialog(null, "Ocurrió un error en el registro", "Sistema", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -413,9 +473,46 @@ public class FrmVenta extends javax.swing.JPanel {
         dialog.toFront();
     }//GEN-LAST:event_jbtnVerProductosActionPerformed
 
-    private void jbtnActualizarTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarTotalActionPerformed
-        calcularTotales();
-    }//GEN-LAST:event_jbtnActualizarTotalActionPerformed
+    private void jbtnVerVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnVerVentaActionPerformed
+        if (tablaVentas.getSelectedRowCount() == 1) {
+            String idVenta = String.valueOf(tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 0));
+            String idUsuario = String.valueOf(tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 1));
+            String nombreUsuario = String.valueOf(tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 2));
+            String numeroComprobante = String.valueOf(tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 3));
+            String total = String.valueOf(tablaVentas.getValueAt(tablaVentas.getSelectedRow(), 5));
+
+            jcbxCliente.setSelectedItem(idUsuario + " - " + nombreUsuario);
+            jtxtTotal.setText(total);
+            jtxtNumeroComprobante.setText(numeroComprobante);
+
+            this.modeloDetalles = CONTROL.listarDetalle(Integer.parseInt(idVenta));
+            tablaDetalles.setModel(modeloDetalles);
+//            this.calcularTotales();
+
+            this.verBotonNuevaVenta(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione la venta a mostrar.");
+        }
+
+    }//GEN-LAST:event_jbtnVerVentaActionPerformed
+
+    private void jbtnQuitarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnQuitarProductoActionPerformed
+        if (tablaDetalles.getSelectedRowCount() == 1) {
+            this.modeloDetalles.removeRow(tablaDetalles.getSelectedRow());
+            this.calcularTotales();
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado el producto que desea quitar", "Sistema", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbtnQuitarProductoActionPerformed
+
+    private void tablaDetallesFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tablaDetallesFocusGained
+        try {
+            cantidadTotalProducto = Double.parseDouble(modeloDetalles.getValueAt(tablaDetalles.getSelectedRow(), 2).toString());
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+
+    }//GEN-LAST:event_tablaDetallesFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -425,6 +522,7 @@ public class FrmVenta extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel jPassword3;
@@ -432,15 +530,16 @@ public class FrmVenta extends javax.swing.JPanel {
     private javax.swing.JLabel jPassword5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private presentacion.files.componentes.ButtonCustom jbtnActualizarTotal;
     private presentacion.files.componentes.ButtonCustom jbtnCancelar;
     private presentacion.files.componentes.ButtonCustom jbtnCrearProducto;
     private presentacion.files.componentes.ButtonCustom jbtnGuardar;
+    private presentacion.files.componentes.ButtonCustom jbtnQuitarProducto;
     private presentacion.files.componentes.ButtonCustom jbtnSubir;
     private presentacion.files.componentes.ButtonCustom jbtnVerProductos;
+    private presentacion.files.componentes.ButtonCustom jbtnVerVenta;
     private javax.swing.JComboBox<String> jcbxCliente;
     private javax.swing.JTextField jtxtBuscar;
-    private javax.swing.JFormattedTextField jtxtNumeroComprobante;
+    private javax.swing.JTextField jtxtNumeroComprobante;
     private javax.swing.JFormattedTextField jtxtTotal;
     private presentacion.files.componentes.TabbedCustom tabGeneral;
     private javax.swing.JTable tablaDetalles;

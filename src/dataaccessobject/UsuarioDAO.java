@@ -4,14 +4,13 @@ import businessobject.EncriptacionAES;
 import businessobject.UsuarioActivo;
 import datasource.ConexionSQL;
 import datatransferobject.UsuarioDTO;
-import interfaces.IUsuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioDAO implements IUsuario<UsuarioDTO> {
+public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrador {
 
     private final ConexionSQL CON;
     private PreparedStatement ps;
@@ -59,10 +58,11 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
         return usuarios;
     }
 
+    @Override
     public List<String> seleccionarCliente () {
         List<String> usuarios = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT idUsuario, nombres, apellidos FROM Usuario WHERE idUsuario = 2");
+            ps = CON.conectar().prepareStatement("SELECT idUsuario, nombres, apellidos FROM Usuario WHERE idRol = 2");
             rs = ps.executeQuery();
             while (rs.next()) {
                 UsuarioDTO usuario = new UsuarioDTO(rs.getInt(1), rs.getString(2), rs.getString(3));
@@ -238,6 +238,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO> {
         return resp;
     }
 
+    @Override
     public boolean actualizarRol (int idUsuario, int idRol) {
 
         resp = false;

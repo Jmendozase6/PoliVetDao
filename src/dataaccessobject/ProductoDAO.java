@@ -2,7 +2,6 @@ package dataaccessobject;
 
 import datasource.ConexionSQL;
 import datatransferobject.ProductoDTO;
-import interfaces.IProducto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

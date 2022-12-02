@@ -138,9 +138,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
             showForm(new FrmProductoInvitado());
         }
         if (index == 2 && indexSubMenu == 0) {
-            new DialogColorAlertas(this, true).setVisible(true);
-        }
-        if (index == 2 && indexSubMenu == 1) {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 new FrmLogin().setVisible(true);
                 this.dispose();

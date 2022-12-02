@@ -323,6 +323,7 @@ public class FrmLogin extends javax.swing.JFrame {
         FrmPrincipal frm = new FrmPrincipal();
         frm.toFront();
         frm.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jbtnModoInvitadoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

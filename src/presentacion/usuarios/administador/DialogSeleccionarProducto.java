@@ -13,6 +13,7 @@ public class DialogSeleccionarProducto extends javax.swing.JDialog {
         initComponents();
         CONTROL = new ProductoControl();
         this.listar("");
+        this.jbtnSubir.setVisible(false);
     }
 
     public void setModel (FrmVenta frm) {
@@ -29,8 +30,36 @@ public class DialogSeleccionarProducto extends javax.swing.JDialog {
         }
     }
 
+    private void ocultarColumnas () {
+
+        //id
+        tablaProductos.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaProductos.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+
+        //id producto
+        tablaProductos.getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaProductos.getColumnModel().getColumn(1).setMinWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
+
+        // proveedor
+        tablaProductos.getColumnModel().getColumn(2).setMaxWidth(0);
+        tablaProductos.getColumnModel().getColumn(2).setMinWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
+
+        // estado
+        tablaProductos.getColumnModel().getColumn(8).setMaxWidth(0);
+        tablaProductos.getColumnModel().getColumn(8).setMinWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(8).setMaxWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(8).setMinWidth(0);
+    }
+
     public void listar (String buscar) {
         tablaProductos.setModel(this.CONTROL.listar(buscar, (byte) 1));
+        ocultarColumnas();
     }
 
     @SuppressWarnings("unchecked")
@@ -92,8 +121,8 @@ public class DialogSeleccionarProducto extends javax.swing.JDialog {
         jtxtBuscar.setText(" ");
         jtxtBuscar.setBorder(null);
         jtxtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtBuscarKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtBuscarKeyReleased(evt);
             }
         });
         getContentPane().add(jtxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 640, 40));
@@ -142,58 +171,13 @@ public class DialogSeleccionarProducto extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jbtnSeleccionarProductoActionPerformed
 
-    private void jtxtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyTyped
-        this.listar(jtxtBuscar.getText().trim());
-    }//GEN-LAST:event_jtxtBuscarKeyTyped
-
     private void jbtnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubirActionPerformed
         jScrollPane1.getVerticalScrollBar().setValue(0);
     }//GEN-LAST:event_jbtnSubirActionPerformed
 
-    public static void main (String args[]) {
-        /*
-         * Set the Nimbus look and feel
-         */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the
-         * default look and feel. For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogSeleccionarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogSeleccionarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogSeleccionarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogSeleccionarProducto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /*
-         * Create and display the dialog
-         */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run () {
-                DialogSeleccionarProducto dialog = new DialogSeleccionarProducto(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing (java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private void jtxtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyReleased
+        this.listar(jtxtBuscar.getText().trim());
+    }//GEN-LAST:event_jtxtBuscarKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

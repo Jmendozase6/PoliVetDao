@@ -49,7 +49,7 @@ public class DialogColorAlertas extends javax.swing.JDialog {
         jTitle4.setText("Seleccione un color");
         panelCustom2.add(jTitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
 
-        jcbxColorAlertas.setBackground(new java.awt.Color(242, 255, 255));
+        jcbxColorAlertas.setBackground(new java.awt.Color(255, 255, 255));
         jcbxColorAlertas.setFont(new java.awt.Font("Gilroy-Regular", 0, 12)); // NOI18N
         jcbxColorAlertas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blanco", "Morado", "Oscuras" }));
         jcbxColorAlertas.setBorder(null);

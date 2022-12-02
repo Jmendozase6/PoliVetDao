@@ -189,7 +189,7 @@ public class DialogCrearProducto extends javax.swing.JDialog {
 
         jTitle4.setFont(new java.awt.Font("Gilroy-ExtraBold", 0, 24)); // NOI18N
         jTitle4.setForeground(new java.awt.Color(82, 183, 136));
-        jTitle4.setText("Registrar mascota");
+        jTitle4.setText("Crear Producto");
         panelCustom2.add(jTitle4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N

@@ -2,11 +2,11 @@ package presentacion.usuarios.invitado;
 
 import businessobject.ProductoControl;
 import java.awt.Font;
-import java.awt.event.KeyEvent;
 
 public class FrmProductoInvitado extends javax.swing.JPanel {
 
     private final ProductoControl CONTROL;
+    private String nombre, nombreProducto, descripcion, marca, precio;
 
     public FrmProductoInvitado () {
         initComponents();
@@ -26,23 +26,24 @@ public class FrmProductoInvitado extends javax.swing.JPanel {
     }
 
     public void listar (String buscar) {
-        tablaProductos.setModel(this.CONTROL.listarModoInvitado(""));
+        tablaProductos.setModel(this.CONTROL.listarModoInvitado(buscar));
     }
 
-    private void seleccionar () {
+    private boolean seleccionar () {
         if (tablaProductos.getSelectedRowCount() == 1) {
 
-            String nombre = String.valueOf(tablaProductos.getValueAt(tablaProductos.getSelectedRow(), 0));
-            String descripcion = String.valueOf(tablaProductos.getValueAt(tablaProductos.getSelectedRow(), 1));
-            String marca = String.valueOf(tablaProductos.getValueAt(tablaProductos.getSelectedRow(), 2));
-            String precio = String.valueOf(tablaProductos.getValueAt(tablaProductos.getSelectedRow(), 3));
+            nombreProducto = String.valueOf(tablaProductos.getValueAt(tablaProductos.getSelectedRow(), 0));
+            descripcion = String.valueOf(tablaProductos.getValueAt(tablaProductos.getSelectedRow(), 1));
+            marca = String.valueOf(tablaProductos.getValueAt(tablaProductos.getSelectedRow(), 2));
+            precio = String.valueOf(tablaProductos.getValueAt(tablaProductos.getSelectedRow(), 3));
 
-            jtxtNombre.setText(nombre);
+            jtxtNombre.setText(nombreProducto);
             jtxtDescripcion.setText(descripcion);
             jtxtMarca.setText(marca);
             jtxtPrecio.setText(precio);
-
+            return true;
         }
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -113,8 +114,8 @@ public class FrmProductoInvitado extends javax.swing.JPanel {
         jtxtBuscar.setText(" ");
         jtxtBuscar.setBorder(null);
         jtxtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtBuscarKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtxtBuscarKeyReleased(evt);
             }
         });
         add(jtxtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 640, 40));
@@ -134,6 +135,7 @@ public class FrmProductoInvitado extends javax.swing.JPanel {
         });
         add(jbtnSubir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 660, 40, 40));
 
+        jtxtPrecio.setEditable(false);
         jtxtPrecio.setBackground(new java.awt.Color(232, 245, 254));
         jtxtPrecio.setBorder(null);
         jtxtPrecio.setForeground(new java.awt.Color(51, 51, 51));
@@ -141,6 +143,7 @@ public class FrmProductoInvitado extends javax.swing.JPanel {
         jtxtPrecio.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         add(jtxtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 755, 190, 30));
 
+        jtxtMarca.setEditable(false);
         jtxtMarca.setBackground(new java.awt.Color(232, 245, 254));
         jtxtMarca.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtMarca.setForeground(new java.awt.Color(51, 51, 51));
@@ -148,6 +151,7 @@ public class FrmProductoInvitado extends javax.swing.JPanel {
         jtxtMarca.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         add(jtxtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 675, 210, 30));
 
+        jtxtNombre.setEditable(false);
         jtxtNombre.setBackground(new java.awt.Color(232, 245, 254));
         jtxtNombre.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtNombre.setForeground(new java.awt.Color(51, 51, 51));
@@ -158,6 +162,7 @@ public class FrmProductoInvitado extends javax.swing.JPanel {
         jScrollPane2.setBackground(new java.awt.Color(232, 245, 254));
         jScrollPane2.setBorder(null);
 
+        jtxtDescripcion.setEditable(false);
         jtxtDescripcion.setBackground(new java.awt.Color(232, 245, 254));
         jtxtDescripcion.setColumns(20);
         jtxtDescripcion.setFont(new java.awt.Font("Monospaced", 0, 14)); // NOI18N
@@ -210,10 +215,6 @@ public class FrmProductoInvitado extends javax.swing.JPanel {
         add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 650, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtxtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyTyped
-        this.listar(jtxtBuscar.getText().trim());
-    }//GEN-LAST:event_jtxtBuscarKeyTyped
-
     private void jbtnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubirActionPerformed
         jScrollPane1.getVerticalScrollBar().setValue(0);
     }//GEN-LAST:event_jbtnSubirActionPerformed
@@ -225,6 +226,10 @@ public class FrmProductoInvitado extends javax.swing.JPanel {
     private void tablaProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProductosMouseClicked
         this.seleccionar();
     }//GEN-LAST:event_tablaProductosMouseClicked
+
+    private void jtxtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyReleased
+        this.listar(jtxtBuscar.getText().trim());
+    }//GEN-LAST:event_jtxtBuscarKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;

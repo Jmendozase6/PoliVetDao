@@ -1,6 +1,7 @@
 package presentacion.producto;
 
 import businessobject.ProductoControl;
+import businessobject.UsuarioActivo;
 import businessobject.Utilidades;
 import datatransferobject.ProductoDTO;
 import java.awt.Font;
@@ -19,10 +20,55 @@ public class FrmProducto extends javax.swing.JPanel {
         CONTROL = new ProductoControl();
         this.listar("");
         jbtnSubir.setVisible(false);
+        ocultarBotones();
     }
 
     public void setModel (FrmVenta frm) {
         this.frm = frm;
+    }
+
+    private void ocultarBotones () {
+        if (UsuarioActivo.idRol == 2) {
+            jbtnActualizar.setVisible(false);
+            jbtnActivarDesactivar.setVisible(false);
+            jbtnCrearProducto.setVisible(false);
+            jbtnCambiarTipo.setVisible(false);
+
+            // Editable textfields
+            jtxtIdProducto.setEditable(false);
+            jtxtIdTipoProducto.setEditable(false);
+            jtxtIdProveedor.setEditable(false);
+            jtxtNombre.setEditable(false);
+            jtxtDescripcion.setEditable(false);
+            jtxtMarca.setEditable(false);
+            jtxtPrecio.setEditable(false);
+            jswEstado.setFocusable(false);
+            jswEstado.setEnabled(false);
+            jtxtCantidad.setEnabled(false);
+        }
+    }
+
+    private void ocultarColumnas () {
+
+        tablaProductos.getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaProductos.getColumnModel().getColumn(0).setMinWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(0).setMaxWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(0).setMinWidth(0);
+
+        tablaProductos.getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaProductos.getColumnModel().getColumn(1).setMinWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
+
+        tablaProductos.getColumnModel().getColumn(2).setMaxWidth(0);
+        tablaProductos.getColumnModel().getColumn(2).setMinWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(2).setMaxWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(2).setMinWidth(0);
+
+        tablaProductos.getColumnModel().getColumn(8).setMaxWidth(0);
+        tablaProductos.getColumnModel().getColumn(8).setMinWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(8).setMaxWidth(0);
+        tablaProductos.getTableHeader().getColumnModel().getColumn(8).setMinWidth(0);
     }
 
     private void mostrarBotonTabla () {
@@ -37,6 +83,7 @@ public class FrmProducto extends javax.swing.JPanel {
 
     public void listar (String buscar) {
         tablaProductos.setModel(this.CONTROL.listar(buscar, (byte) 1));
+        ocultarColumnas();
     }
 
     private byte getEstado () {
@@ -192,11 +239,6 @@ public class FrmProducto extends javax.swing.JPanel {
         jtxtCantidad.setForeground(new java.awt.Color(51, 51, 51));
         jtxtCantidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         jtxtCantidad.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
-        jtxtCantidad.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtxtCantidadKeyTyped(evt);
-            }
-        });
         add(jtxtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 685, 190, 30));
 
         jtxtIdProducto.setEditable(false);
@@ -391,7 +433,7 @@ public class FrmProducto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtxtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyTyped
-
+        this.listar(jtxtBuscar.getText().trim());
     }//GEN-LAST:event_jtxtBuscarKeyTyped
 
     private void jbtnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubirActionPerformed
@@ -507,6 +549,7 @@ public class FrmProducto extends javax.swing.JPanel {
     private void jchMostrarRegistrosInactivosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jchMostrarRegistrosInactivosActionPerformed
         if (jchMostrarRegistrosInactivos.isSelected()) {
             tablaProductos.setModel(this.CONTROL.listar("", (byte) 0));
+            ocultarColumnas();
         } else {
             this.listar("");
         }
@@ -515,15 +558,6 @@ public class FrmProducto extends javax.swing.JPanel {
     private void jbtnCrearProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCrearProductoActionPerformed
         new DialogCrearProducto(null, true, this).setVisible(true);
     }//GEN-LAST:event_jbtnCrearProductoActionPerformed
-
-    private void jtxtCantidadKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtCantidadKeyTyped
-        if (jtxtCantidad.getText().length() == 2) {
-            jtxtCantidad.setText(jtxtCantidad.getText() + "-");
-        }
-        if (jtxtCantidad.getText().length() == 5) {
-            jtxtCantidad.setText(jtxtCantidad.getText() + "-");
-        }
-    }//GEN-LAST:event_jtxtCantidadKeyTyped
 
     private void jbtnCambiarTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCambiarTipoActionPerformed
         if (jtxtIdProducto.getText().isBlank()) {

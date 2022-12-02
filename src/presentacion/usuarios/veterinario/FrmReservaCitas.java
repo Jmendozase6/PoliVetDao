@@ -65,7 +65,6 @@ public class FrmReservaCitas extends javax.swing.JPanel {
 
         if (jchHoy.isSelected()) {
             tablaReservas.setModel(this.CONTROL.listar(Utilidades.obtenerFechaSqlFormat(), "Especifica", ""));
-
             return;
         }
 
@@ -348,7 +347,7 @@ public class FrmReservaCitas extends javax.swing.JPanel {
     private void jbtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnActualizarActionPerformed
 
         if (jtxtIdReserva.getText().isBlank()) {
-            JOptionPane.showMessageDialog(this, "No ha seleccionado un usuario de la tabla", "Sistema", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No ha seleccionado una reserva de la tabla", "Sistema", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
