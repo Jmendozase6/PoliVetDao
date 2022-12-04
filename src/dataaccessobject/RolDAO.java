@@ -2,6 +2,7 @@ package dataaccessobject;
 
 import datasource.ConexionSQL;
 import datatransferobject.RolDTO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,18 +11,18 @@ import java.util.List;
 
 public class RolDAO {
 
-    private final ConexionSQL CON;
+    private final Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
 
     public RolDAO () {
-        CON = ConexionSQL.getInstance();
+        conn = ConexionSQL.getConnection();
     }
 
     public List<RolDTO> listar () {
         List<RolDTO> roles = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT * FROM Rol");
+            ps = conn.prepareStatement("SELECT * FROM Rol");
             rs = ps.executeQuery();
             while (rs.next()) {
                 roles.add(new RolDTO(
@@ -34,7 +35,7 @@ public class RolDAO {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return roles;
     }

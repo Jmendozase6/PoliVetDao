@@ -1,25 +1,16 @@
 package businessobject;
 
-import com.sun.org.apache.xml.internal.security.exceptions.Base64DecodingException;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 public class EncriptacionAES {
 
     private final String LLAVE = "PoliVet";
-
-    public static void main (String[] args) {
-        System.out.println(new EncriptacionAES().encriptar("cliente"));
-    }
 
     public SecretKeySpec crearClave (String llave) {
         try {
@@ -44,7 +35,7 @@ public class EncriptacionAES {
             byte[] encriptada = cipher.doFinal(cadena);
             String cadenaEncriptada = Base64.encode(encriptada);
             return cadenaEncriptada;
-        } catch (UnsupportedEncodingException | InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
+        } catch (Exception e) {
             return "";
         }
     }
@@ -59,7 +50,7 @@ public class EncriptacionAES {
             byte[] desencriptacion = cipher.doFinal(cadena);
             String cadenaDesencriptada = new String(desencriptacion);
             return cadenaDesencriptada;
-        } catch (Base64DecodingException | InvalidKeyException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException e) {
+        } catch (Exception e) {
             return "";
         }
     }

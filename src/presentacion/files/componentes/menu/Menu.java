@@ -75,7 +75,7 @@ public class Menu extends JPanel {
         }
         if (UsuarioActivo.idRol != 5) {
             addTitle("CONFIGURACIÓN");
-            addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.SETTINGS, "Editar Perfil", "Alertas", "Cerrar Sesión"));
+            addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.SETTINGS, "Perfil", "Editar Perfil", "Alertas", "Cerrar Sesión"));
         } else {
             // MODO INVITADO
             addTitle("CONFIGURACIÓN");

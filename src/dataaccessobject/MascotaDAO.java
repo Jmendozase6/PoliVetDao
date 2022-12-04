@@ -2,6 +2,7 @@ package dataaccessobject;
 
 import datasource.ConexionSQL;
 import datatransferobject.MascotaDTO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,20 +11,20 @@ import java.util.List;
 
 public class MascotaDAO implements IMascota<MascotaDTO> {
 
-    private final ConexionSQL CON;
+    private final Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
     private boolean resp;
 
     public MascotaDAO () {
-        CON = ConexionSQL.getInstance();
+        conn = ConexionSQL.getConnection();
     }
 
     @Override
     public List<MascotaDTO> listar (String columna, String texto, byte idRol, byte estado) {
         List<MascotaDTO> mascotas = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT m.* FROM Mascota as m INNER JOIN Usuario as u ON u.idUsuario = m.idUsuario WHERE nombre LIKE '%" + texto + "%' AND u.estado = ?");
+            ps = conn.prepareStatement("SELECT m.* FROM Mascota as m INNER JOIN Usuario as u ON u.idUsuario = m.idUsuario WHERE nombre LIKE '%" + texto + "%' AND u.estado = ?");
             ps.setByte(1, estado);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -42,7 +43,7 @@ public class MascotaDAO implements IMascota<MascotaDTO> {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return mascotas;
     }
@@ -52,7 +53,7 @@ public class MascotaDAO implements IMascota<MascotaDTO> {
         resp = false;
 
         try {
-            ps = CON.conectar().prepareStatement("INSERT INTO Mascota (idUsuario, idTipoMascota, nombre, raza, genero, peso) VALUES (?,?,?,?,?,?)");
+            ps = conn.prepareStatement("INSERT INTO Mascota (idUsuario, idTipoMascota, nombre, raza, genero, peso) VALUES (?,?,?,?,?,?)");
             ps.setInt(1, objeto.getIdUsuario());
             ps.setInt(2, objeto.getIdTipoMascota());
             ps.setString(3, objeto.getNombre());
@@ -68,7 +69,7 @@ public class MascotaDAO implements IMascota<MascotaDTO> {
             e.printStackTrace(System.out);
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -79,7 +80,7 @@ public class MascotaDAO implements IMascota<MascotaDTO> {
 
         try {
 
-            ps = CON.conectar().prepareStatement("UPDATE Mascota SET nombre = ?, raza = ?, peso = ? WHERE idMascota = ?");
+            ps = conn.prepareStatement("UPDATE Mascota SET nombre = ?, raza = ?, peso = ? WHERE idMascota = ?");
             ps.setString(1, objeto.getNombre());
             ps.setString(2, objeto.getRaza());
             ps.setString(3, objeto.getPeso());
@@ -93,7 +94,7 @@ public class MascotaDAO implements IMascota<MascotaDTO> {
             System.out.println(e.getMessage());
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -101,7 +102,7 @@ public class MascotaDAO implements IMascota<MascotaDTO> {
     public List<String> seleccionar () {
         List<String> mascotas = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT idMascota, CASE WHEN idTipoMascota = 1 THEN 'Can' WHEN idTipoMascota = 2 THEN 'Minino' END AS 'Tipo Mascota', nombre FROM Mascota");
+            ps = conn.prepareStatement("SELECT idMascota, CASE WHEN idTipoMascota = 1 THEN 'Can' WHEN idTipoMascota = 2 THEN 'Minino' END AS 'Tipo Mascota', nombre FROM Mascota");
             rs = ps.executeQuery();
             while (rs.next()) {
                 MascotaDTO mascota = new MascotaDTO(rs.getInt(1), rs.getString(2), rs.getString(3));
@@ -114,7 +115,7 @@ public class MascotaDAO implements IMascota<MascotaDTO> {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return mascotas;
     }

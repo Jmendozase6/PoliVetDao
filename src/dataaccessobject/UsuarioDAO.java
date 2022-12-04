@@ -4,6 +4,7 @@ import businessobject.EncriptacionAES;
 import businessobject.UsuarioActivo;
 import datasource.ConexionSQL;
 import datatransferobject.UsuarioDTO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,21 +13,21 @@ import java.util.List;
 
 public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrador {
 
-    private final ConexionSQL CON;
+    private final Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
     private boolean resp;
     EncriptacionAES aes = new EncriptacionAES();
 
     public UsuarioDAO () {
-        CON = ConexionSQL.getInstance();
+        conn = ConexionSQL.getConnection();
     }
 
     @Override
     public List<UsuarioDTO> listar (String columna, String texto, byte idRol, byte estado) {
         List<UsuarioDTO> usuarios = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT * FROM Usuario WHERE " + columna + " LIKE '%" + texto + "%' AND idRol = ? AND estado = ?");
+            ps = conn.prepareStatement("SELECT * FROM Usuario WHERE " + columna + " LIKE '%" + texto + "%' AND idRol = ? AND estado = ?");
             ps.setByte(1, idRol);
             ps.setByte(2, estado);
             rs = ps.executeQuery();
@@ -53,7 +54,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return usuarios;
     }
@@ -62,7 +63,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
     public List<String> seleccionarCliente () {
         List<String> usuarios = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT idUsuario, nombres, apellidos FROM Usuario WHERE idRol = 2");
+            ps = conn.prepareStatement("SELECT idUsuario, nombres, apellidos FROM Usuario WHERE idRol = 2");
             rs = ps.executeQuery();
             while (rs.next()) {
                 UsuarioDTO usuario = new UsuarioDTO(rs.getInt(1), rs.getString(2), rs.getString(3));
@@ -75,7 +76,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return usuarios;
     }
@@ -86,7 +87,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
         String passwordEncriptada = aes.encriptar(password);
 
         try {
-            ps = CON.conectar().prepareStatement("SELECT * FROM Usuario WHERE email = ? AND password = ?");
+            ps = conn.prepareStatement("SELECT * FROM Usuario WHERE email = ? AND password = ?");
             ps.setString(1, email);
             ps.setString(2, passwordEncriptada);
             rs = ps.executeQuery();
@@ -112,7 +113,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return usuario;
     }
@@ -121,7 +122,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
         resp = false;
         String passwordEncriptada = aes.encriptar(pass);
         try {
-            ps = CON.conectar().prepareStatement("UPDATE Usuario SET password = ? WHERE email = ?");
+            ps = conn.prepareStatement("UPDATE Usuario SET password = ? WHERE email = ?");
             ps.setString(1, passwordEncriptada);
             ps.setString(2, email);
 
@@ -133,7 +134,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
             System.out.println(e.getMessage());
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -143,7 +144,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
         resp = false;
         String passwordEncriptada = aes.encriptar(objeto.getPassword());
         try {
-            ps = CON.conectar().prepareStatement("INSERT INTO Usuario(idRol, nombres, apellidos, idGenero, fechaNacimiento, idTipoDocumento, documento, direccion, telefonoMovil, email, password, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,1)");
+            ps = conn.prepareStatement("INSERT INTO Usuario(idRol, nombres, apellidos, idGenero, fechaNacimiento, idTipoDocumento, documento, direccion, telefonoMovil, email, password, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,1)");
             ps.setShort(1, objeto.getIdRol());
             ps.setString(2, objeto.getNombre());
             ps.setString(3, objeto.getApellidos());
@@ -164,7 +165,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
             e.printStackTrace(System.out);
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -174,7 +175,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
         resp = false;
 
         try {
-            ps = CON.conectar().prepareStatement("UPDATE Usuario SET nombres = ?, apellidos = ?, idGenero = ?, fechaNacimiento = ?, documento = ?, direccion = ?, telefonoMovil = ?, email = ? WHERE idUsuario = ?");
+            ps = conn.prepareStatement("UPDATE Usuario SET nombres = ?, apellidos = ?, idGenero = ?, fechaNacimiento = ?, documento = ?, direccion = ?, telefonoMovil = ?, email = ? WHERE idUsuario = ?");
             ps.setString(1, objeto.getNombre());
             ps.setString(2, objeto.getApellidos());
             ps.setByte(3, objeto.getIdGenero());
@@ -193,7 +194,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
             System.out.println(e.getMessage());
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -202,7 +203,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
     public boolean desactivar (int id) {
         resp = false;
         try {
-            ps = CON.conectar().prepareStatement("UPDATE Usuario SET estado = 0 WHERE idUsuario = ?");
+            ps = conn.prepareStatement("UPDATE Usuario SET estado = 0 WHERE idUsuario = ?");
             ps.setInt(1, id);
             if (ps.executeUpdate() > 0) {
                 resp = true;
@@ -212,7 +213,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
             System.out.println(e.getMessage());
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -223,7 +224,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
         resp = false;
 
         try {
-            ps = CON.conectar().prepareStatement("UPDATE Usuario SET estado = 1 WHERE idUsuario = ?");
+            ps = conn.prepareStatement("UPDATE Usuario SET estado = 1 WHERE idUsuario = ?");
             ps.setInt(1, id);
             if (ps.executeUpdate() > 0) {
                 resp = true;
@@ -233,7 +234,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
             System.out.println(e.getMessage());
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -244,7 +245,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
         resp = false;
 
         try {
-            ps = CON.conectar().prepareStatement("UPDATE Usuario SET idRol = ? WHERE idUsuario = ?");
+            ps = conn.prepareStatement("UPDATE Usuario SET idRol = ? WHERE idUsuario = ?");
             ps.setInt(1, idRol);
             ps.setInt(2, idUsuario);
             if (ps.executeUpdate() > 0) {
@@ -255,7 +256,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
             System.out.println(e.getMessage());
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -263,7 +264,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
     public UsuarioDTO traerUsuarioActualizar () {
         UsuarioDTO usuario = new UsuarioDTO();
         try {
-            ps = CON.conectar().prepareStatement("SELECT * FROM Usuario WHERE idUsuario = " + UsuarioActivo.idUsuario + " AND estado = 1");
+            ps = conn.prepareStatement("SELECT * FROM Usuario WHERE idUsuario = " + UsuarioActivo.idUsuario + " AND estado = 1");
             rs = ps.executeQuery();
             if (rs.next()) {
                 usuario = new UsuarioDTO(
@@ -289,7 +290,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return usuario;
     }
@@ -298,7 +299,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
     public boolean existe (String email, String documento) {
         resp = false;
         try {
-            ps = CON.conectar().prepareStatement("SELECT email, documento FROM Usuario WHERE email = ? OR documento = ?");
+            ps = conn.prepareStatement("SELECT email, documento FROM Usuario WHERE email = ? OR documento = ?");
             ps.setString(1, email);
             ps.setString(2, documento);
             rs = ps.executeQuery();
@@ -311,7 +312,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -319,7 +320,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
     public boolean existeEmail (String email) {
         resp = false;
         try {
-            ps = CON.conectar().prepareStatement("SELECT email FROM Usuario WHERE email = ?");
+            ps = conn.prepareStatement("SELECT email FROM Usuario WHERE email = ?");
             ps.setString(1, email);
 
             rs = ps.executeQuery();
@@ -332,7 +333,7 @@ public class UsuarioDAO implements IUsuario<UsuarioDTO>, ICliente, IAdministrado
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }

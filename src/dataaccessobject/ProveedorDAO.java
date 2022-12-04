@@ -2,6 +2,7 @@ package dataaccessobject;
 
 import datasource.ConexionSQL;
 import datatransferobject.UsuarioDTO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,18 +11,18 @@ import java.util.List;
 
 public class ProveedorDAO {
 
-    private final ConexionSQL CON;
+    private final Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
 
     public ProveedorDAO () {
-        this.CON = ConexionSQL.getInstance();
+        conn = ConexionSQL.getConnection();
     }
 
     public List<String> seleccionar () {
         List<String> usuarios = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT idUsuario, nombres, apellidos FROM Usuario WHERE idRol = 3");
+            ps = conn.prepareStatement("SELECT idUsuario, nombres, apellidos FROM Usuario WHERE idRol = 3");
             rs = ps.executeQuery();
             while (rs.next()) {
                 UsuarioDTO usuario = new UsuarioDTO(rs.getInt(1), rs.getString(2), rs.getString(3));
@@ -34,7 +35,7 @@ public class ProveedorDAO {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return usuarios;
     }

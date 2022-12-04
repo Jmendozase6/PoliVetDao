@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,20 +18,20 @@ import javax.swing.JOptionPane;
 
 public class VentaDAO implements CrudVentaInterface<VentaDTO, VentaDetalleDTO> {
 
-    private final ConexionSQL CON;
+    private final Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
     private boolean resp;
 
     public VentaDAO () {
-        CON = ConexionSQL.getInstance();
+        conn = ConexionSQL.getConnection();
     }
 
     @Override
     public List<VentaDTO> listar (String numeroComprobante) {
         List<VentaDTO> ventas = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT v.idVenta, v.idUsuario, (u.nombres + ' ' + u.apellidos ) as usuarioNombre, v.numeroComprobante , v.fechaVenta, v.total FROM Venta as v INNER JOIN Usuario u ON v.idUsuario = u.idUsuario WHERE v.numeroComprobante LIKE ? ORDER BY v.idVenta");
+            ps = conn.prepareStatement("SELECT v.idVenta, v.idUsuario, (u.nombres + ' ' + u.apellidos ) as usuarioNombre, v.numeroComprobante , v.fechaVenta, v.total FROM Venta as v INNER JOIN Usuario u ON v.idUsuario = u.idUsuario WHERE v.numeroComprobante LIKE ? ORDER BY v.idVenta");
             ps.setString(1, "%" + numeroComprobante + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -51,7 +50,7 @@ public class VentaDAO implements CrudVentaInterface<VentaDTO, VentaDetalleDTO> {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return ventas;
     }
@@ -60,7 +59,7 @@ public class VentaDAO implements CrudVentaInterface<VentaDTO, VentaDetalleDTO> {
     public List<VentaDetalleDTO> listarDetalle (int idVenta) {
         List<VentaDetalleDTO> registros = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT v.idProducto, p.nombre, p.cantidad, v.cantidad, v.precio FROM VentaDetalle as v INNER JOIN Producto as p ON v.idProducto = p.idProducto WHERE v.idVenta = ?");
+            ps = conn.prepareStatement("SELECT v.idProducto, p.nombre, p.cantidad, v.cantidad, v.precio FROM VentaDetalle as v INNER JOIN Producto as p ON v.idProducto = p.idProducto WHERE v.idVenta = ?");
             ps.setInt(1, idVenta);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -73,7 +72,7 @@ public class VentaDAO implements CrudVentaInterface<VentaDTO, VentaDetalleDTO> {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return registros;
     }
@@ -84,7 +83,7 @@ public class VentaDAO implements CrudVentaInterface<VentaDTO, VentaDetalleDTO> {
         Connection conn = null;
 
         try {
-            conn = CON.conectar();
+            conn = ConexionSQL.getConnection();
             conn.setAutoCommit(false);
 
             String sqlInsertVenta = "INSERT INTO Venta (idUsuario, numeroComprobante, nombreUsuario, fechaVenta, total) VALUES (?, ?, ?, ?, ?)";
@@ -96,7 +95,7 @@ public class VentaDAO implements CrudVentaInterface<VentaDTO, VentaDetalleDTO> {
             ps.setInt(1, obj.getIdUsuario());
             ps.setString(2, obj.getNumeroComprobante());
             ps.setString(3, obj.getNombreUsuario());
-            ps.setString(4, formatter.format(date)); // Fixear
+            ps.setString(4, formatter.format(date));
             ps.setDouble(5, obj.getTotal());
 
             int filasAfectadas = ps.executeUpdate();
@@ -140,9 +139,6 @@ public class VentaDAO implements CrudVentaInterface<VentaDTO, VentaDetalleDTO> {
                 if (ps != null) {
                     ps.close();
                 }
-                if (conn != null) {
-                    conn.close();
-                }
             } catch (SQLException ex) {
                 Logger.getLogger(VentaDTO.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -155,7 +151,7 @@ public class VentaDAO implements CrudVentaInterface<VentaDTO, VentaDetalleDTO> {
     public boolean existe (String numeroComprobante) {
         resp = false;
         try {
-            ps = CON.conectar().prepareStatement("SELECT idVenta FROM venta WHERE numeroComprobante = ?");
+            ps = conn.prepareStatement("SELECT idVenta FROM venta WHERE numeroComprobante = ?");
             ps.setString(1, numeroComprobante);
 
             rs = ps.executeQuery();
@@ -170,7 +166,7 @@ public class VentaDAO implements CrudVentaInterface<VentaDTO, VentaDetalleDTO> {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }

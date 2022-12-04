@@ -2,6 +2,7 @@ package dataaccessobject;
 
 import datasource.ConexionSQL;
 import datatransferobject.ReservaDTO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,13 +11,13 @@ import java.util.List;
 
 public class ReservaDAO implements IReserva<ReservaDTO> {
 
-    private final ConexionSQL CON;
+    private final Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
     private boolean resp;
 
     public ReservaDAO () {
-        CON = ConexionSQL.getInstance();
+        conn = ConexionSQL.getConnection();
     }
 
     @Override
@@ -25,16 +26,16 @@ public class ReservaDAO implements IReserva<ReservaDTO> {
 
         try {
             if (rango.equals("Especifica")) {
-                ps = CON.conectar().prepareStatement("SELECT * FROM Reserva WHERE fecha = '" + fecha + "'");
+                ps = conn.prepareStatement("SELECT * FROM Reserva WHERE fecha = '" + fecha + "'");
             }
             if (rango.equals("Proximas")) {
-                ps = CON.conectar().prepareStatement("SELECT * FROM Reserva WHERE fecha > '" + fecha + "'");
+                ps = conn.prepareStatement("SELECT * FROM Reserva WHERE fecha > '" + fecha + "'");
             }
             if (rango.equals("Pasadas")) {
-                ps = CON.conectar().prepareStatement("SELECT * FROM Reserva WHERE fecha < '" + fecha + "'");
+                ps = conn.prepareStatement("SELECT * FROM Reserva WHERE fecha < '" + fecha + "'");
             }
             if (rango.equals("Entre dos")) {
-                ps = CON.conectar().prepareStatement("SELECT * FROM Reserva WHERE fecha BETWEEN '" + fecha + "' AND '" + fechaRangoMaximo + "'");
+                ps = conn.prepareStatement("SELECT * FROM Reserva WHERE fecha BETWEEN '" + fecha + "' AND '" + fechaRangoMaximo + "'");
             }
 
             rs = ps.executeQuery();
@@ -51,7 +52,7 @@ public class ReservaDAO implements IReserva<ReservaDTO> {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return reservas;
     }
@@ -62,7 +63,7 @@ public class ReservaDAO implements IReserva<ReservaDTO> {
 
         try {
 
-            ps = CON.conectar().prepareStatement("INSERT INTO Reserva (idMascota, fecha, descripcion) VALUES (?, ?, ?)");
+            ps = conn.prepareStatement("INSERT INTO Reserva (idMascota, fecha, descripcion) VALUES (?, ?, ?)");
             ps.setInt(1, objeto.getIdMascota());
             ps.setString(2, objeto.getFecha());
             ps.setString(3, objeto.getDescripcion());
@@ -76,7 +77,7 @@ public class ReservaDAO implements IReserva<ReservaDTO> {
             e.printStackTrace(System.out);
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -86,7 +87,7 @@ public class ReservaDAO implements IReserva<ReservaDTO> {
         resp = false;
         try {
 
-            ps = CON.conectar().prepareStatement("UPDATE Reserva SET fecha = ?, descripcion = ? WHERE idReserva = ?");
+            ps = conn.prepareStatement("UPDATE Reserva SET fecha = ?, descripcion = ? WHERE idReserva = ?");
             ps.setString(1, objeto.getFecha());
             ps.setString(2, objeto.getDescripcion());
             ps.setInt(3, objeto.getIdReserva());
@@ -99,7 +100,7 @@ public class ReservaDAO implements IReserva<ReservaDTO> {
             System.out.println(e.getMessage());
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }

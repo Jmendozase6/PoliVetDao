@@ -2,6 +2,7 @@ package dataaccessobject;
 
 import datasource.ConexionSQL;
 import datatransferobject.TipoProductoDTO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,18 +11,18 @@ import java.util.List;
 
 public class TipoProductoDAO {
 
-    private final ConexionSQL CON;
+    private final Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
 
     public TipoProductoDAO () {
-        CON = ConexionSQL.getInstance();
+        conn = ConexionSQL.getConnection();
     }
 
     public List<TipoProductoDTO> listar () {
         List<TipoProductoDTO> tiposProducto = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT * FROM TipoProducto");
+            ps = conn.prepareStatement("SELECT * FROM TipoProducto");
             rs = ps.executeQuery();
             while (rs.next()) {
                 tiposProducto.add(new TipoProductoDTO(
@@ -34,7 +35,7 @@ public class TipoProductoDAO {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return tiposProducto;
     }

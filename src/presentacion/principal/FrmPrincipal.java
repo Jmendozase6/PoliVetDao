@@ -53,13 +53,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (index == 7) {
             showForm(new FrmMascotas());
         }
-        if (index == 8 && indexSubMenu == 0) {
+        if (index == 8 && indexSubMenu == 1) {
             showForm(new FrmEditarPerfil());
         }
-        if (index == 8 && indexSubMenu == 1) {
+        if (index == 8 && indexSubMenu == 2) {
             new DialogColorAlertas(this, true).setVisible(true);
         }
-        if (index == 8 && indexSubMenu == 2) {
+        if (index == 8 && indexSubMenu == 3) {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 new FrmLogin().setVisible(true);
                 this.dispose();

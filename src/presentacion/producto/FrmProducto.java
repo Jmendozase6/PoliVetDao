@@ -33,6 +33,11 @@ public class FrmProducto extends javax.swing.JPanel {
             jbtnActivarDesactivar.setVisible(false);
             jbtnCrearProducto.setVisible(false);
             jbtnCambiarTipo.setVisible(false);
+            jchMostrarRegistrosInactivos.setVisible(false);
+            jLabel19.setVisible(false);
+            labelActivo.setVisible(false);
+            jPassword5.setVisible(false);
+            jswEstado.setVisible(false);
 
             // Editable textfields
             jtxtIdProducto.setEditable(false);
@@ -42,9 +47,8 @@ public class FrmProducto extends javax.swing.JPanel {
             jtxtDescripcion.setEditable(false);
             jtxtMarca.setEditable(false);
             jtxtPrecio.setEditable(false);
-            jswEstado.setFocusable(false);
-            jswEstado.setEnabled(false);
             jtxtCantidad.setEnabled(false);
+
         }
     }
 

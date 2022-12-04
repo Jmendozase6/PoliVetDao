@@ -2,6 +2,7 @@ package dataaccessobject;
 
 import datasource.ConexionSQL;
 import datatransferobject.TipoMascotaDTO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,18 +11,18 @@ import java.util.List;
 
 public class TipoMascotaDAO {
 
-    private final ConexionSQL CON;
+    private final Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
 
     public TipoMascotaDAO () {
-        CON = ConexionSQL.getInstance();
+        conn = ConexionSQL.getConnection();
     }
 
     public List<TipoMascotaDTO> listar () {
         List<TipoMascotaDTO> mascotas = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT * FROM TipoMascota");
+            ps = conn.prepareStatement("SELECT * FROM TipoMascota");
             rs = ps.executeQuery();
             while (rs.next()) {
                 mascotas.add(new TipoMascotaDTO(
@@ -34,7 +35,7 @@ public class TipoMascotaDAO {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return mascotas;
     }

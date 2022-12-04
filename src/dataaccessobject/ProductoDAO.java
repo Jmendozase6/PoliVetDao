@@ -2,6 +2,7 @@ package dataaccessobject;
 
 import datasource.ConexionSQL;
 import datatransferobject.ProductoDTO;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,13 +11,14 @@ import java.util.List;
 
 public class ProductoDAO implements IProducto<ProductoDTO> {
 
-    private final ConexionSQL CON;
+//    private ConexionSQL CON;
+    private final Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
     private boolean resp;
 
     public ProductoDAO () {
-        this.CON = ConexionSQL.getInstance();
+        conn = ConexionSQL.getConnection();
     }
 
     @Override
@@ -25,7 +27,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
 
         try {
 
-            ps = CON.conectar().prepareStatement("SELECT * FROM Producto WHERE nombre LIKE '%" + nombre + "%' AND estado = ?");
+            ps = conn.prepareStatement("SELECT * FROM Producto WHERE nombre LIKE '%" + nombre + "%' AND estado = ?");
             ps.setByte(1, estado);
             rs = ps.executeQuery();
 
@@ -49,7 +51,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return productos;
     }
@@ -59,7 +61,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
 
         try {
 
-            ps = CON.conectar().prepareStatement("SELECT nombre, descripcion, marca, precio, cantidad FROM Producto WHERE nombre LIKE '%" + nombre + "%' AND estado = 1");
+            ps = conn.prepareStatement("SELECT nombre, descripcion, marca, precio, cantidad FROM Producto WHERE nombre LIKE '%" + nombre + "%' AND estado = 1");
             rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -78,7 +80,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return productos;
     }
@@ -88,7 +90,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
         resp = false;
 
         try {
-            ps = CON.conectar().prepareStatement("INSERT INTO Producto (idTipoProducto, idProveedor, nombre, descripcion, marca, precio, cantidad, estado) VALUES (?,?,?,?,?,?,?,1)");
+            ps = conn.prepareStatement("INSERT INTO Producto (idTipoProducto, idProveedor, nombre, descripcion, marca, precio, cantidad, estado) VALUES (?,?,?,?,?,?,?,1)");
             ps.setByte(1, objeto.getIdTipoProducto());
             ps.setInt(2, objeto.getIdProveedor());
             ps.setString(3, objeto.getNombre());
@@ -106,7 +108,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
             e.printStackTrace(System.out);
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -116,7 +118,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
         resp = false;
 
         try {
-            ps = CON.conectar().prepareStatement("UPDATE Producto SET idTipoProducto = ?, idProveedor = ?, nombre = ?, descripcion = ?, marca = ?, precio = ?, cantidad = ?, estado = ? WHERE idProducto = ?");
+            ps = conn.prepareStatement("UPDATE Producto SET idTipoProducto = ?, idProveedor = ?, nombre = ?, descripcion = ?, marca = ?, precio = ?, cantidad = ?, estado = ? WHERE idProducto = ?");
 
             ps.setByte(1, objeto.getIdTipoProducto());
             ps.setInt(2, objeto.getIdProveedor());
@@ -136,7 +138,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
             System.out.println(e.getMessage());
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -145,7 +147,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
     public boolean desactivar (int idProducto) {
         resp = false;
         try {
-            ps = CON.conectar().prepareStatement("UPDATE Producto SET estado = 0 WHERE idProducto = ?");
+            ps = conn.prepareStatement("UPDATE Producto SET estado = 0 WHERE idProducto = ?");
             ps.setInt(1, idProducto);
 
             if (ps.executeUpdate() > 0) {
@@ -156,7 +158,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
             System.out.println(e.getMessage());
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -165,7 +167,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
     public boolean activar (int idProducto) {
         resp = false;
         try {
-            ps = CON.conectar().prepareStatement("UPDATE Producto SET estado = 1 WHERE idProducto = ?");
+            ps = conn.prepareStatement("UPDATE Producto SET estado = 1 WHERE idProducto = ?");
             ps.setInt(1, idProducto);
 
             if (ps.executeUpdate() > 0) {
@@ -176,7 +178,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
             System.out.println(e.getMessage());
         } finally {
             ps = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -185,7 +187,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
     public boolean existe (String nombre, int idProveedor) {
         resp = false;
         try {
-            ps = CON.conectar().prepareStatement("SELECT nombre, idProveedor FROM Producto WHERE nombre = ? AND idProveedor = ?");
+            ps = conn.prepareStatement("SELECT nombre, idProveedor FROM Producto WHERE nombre = ? AND idProveedor = ?");
             ps.setString(1, nombre);
             ps.setInt(2, idProveedor);
 
@@ -199,7 +201,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return resp;
     }
@@ -207,7 +209,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
     public List<String> seleccionar () {
         List<String> productos = new ArrayList();
         try {
-            ps = CON.conectar().prepareStatement("SELECT idProducto, nombre, precio FROM Producto");
+            ps = conn.prepareStatement("SELECT idProducto, nombre, precio FROM Producto");
             rs = ps.executeQuery();
             while (rs.next()) {
                 ProductoDTO mascota = new ProductoDTO(rs.getInt(1), rs.getString(2), rs.getFloat(3));
@@ -220,7 +222,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
         } finally {
             ps = null;
             rs = null;
-            CON.cerrarConexion();
+            //ConexionSQL.cerrarConexion();
         }
         return productos;
     }
