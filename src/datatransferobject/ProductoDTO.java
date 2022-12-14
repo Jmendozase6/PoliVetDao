@@ -15,6 +15,12 @@ public class ProductoDTO {
     public ProductoDTO () {
     }
 
+    public ProductoDTO (String nombre, String marca, float precio) {
+        this.nombre = nombre;
+        this.marca = marca;
+        this.precio = precio;
+    }
+
     public ProductoDTO (int idProducto, String nombre, float precio) {
         this.idProducto = idProducto;
         this.nombre = nombre;

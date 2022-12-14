@@ -8,10 +8,17 @@ import javax.swing.JOptionPane;
 public class ConexionSQL {
 
     private static Connection connection;
-    private static final String DATABASE = "db_a90f67_polivet";
-    private static final String URL = "jdbc:sqlserver://SQL5109.site4now.net:1433;databaseName=" + DATABASE;
-    private static final String USER = "db_a90f67_polivet_admin";
-    private static final String PASSWORD = "T9|=-_{}#zr5Y7(";
+
+    // Host
+//    private static final String DATABASE = "db_a90f67_polivet";
+//    private static final String URL = "jdbc:sqlserver://SQL5109.site4now.net:1433;databaseName=" + DATABASE;
+//    private static final String USER = "db_a90f67_polivet_admin";
+//    private static final String PASSWORD = "T9|=-_{}#zr5Y7(";
+    // Local
+    private static final String DATABASE = "PoliVetDAO";
+    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=" + DATABASE;
+    private static final String USER = "sa";
+    private static final String PASSWORD = "sa";
 
     private ConexionSQL () {
         conectar();

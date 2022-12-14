@@ -16,4 +16,6 @@ public interface IProducto<T> {
 
     public boolean existe (String nombre, int idProveedor);
 
+    public List<String> listarParaGenerarQR ();
+
 }

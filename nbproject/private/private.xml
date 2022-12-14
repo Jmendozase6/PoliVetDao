@@ -12,7 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Ciclo%204/DAOFinal/src/datasource/ConexionSQL.java</file>
+            <file>file:/D:/Ciclo%204/DAOFinal/src/dataaccessobject/IProducto.java</file>
+            <file>file:/D:/Ciclo%204/DAOFinal/src/businessobject/ProductoControl.java</file>
+            <file>file:/D:/Ciclo%204/DAOFinal/src/dataaccessobject/ProductoDAO.java</file>
+            <file>file:/D:/Ciclo%204/DAOFinal/src/presentacion/producto/FrmProducto.java</file>
         </group>
     </open-files>
 </project-private>

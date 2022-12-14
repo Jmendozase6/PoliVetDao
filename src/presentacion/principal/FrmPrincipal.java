@@ -74,13 +74,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (index == 1) {
             showForm(new FrmProducto());
         }
-        if (index == 2 && indexSubMenu == 0) {
+        if (index == 2 && indexSubMenu == 1) {
             showForm(new FrmEditarPerfil());
         }
-        if (index == 2 && indexSubMenu == 1) {
+        if (index == 2 && indexSubMenu == 2) {
             new DialogColorAlertas(this, true).setVisible(true);
         }
-        if (index == 2 && indexSubMenu == 2) {
+        if (index == 2 && indexSubMenu == 3) {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 new FrmLogin().setVisible(true);
                 this.dispose();
@@ -92,13 +92,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (index == 0) {
             showForm(new FrmInicio());
         }
-        if (index == 1 && indexSubMenu == 0) {
+        if (index == 1 && indexSubMenu == 1) {
             showForm(new FrmEditarPerfil());
         }
-        if (index == 1 && indexSubMenu == 1) {
+        if (index == 1 && indexSubMenu == 2) {
             new DialogColorAlertas(this, true).setVisible(true);
         }
-        if (index == 1 && indexSubMenu == 2) {
+        if (index == 1 && indexSubMenu == 3) {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 new FrmLogin().setVisible(true);
                 this.dispose();
@@ -116,13 +116,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
         if (index == 2) {
             showForm(new FrmReservaCitas());
         }
-        if (index == 3 && indexSubMenu == 0) {
+        if (index == 3 && indexSubMenu == 1) {
             showForm(new FrmEditarPerfil());
         }
-        if (index == 3 && indexSubMenu == 1) {
+        if (index == 3 && indexSubMenu == 2) {
             new DialogColorAlertas(this, true).setVisible(true);
         }
-        if (index == 3 && indexSubMenu == 2) {
+        if (index == 3 && indexSubMenu == 3) {
             if (JOptionPane.showConfirmDialog(this, "¿Seguro que desea cerrar su sesión actual?", "Sistema", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                 new FrmLogin().setVisible(true);
                 this.dispose();

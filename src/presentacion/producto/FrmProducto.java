@@ -1,6 +1,7 @@
 package presentacion.producto;
 
 import businessobject.ProductoControl;
+import businessobject.ProductoQrControl;
 import businessobject.UsuarioActivo;
 import businessobject.Utilidades;
 import datatransferobject.ProductoDTO;
@@ -38,7 +39,7 @@ public class FrmProducto extends javax.swing.JPanel {
             labelActivo.setVisible(false);
             jPassword5.setVisible(false);
             jswEstado.setVisible(false);
-
+            jbtnGenerarQR.setVisible(false);
             // Editable textfields
             jtxtIdProducto.setEditable(false);
             jtxtIdTipoProducto.setEditable(false);
@@ -145,6 +146,7 @@ public class FrmProducto extends javax.swing.JPanel {
         jchMostrarRegistrosInactivos = new presentacion.files.componentes.CheckBoxCustom();
         jbtnCrearProducto = new presentacion.files.componentes.ButtonCustom();
         jbtnCambiarTipo = new presentacion.files.componentes.ButtonCustom();
+        jbtnGenerarQR = new presentacion.files.componentes.ButtonCustom();
 
         setBackground(new java.awt.Color(232, 245, 254));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -434,6 +436,16 @@ public class FrmProducto extends javax.swing.JPanel {
             }
         });
         add(jbtnCambiarTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 840, 130, 40));
+
+        jbtnGenerarQR.setText("QR");
+        jbtnGenerarQR.setFocusPainted(false);
+        jbtnGenerarQR.setFont(new java.awt.Font("Gilroy-Regular", 0, 16)); // NOI18N
+        jbtnGenerarQR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnGenerarQRActionPerformed(evt);
+            }
+        });
+        add(jbtnGenerarQR, new org.netbeans.lib.awtextra.AbsoluteConstraints(1220, 760, 50, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtxtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtBuscarKeyTyped
@@ -572,6 +584,16 @@ public class FrmProducto extends javax.swing.JPanel {
         new DialogCambiarTipo(null, true, this).setVisible(true);
     }//GEN-LAST:event_jbtnCambiarTipoActionPerformed
 
+    private void jbtnGenerarQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnGenerarQRActionPerformed
+        ProductoQrControl productoQr = new ProductoQrControl();
+
+        if (productoQr.generarQR(this).equals("OK")) {
+            JOptionPane.showMessageDialog(this, "Se generaron los códigos QR");
+        } else {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error mientras se generaban los códigos", "Sistema", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jbtnGenerarQRActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jCorreo;
@@ -600,6 +622,7 @@ public class FrmProducto extends javax.swing.JPanel {
     private presentacion.files.componentes.ButtonCustom jbtnActualizar;
     private presentacion.files.componentes.ButtonCustom jbtnCambiarTipo;
     private presentacion.files.componentes.ButtonCustom jbtnCrearProducto;
+    private presentacion.files.componentes.ButtonCustom jbtnGenerarQR;
     private presentacion.files.componentes.ButtonCustom jbtnSubir;
     private presentacion.files.componentes.CheckBoxCustom jchMostrarRegistrosInactivos;
     private presentacion.files.componentes.customswitch.SwitchButton jswEstado;

@@ -93,6 +93,16 @@ public class ProductoControl {
             }
         }
     }
+//
+//    public String generarQr (FrmProducto frm) {
+//        List<String> datos = DATOS.listarParaGenerarQR();
+//        String ruta = QR_DATOS.obtenerRuta(frm);
+//
+//        if (!ruta.isBlank()) {
+//            //TODO: GENERAR
+//        }
+//
+//    }
 
     public String actualizar (ProductoDTO objeto) {
         if (DATOS.actualizar(objeto)) {

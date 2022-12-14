@@ -11,7 +11,6 @@ import java.util.List;
 
 public class ProductoDAO implements IProducto<ProductoDTO> {
 
-//    private ConexionSQL CON;
     private final Connection conn;
     private PreparedStatement ps;
     private ResultSet rs;
@@ -27,7 +26,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
 
         try {
 
-            ps = conn.prepareStatement("SELECT * FROM Producto WHERE nombre LIKE '%" + nombre + "%' AND estado = ?");
+            ps = conn.prepareStatement("SELECT idProducto, idTipoProducto, idProveedor, nombre, descripcion, marca, precio, cantidad, estado FROM Producto WHERE nombre LIKE '%" + nombre + "%' AND estado = ?");
             ps.setByte(1, estado);
             rs = ps.executeQuery();
 
@@ -206,14 +205,36 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
         return resp;
     }
 
+    @Override
+    public List<String> listarParaGenerarQR () {
+        List<String> productos = new ArrayList();
+        try {
+            ps = conn.prepareStatement("SELECT nombre, marca, precio FROM Producto");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductoDTO producto = new ProductoDTO(rs.getString(1), rs.getString(2), rs.getFloat(3));
+                productos.add(producto.getNombre() + " - " + producto.getMarca() + " - " + producto.getPrecio());
+            }
+            ps.close();
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            ps = null;
+            rs = null;
+            //ConexionSQL.cerrarConexion();
+        }
+        return productos;
+    }
+
     public List<String> seleccionar () {
         List<String> productos = new ArrayList();
         try {
             ps = conn.prepareStatement("SELECT idProducto, nombre, precio FROM Producto");
             rs = ps.executeQuery();
             while (rs.next()) {
-                ProductoDTO mascota = new ProductoDTO(rs.getInt(1), rs.getString(2), rs.getFloat(3));
-                productos.add(mascota.toString());
+                ProductoDTO producto = new ProductoDTO(rs.getInt(1), rs.getString(2), rs.getFloat(3));
+                productos.add(producto.toString());
             }
             ps.close();
             rs.close();
