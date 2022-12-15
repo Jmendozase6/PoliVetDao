@@ -26,7 +26,7 @@ public class ProductoDAO implements IProducto<ProductoDTO> {
 
         try {
 
-            ps = conn.prepareStatement("SELECT idProducto, idTipoProducto, idProveedor, nombre, descripcion, marca, precio, cantidad, estado FROM Producto WHERE nombre LIKE '%" + nombre + "%' AND estado = ?");
+            ps = conn.prepareStatement("SELECT idProducto, idTipoProducto, idProveedor, nombre, descripcion, marca, precio, cantidad, estado FROM Producto WHERE nombre LIKE '%" + nombre + "%' AND estado = ? ORDER BY nombre");
             ps.setByte(1, estado);
             rs = ps.executeQuery();
 

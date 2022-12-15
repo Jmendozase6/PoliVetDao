@@ -126,7 +126,6 @@ public class FrmLogin extends javax.swing.JFrame {
 
         jtxtEmail.setBorder(null);
         jtxtEmail.setForeground(new java.awt.Color(51, 51, 51));
-        jtxtEmail.setText("jhairmendoza2003@gmail.com");
         jtxtEmail.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtEmail.setSelectionColor(new java.awt.Color(82, 183, 136));
         jtxtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -140,7 +139,6 @@ public class FrmLogin extends javax.swing.JFrame {
         jtxtPass.setFont(new java.awt.Font("Gilroy-Regular", 0, 14)); // NOI18N
         jtxtPass.setForeground(new java.awt.Color(51, 51, 51));
         jtxtPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jtxtPass.setText("admin");
         jtxtPass.setBorder(null);
         jtxtPass.setEchoChar('*');
         jtxtPass.setSelectionColor(new java.awt.Color(82, 183, 136));
